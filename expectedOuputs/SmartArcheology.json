@@ -1,0 +1,1076 @@
+[
+    {
+        "id": "7577d14d7b8a5b90",
+        "type": "tab",
+        "label": "Flow 8",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "59ce41e1f9999dab",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "temperature",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/environmentalsensors\",\"output\":{\"type\":\"number\",\"description\":\"The temperature of the dig site\"},\"description\":\"The temperature of the dig site\",\"title\":\"Temperature\",\"event\":\"temperature\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 90,
+        "y": 100,
+        "wires": [
+            [
+                "450c7ba993017233"
+            ]
+        ]
+    },
+    {
+        "id": "f50ca105eb4babd3",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "windSpeed",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/environmentalsensors\",\"output\":{\"type\":\"number\",\"description\":\"The speed of the wind surrounding the dig site\"},\"description\":\"The speed of the wind surrounding the dig site\",\"title\":\"Wind Speed\",\"event\":\"windSpeed\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 80,
+        "y": 240,
+        "wires": [
+            [
+                "b790936b4be85d6c"
+            ]
+        ]
+    },
+    {
+        "id": "0946775eef1b33c4",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "rainfall",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/environmentalsensors\",\"output\":{\"type\":\"number\",\"description\":\"The amount of rainfall at the dig site\"},\"description\":\"The current rainfall at the dig site\",\"title\":\"Rainfall\",\"event\":\"rainfall\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 70,
+        "y": 380,
+        "wires": [
+            [
+                "26e3d7a876c01649"
+            ]
+        ]
+    },
+    {
+        "id": "450c7ba993017233",
+        "type": "switch",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "25",
+                "vt": "num"
+            },
+            {
+                "t": "lte",
+                "v": "25",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 230,
+        "y": 100,
+        "wires": [
+            [
+                "4fcf254605ccf7f1",
+                "11057ad31e3f9082"
+            ],
+            [
+                "38605c5ab31ddb3e"
+            ]
+        ]
+    },
+    {
+        "id": "b790936b4be85d6c",
+        "type": "switch",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "15",
+                "vt": "num"
+            },
+            {
+                "t": "lte",
+                "v": "15",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 210,
+        "y": 240,
+        "wires": [
+            [
+                "8ef15e7641e5d3ee",
+                "26de0ce44f38d74f"
+            ],
+            [
+                "0115eba5d617071e"
+            ]
+        ]
+    },
+    {
+        "id": "8ef15e7641e5d3ee",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"siteManager\", \"message\":\"Wind speed of \" + msg.payload + \" detected, raising wind shields\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 200,
+        "wires": [
+            [
+                "61b9de98c65ba98c"
+            ]
+        ]
+    },
+    {
+        "id": "26de0ce44f38d74f",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "windShieldUp",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/environmentalactuators\",\"params\":{},\"description\":\"Raises the wind shield around the digsite to prevent potential damage or loss of artifacts\",\"title\":\"Wind Shield Up\",\"action\":\"windShieldUp\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 380,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0115eba5d617071e",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "windShieldDown",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/environmentalactuators\",\"params\":{},\"description\":\"Lowers the wind shield around the digsite\",\"title\":\"Wind Shield Down\",\"action\":\"windShieldDown\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 390,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "61b9de98c65ba98c",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a given role with a specified message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 540,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4fcf254605ccf7f1",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "fanOn",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/environmentalactuators\",\"params\":{},\"description\":\"Turns the digsite fan on to reduce the temperature\",\"title\":\"Fan On\",\"action\":\"fanOn\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 370,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "38605c5ab31ddb3e",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "fanOff",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/environmentalactuators\",\"params\":{},\"description\":\"Turns the digsite fan off\",\"title\":\"Fan Off\",\"action\":\"fanOff\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 370,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "11057ad31e3f9082",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"siteManager\", \"message\":\"Temperature of \" + msg.payload + \" detected, activating fans\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 400,
+        "y": 60,
+        "wires": [
+            [
+                "a43c7535bf928a18"
+            ]
+        ]
+    },
+    {
+        "id": "a43c7535bf928a18",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a given role with a specified message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 560,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "26e3d7a876c01649",
+        "type": "switch",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 190,
+        "y": 380,
+        "wires": [
+            [
+                "0ba290144f15d0b6",
+                "5eeb32e1a5d56401"
+            ],
+            [
+                "6887b5668245cca1"
+            ]
+        ]
+    },
+    {
+        "id": "0ba290144f15d0b6",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "raiseRainCanopy",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/environmentalactuators\",\"params\":{},\"description\":\"Raises the canopy to protect the dig site from rain\",\"title\":\"Raise Rain Canopy\",\"action\":\"raiseRainCanopy\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 370,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6887b5668245cca1",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "lowerRainCanopy",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/environmentalactuators\",\"params\":{},\"description\":\"Lowers the canopy to protect the dig site from rain\",\"title\":\"Lower Rain Canopy\",\"action\":\"lowerRainCanopy\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 370,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5eeb32e1a5d56401",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"siteManager\", \"message\":\"Rainfall detected, raising canopy\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 340,
+        "wires": [
+            [
+                "2aed3107bb06ad77"
+            ]
+        ]
+    },
+    {
+        "id": "2aed3107bb06ad77",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a given role with a specified message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 520,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bbd979e4d10efbfd",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "unauthorisedArtifactRelocation",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/artifactsecurity\",\"output\":{\"type\":\"object\",\"properties\":{\"artifactID\":{\"type\":\"string\",\"description\":\"The ID of the moved artifact\"},\"location\":{\"type\":\"string\",\"description\":\"The location the artifact has been moved too\"}}},\"description\":\"An alert for the unathorised movement of a tagged artifact from its current location\",\"title\":\"Unauthorised Artifact Relocation\",\"event\":\"unauthorisedArtifactRelocation\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 150,
+        "y": 500,
+        "wires": [
+            [
+                "08a39bd8daa8a2e4"
+            ]
+        ]
+    },
+    {
+        "id": "08a39bd8daa8a2e4",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"security\", \"message\":\"Artifact \" + msg.payload[\"artifactID\"] + \" moved to \" + msg.payload[\"location\"] + \" without permission\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 500,
+        "wires": [
+            [
+                "eca162c89dc6dd80"
+            ]
+        ]
+    },
+    {
+        "id": "eca162c89dc6dd80",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a given role with a specified message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 540,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "60caef541fb7b907",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "unautorisedSiteEntry",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/cctvsystem\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"The location of the access point\"},\"details\":{\"type\":\"string\",\"description\":\"String encoded CCTV footage of the intrusion\"}}},\"description\":\"An individual has entered the dig site without authorisation\",\"title\":\"Unauthorised Site Entry\",\"event\":\"unautorisedSiteEntry\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 110,
+        "y": 560,
+        "wires": [
+            [
+                "242eee398972dc71"
+            ]
+        ]
+    },
+    {
+        "id": "242eee398972dc71",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"security\", \"message\":\"Unauthorised entry to site at \" + msg.payload[\"location\"] +  \". Data: \" + msg.payload[\"details\"]}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 560,
+        "wires": [
+            [
+                "625a021761073ba7"
+            ]
+        ]
+    },
+    {
+        "id": "625a021761073ba7",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a given role with a specified message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 460,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "61297ac03e4ae970",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "newCameraImage",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/surveydrone\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"The location of the photographed area\"},\"image\":{\"type\":\"string\",\"description\":\"A string embedding of the produced image\"}}},\"description\":\"Notification of a new aerial camera image of an area of the dig site\",\"title\":\"New Camera Image\",\"event\":\"newCameraImage\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 640,
+        "wires": [
+            [
+                "2f2f29b6b6d441bf"
+            ]
+        ]
+    },
+    {
+        "id": "03e9fe8f7def6a8b",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "newRadarImage",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/surveydrone\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"The location of the mapped area\"},\"image\":{\"type\":\"string\",\"description\":\"A string embedding of the produced radar image\"}}},\"description\":\"Notification of new aerial radar imagery for an area of the dig site\",\"title\":\"New Radar Image\",\"event\":\"newRadarImage\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 100,
+        "y": 680,
+        "wires": [
+            [
+                "357afc09545566d1"
+            ]
+        ]
+    },
+    {
+        "id": "2f2f29b6b6d441bf",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"type\":\"camera\", \"location\":msg.payload[\"location\"], \"data\":msg.payload[\"image\"]}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 640,
+        "wires": [
+            [
+                "2c5f549a9a64834a"
+            ]
+        ]
+    },
+    {
+        "id": "2c5f549a9a64834a",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "inputSurveyData",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/siteanalyser\",\"params\":{\"type\":\"string\",\"location\":\"string\",\"data\":\"string\"},\"output\":{\"type\":\"string\",\"description\":\"The updated site view for the dig site\"},\"description\":\"Adds data of the specified type to be analysed, to improve the site view and discover new potential artifacts\",\"title\":\"Input Survey Data\",\"action\":\"inputSurveyData\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 490,
+        "y": 660,
+        "wires": [
+            [
+                "ada4dcfdd7d8cdcb"
+            ]
+        ]
+    },
+    {
+        "id": "357afc09545566d1",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"type\":\"radar\", \"location\":msg.payload[\"location\"], \"data\":msg.payload[\"image\"]}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 680,
+        "wires": [
+            [
+                "2c5f549a9a64834a"
+            ]
+        ]
+    },
+    {
+        "id": "ada4dcfdd7d8cdcb",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "updateSiteView",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/userdevice\",\"params\":{},\"description\":\"Update the data held for the current dig site on this device\",\"title\":\"Update Site View\",\"action\":\"updateSiteView\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 700,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "70f1cedec1c1d382",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "structuralWeaknessDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/structuremonitor\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"The location of the structural weakness\"},\"details\":{\"type\":\"string\",\"description\":\"Relevent details concerning the weakness\"}}},\"description\":\"An alert made when structural weaknesses are detected in a archeological structure\",\"title\":\"Structural Weakness Detected\",\"event\":\"structuralWeaknessDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 140,
+        "y": 760,
+        "wires": [
+            [
+                "c52ee2685257406d",
+                "f58b24ff6ae0a789"
+            ]
+        ]
+    },
+    {
+        "id": "c52ee2685257406d",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"site manager\", \"message\":\"Structural weakness detected at \" + msg.payload[\"location\"] + \". Details: \" + msg.payload[\"details\"]}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 760,
+        "wires": [
+            [
+                "5f499066c96daf62"
+            ]
+        ]
+    },
+    {
+        "id": "5f499066c96daf62",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a given role with a specified message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 520,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f58b24ff6ae0a789",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"inspectionTeam\", \"type\":\"StructureInspection\", \"details\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 800,
+        "wires": [
+            [
+                "3d75ed2fa69f0696"
+            ]
+        ]
+    },
+    {
+        "id": "3d75ed2fa69f0696",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "scheduleTask",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/crewscheduler\",\"params\":{\"role\":\"string\",\"type\":\"string\",\"details\":\"string\"},\"description\":\"Schedules a new task for the crew of this digs site\",\"title\":\"Schedule Task\",\"action\":\"scheduleTask\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 540,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0221c7130b6aa045",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "visitorInRestrictedArea",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/visitorsecuritysystem\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"The location of the unauthorised access\"},\"visitorID\":{\"type\":\"string\",\"description\":\"The ID of the visitor causing the intrusion\"}}},\"description\":\"Produces an alert when a visitor enters a restricted area\",\"title\":\"Visitor In Restricted Area\",\"event\":\"visitorInRestrictedArea\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 120,
+        "y": 880,
+        "wires": [
+            [
+                "12c8e9f3f3b1cf3a"
+            ]
+        ]
+    },
+    {
+        "id": "12c8e9f3f3b1cf3a",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"security\", \"message\":\"Unauthorised  entry to \" + msg.payload[\"location\"] +  \" by visitor \" + msg.payload[\"visitorID\"]}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 880,
+        "wires": [
+            [
+                "80cb3ddbc91f3003"
+            ]
+        ]
+    },
+    {
+        "id": "80cb3ddbc91f3003",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a given role with a specified message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 480,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "46dad5d6623f7ee2",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "equipmentMalfunction",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/equipmentmanager\",\"output\":{\"type\":\"string\",\"description\":\"The equipment that malfunctioned\"},\"description\":\"An event produced when an equipment malfunction is detected\",\"title\":\"Equipment Malfunction\",\"event\":\"equipmentMalfunction\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 120,
+        "y": 940,
+        "wires": [
+            [
+                "408aac880952e6a3"
+            ]
+        ]
+    },
+    {
+        "id": "408aac880952e6a3",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"maintanenceTeam\", \"message\":msg.payload + \" malfunctioned\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 940,
+        "wires": [
+            [
+                "b968667ef2403b98"
+            ]
+        ]
+    },
+    {
+        "id": "b968667ef2403b98",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a given role with a specified message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 480,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "caae6c762052183d",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "userDataSubmitted",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/userdevice\",\"output\":{\"type\":\"object\",\"properties\":{\"artifactID\":{\"type\":\"string\",\"description\":\"The ID of the artifact that the submitted data relates too\"},\"details\":{\"type\":\"string\",\"description\":\"The user submitted data for the selected artifact\"}}},\"description\":\"An event to broadcast data entered by the user of this device\",\"title\":\"Data Submitted\",\"event\":\"userDataSubmitted\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 110,
+        "y": 1100,
+        "wires": [
+            [
+                "f6c742cba6ee6f45"
+            ]
+        ]
+    },
+    {
+        "id": "0387499bf80e5e5a",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "queueDataForAnalysis",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/dataanalyser\",\"params\":{\"type\":\"string\",\"data\":\"string\"},\"description\":\"Queues provided data for analysis to produce new insights regarding the current digsite\",\"title\":\"Queue Data For Analysis\",\"action\":\"queueDataForAnalysis\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 520,
+        "y": 1060,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "27d930e42899c2de",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "newCameraImage",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/surveydrone\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"The location of the photographed area\"},\"image\":{\"type\":\"string\",\"description\":\"A string embedding of the produced image\"}}},\"description\":\"Notification of a new aerial camera image of an area of the dig site\",\"title\":\"New Camera Image\",\"event\":\"newCameraImage\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 1020,
+        "wires": [
+            [
+                "15690232107ccb5e"
+            ]
+        ]
+    },
+    {
+        "id": "aa1422fc28b1b76d",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "newRadarImage",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/surveydrone\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"The location of the mapped area\"},\"image\":{\"type\":\"string\",\"description\":\"A string embedding of the produced radar image\"}}},\"description\":\"Notification of new aerial radar imagery for an area of the dig site\",\"title\":\"New Radar Image\",\"event\":\"newRadarImage\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 100,
+        "y": 1060,
+        "wires": [
+            [
+                "6ca7313b61a5e23b"
+            ]
+        ]
+    },
+    {
+        "id": "15690232107ccb5e",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"type\":\"camera\", \"data\":msg.payload[\"image\"]}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 1020,
+        "wires": [
+            [
+                "0387499bf80e5e5a"
+            ]
+        ]
+    },
+    {
+        "id": "6ca7313b61a5e23b",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"type\":\"radar\", \"data\":msg.payload[\"image\"]}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 1060,
+        "wires": [
+            [
+                "0387499bf80e5e5a"
+            ]
+        ]
+    },
+    {
+        "id": "f6c742cba6ee6f45",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"type\":\"userSubmittedData\", \"data\":\"Data for \" + msg.payload[\"artifactID\"] + \":\" + msg.payload[\"details\"]}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 1100,
+        "wires": [
+            [
+                "0387499bf80e5e5a"
+            ]
+        ]
+    },
+    {
+        "id": "bd0107ba9b07fb03",
+        "type": "system-event-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "disasterDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/environmentalsensors\",\"output\":{\"type\":\"string\",\"description\":\"The type of disaster that has been detected\"},\"description\":\"An alert made when a disaster is detected (e.g. fire, earthquake, tsunami)\",\"title\":\"Disaster Detected\",\"event\":\"disasterDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 100,
+        "y": 1180,
+        "wires": [
+            [
+                "4c3f4e9ff1c472b0"
+            ]
+        ]
+    },
+    {
+        "id": "4c3f4e9ff1c472b0",
+        "type": "change",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"all\", \"message\":msg.payload + \" detected, be aware\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 1180,
+        "wires": [
+            [
+                "23389fad3608a425"
+            ]
+        ]
+    },
+    {
+        "id": "23389fad3608a425",
+        "type": "system-action-node",
+        "z": "7577d14d7b8a5b90",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a given role with a specified message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 440,
+        "y": 1180,
+        "wires": [
+            []
+        ]
+    }
+]

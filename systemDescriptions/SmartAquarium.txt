@@ -1,0 +1,19 @@
+If the tank’s pH level is out of the required range add either crushed coral (raising the pH) or CO2 (lowering the pH) to the water.
+
+When the temperature becomes out of range utilise the heater and cooler to return the temperature to the optimum value.
+
+If salinity or nitrate levels become too low, add salt or potassium nitrate respectively.
+
+An automated feeder dispenses food at scheduled times. If the food storage in the feeder is running low, the system alerts the owner.
+
+The system controls the aquarium’s lighting based on the time of day to simulate natural light conditions. The owner should be able to alter the profile of the lights.
+
+If the tank’s filter is clogged or not working efficiently, the system alerts the owner and schedules a cleaning or replacement.
+
+If any abnormal behavior or potential health issues are detected within the tank, the owner is alerted.
+
+The system keeps track of maintenance tasks such as water changes, filter replacements, and general cleaning. It sends reminders to the owner when these tasks are due.
+
+In case of a power outage, the system switches to a backup power supply. It also alerts the owner of the situation.
+
+The owner can access real-time data on water conditions, view live camera feeds, and manually dispense food through a smartphone app.

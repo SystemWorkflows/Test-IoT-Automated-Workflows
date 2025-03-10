@@ -1,0 +1,653 @@
+[
+    {
+        "id": "ebfa217d7914ae2e",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d808a7e9bcb431ef",
+        "type": "system-event-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "moistureLevel",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/soilsensor\",\"output\":{\"type\":\"number\",\"description\":\"Moisture level\"},\"description\":\"An event broadcasting the current moisure level of farmland soil\",\"title\":\"Moisture Level\",\"event\":\"moistureLevel\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "78a5fa278c29883a"
+            ]
+        ]
+    },
+    {
+        "id": "1e36cd8e623061c7",
+        "type": "system-event-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "windSpeed",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/weatherstation\",\"output\":{\"type\":\"number\",\"description\":\"The current wind speed\"},\"description\":\"An event broadcasting the current wind speed\",\"title\":\"Wind speed\",\"event\":\"windSpeed\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 160,
+        "y": 120,
+        "wires": [
+            [
+                "4f0ac126dd209bcf"
+            ]
+        ]
+    },
+    {
+        "id": "0d7732157f2f4a3a",
+        "type": "system-event-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "windChill",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/weatherstation\",\"output\":{\"type\":\"number\",\"description\":\"The current wind chill\"},\"description\":\"An event broadcasting the current wind chill\",\"title\":\"Wind chill\",\"event\":\"windChill\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 160,
+        "y": 160,
+        "wires": [
+            [
+                "319f3f6f16115867"
+            ]
+        ]
+    },
+    {
+        "id": "30f06049561c4ab4",
+        "type": "system-event-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "cropHealth",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/cropsurveillancedrone\",\"output\":{\"type\":\"string\",\"description\":\"Health details about crops\"},\"description\":\"Provides periodic notification of the current crop health detsils\",\"title\":\"Crop Health\",\"event\":\"cropHealth\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 160,
+        "y": 200,
+        "wires": [
+            [
+                "5118c810c1d709b4"
+            ]
+        ]
+    },
+    {
+        "id": "6142385be1b3bd56",
+        "type": "system-event-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "CCTVMotionDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/cctvsystem\",\"output\":{\"type\":\"string\",\"description\":\"An encoded video clip of the detected motion\"},\"description\":\"Alerts when motion is detected by this CCTV system\",\"title\":\"Motion Detected\",\"event\":\"CCTVMotionDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 120,
+        "y": 240,
+        "wires": [
+            [
+                "9f7be36a8393c63c"
+            ]
+        ]
+    },
+    {
+        "id": "27fc59a73d24f628",
+        "type": "system-action-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "processSensorData",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/farbrainhub\",\"params\":{},\"output\":{\"type\":\"string\",\"description\":\"A summarised view of the given sensor data\"},\"description\":\"Produces a summmary of the input sensor data\",\"title\":\"Process Sensor Data\",\"action\":\"processSensorData\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 190,
+        "y": 340,
+        "wires": [
+            [
+                "caf0688f5a206411"
+            ]
+        ]
+    },
+    {
+        "id": "caf0688f5a206411",
+        "type": "system-action-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "analyseSensorData",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/farbrainhub\",\"params\":{},\"output\":{\"type\":\"object\",\"description\":\"Key-value pairs of sensorName:sensorData\"},\"description\":\"Produces a summmary of the input sensor data\",\"title\":\"Process Sensor Data\",\"action\":\"analyseSensorData\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 390,
+        "y": 340,
+        "wires": [
+            [
+                "bb9c74c51f50f5c8",
+                "eb80494daa832e80",
+                "f34fc622ef5ca50b",
+                "dcb2f81189422fcc",
+                "06d184141e2e1db6",
+                "107bba201bf448b7",
+                "1757798eeb2e7af8"
+            ]
+        ]
+    },
+    {
+        "id": "45dd376f3f3363a7",
+        "type": "system-action-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "startRoute",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/autotractor\",\"params\":{},\"description\":\"Starts this auto tractor along the given route\",\"title\":\"Start Route\",\"action\":\"startRoute\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 510,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "78a5fa278c29883a",
+        "type": "change",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"moisture\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "27fc59a73d24f628"
+            ]
+        ]
+    },
+    {
+        "id": "4f0ac126dd209bcf",
+        "type": "change",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"windSpeed\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 120,
+        "wires": [
+            [
+                "27fc59a73d24f628"
+            ]
+        ]
+    },
+    {
+        "id": "319f3f6f16115867",
+        "type": "change",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"windChill\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 160,
+        "wires": [
+            [
+                "27fc59a73d24f628"
+            ]
+        ]
+    },
+    {
+        "id": "5118c810c1d709b4",
+        "type": "change",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"cropHealth\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 200,
+        "wires": [
+            [
+                "27fc59a73d24f628"
+            ]
+        ]
+    },
+    {
+        "id": "9f7be36a8393c63c",
+        "type": "change",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"CCTVMotion\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 240,
+        "wires": [
+            [
+                "27fc59a73d24f628"
+            ]
+        ]
+    },
+    {
+        "id": "06d184141e2e1db6",
+        "type": "change",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[\"autoTractorPath\"]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 500,
+        "wires": [
+            [
+                "45dd376f3f3363a7"
+            ]
+        ]
+    },
+    {
+        "id": "b39f1c2c44aeb2e9",
+        "type": "system-action-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "setTemperature",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/greenhousecontrol\",\"params\":{},\"description\":\"Sets the greenhouse temperature\",\"title\":\"Set Temperature\",\"action\":\"setTemperature\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 520,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d4db9039cac8cf20",
+        "type": "system-action-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "setHumidity",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/greenhousecontrol\",\"params\":{},\"description\":\"Sets the greenhouse humidity\",\"title\":\"Set Humidity\",\"action\":\"setHumidity\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 510,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7cd6a8bfe4a1abd2",
+        "type": "system-action-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "setLightLevel",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/greenhousecontrol\",\"params\":{},\"description\":\"Sets the greenhouse light level\",\"title\":\"Set Light LEvel\",\"action\":\"setLightLevel\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 510,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bb9c74c51f50f5c8",
+        "type": "change",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[\"greenhouseTemperature\"]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 560,
+        "wires": [
+            [
+                "b39f1c2c44aeb2e9"
+            ]
+        ]
+    },
+    {
+        "id": "eb80494daa832e80",
+        "type": "change",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[\"greenhouseHumidity\"]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 600,
+        "wires": [
+            [
+                "d4db9039cac8cf20"
+            ]
+        ]
+    },
+    {
+        "id": "f34fc622ef5ca50b",
+        "type": "change",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[\"greenhouseLightLevel\"]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 640,
+        "wires": [
+            [
+                "7cd6a8bfe4a1abd2"
+            ]
+        ]
+    },
+    {
+        "id": "74987a987e876c14",
+        "type": "system-action-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "adjustWaterFlow",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/irrigationcontrol\",\"params\":{},\"description\":\"Adjusts the flow of water in this irrigation system\",\"title\":\"Adjust Water Flws\",\"action\":\"adjustWaterFlow\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 510,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b239de5ce8ea0d73",
+        "type": "system-property-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingProperty": "currentWaterFlow",
+        "thingPropertyValue": "{\"uri\":\"http://localhost:8080/irrigationcontrol\",\"type\":\"number\",\"description\":\"The current flow rate of water from this irrigation system\",\"title\":\"Current Water Flow\",\"property\":\"currentWaterFlow\"}",
+        "mode": "read",
+        "redeploy": "false",
+        "x": 490,
+        "y": 720,
+        "wires": [
+            [
+                "b986ae01a6c0ee7e"
+            ]
+        ]
+    },
+    {
+        "id": "dcb2f81189422fcc",
+        "type": "change",
+        "z": "ebfa217d7914ae2e",
+        "name": "store target water flow",
+        "rules": [
+            {
+                "t": "set",
+                "p": "targetFlow",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 720,
+        "wires": [
+            [
+                "b239de5ce8ea0d73"
+            ]
+        ]
+    },
+    {
+        "id": "b986ae01a6c0ee7e",
+        "type": "change",
+        "z": "ebfa217d7914ae2e",
+        "name": "Calculate adjustment",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload - msg.targetFlow",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 760,
+        "wires": [
+            [
+                "74987a987e876c14"
+            ]
+        ]
+    },
+    {
+        "id": "0c409c2b5646b048",
+        "type": "system-action-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "applyFertilizer",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/cropsurveillancedrone\",\"params\":{},\"description\":\"Applies fertilizer to the crops\",\"title\":\"Apply fertilizer\",\"action\":\"applyFertilizer\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 460,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "107bba201bf448b7",
+        "type": "switch",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "property": "payload[\"applyFertiliser\"]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 310,
+        "y": 440,
+        "wires": [
+            [
+                "0c409c2b5646b048"
+            ]
+        ]
+    },
+    {
+        "id": "d160d777f79a1df8",
+        "type": "system-action-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alert",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/farmersdevice\",\"params\":{\"type\":\"string\",\"details\":\"string\"},\"description\":\"Alerts the farmer of the given information\",\"title\":\"Alert\",\"action\":\"alert\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 810,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1757798eeb2e7af8",
+        "type": "change",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"newAnalysisResult\", msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 340,
+        "wires": [
+            [
+                "d160d777f79a1df8"
+            ]
+        ]
+    },
+    {
+        "id": "b190ba5c62b0de47",
+        "type": "system-event-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "newSettings",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/farmersdevice\",\"output\":{\"type\":\"object\",\"description\":\"An object of key-value pairs of setting:newValue\"},\"description\":\"Farmer's device has been provided with an update to the system settings\",\"title\":\"New Setting\",\"event\":\"newSettings\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 110,
+        "y": 860,
+        "wires": [
+            [
+                "5d63ac73289aad0f"
+            ]
+        ]
+    },
+    {
+        "id": "5d63ac73289aad0f",
+        "type": "system-action-node",
+        "z": "ebfa217d7914ae2e",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alterSettings",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/farbrainhub\",\"params\":{},\"description\":\"Alters the analysis and processing settings for this FarmBrain system\",\"title\":\"AlterSettings\",\"action\":\"alterSettings\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 270,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    }
+]

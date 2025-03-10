@@ -1,0 +1,5 @@
+When a quality, temperature, or vibration alert is made, send this data for analysis. Once data analysis is complete log the result as well as analysing it for indications that maintenance is needed. If maintenance is needed, alert the manager of this. Additionally, send the result of data analysis to be analysed for efficiency and alert the manager of this too.
+
+Send quality alerts directly to the manager.
+
+When resources are used, alert the manager of the usage, and log it in the database.

@@ -1,0 +1,504 @@
+[
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CargoDoor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "intrusionDetected":{
+                "title": "Intrusion Detected",
+                "description": "Notifies when an intrustion is detected in the cargo hold",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CargoSensorSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "cargoTemperature":{
+                "title": "Cargo Temperature",
+                "description": "The temperature of the cargo hold",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The temperature of the cargo hold"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "cargoHumidity":{
+                "title": "Cargo Humidity",
+                "description": "The humidity of the cargo hold",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The humidity of the cargo hold"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "cargoIntegrity":{
+                "title": "Cargo Integrity",
+                "description": "An event made when the integrity of the cargo changes",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "The damage sustained by the cargo (major or minor)"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "ControlCentre",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertControlCentre":{
+                "type": "",
+                "title": "Alert Control Centre",
+                "description": "Sends an alert to the control centre for a given message type, including the details of the message",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "type":{
+                            "type": "string",
+                            "description": "The type of the message to be sent"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "The details of the message"
+                        }
+                    }
+                },
+                "forms": []
+            },
+            "assessForPotentialCollision":{
+                "type": "",
+                "title": "Assess For Potential Collision",
+                "description": "Assesses a given object to see if collision is likely on the ship's current course",
+                "input":{
+                    "type": "object",
+                    "properties":{
+                        "angle":{
+                            "type": "number",
+                            "description": "The angle of the object's centre from the forward facing direction of this ship"
+                        },
+                        "distance":{
+                            "type": "number",
+                            "description": "The distance in meters of the detected object from this ship"
+                        }
+                    }
+                },
+                "output": {
+                    "type": "boolean",
+                    "description": "Whether or not a collision is likely to occur"
+                },
+                "forms": []
+            },
+            "recalculateCourse":{
+                "type": "",
+                "title": "Recalculate Course",
+                "description": "Recalculates the course for this ship's journey",
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CrewAlertSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertCrewRole":{
+                "type": "",
+                "title": "Alert Crew Role",
+                "description": "Alerts all crew with a given role of a given message",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "role":{
+                            "type": "string",
+                            "description": "The crew role for the message to be sent too"
+                        },
+                        "message":{
+                            "type": "string",
+                            "description": "The message to be sent"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EnvironmentalSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "adjustCargoHeater":{
+                "type": "",
+                "title": "Adjust Cargo Heater",
+                "description": "Adjusts the temperature of the cargo hold heater by the given number of degrees",
+                "input": {
+                    "type": "number",
+                    "description": "The amount of degrees (+/-) to alter the heater temperature by"
+                },
+                "forms": []
+            },
+            "adjustCargoHumidity":{
+                "type": "",
+                "title": "Adjust Cargo Humidity",
+                "description": "Adjusts the humidity of the cargo hold by the given percentage",
+                "input": {
+                    "type": "number",
+                    "description": "The percentage (+/-) to alter the humidity by"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EquipmentMonitor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "readyEquipmentForRepair":{
+                "type": "",
+                "title": "Ready Equipment For Repair",
+                "description": "Prepares the specified equipment for repair by engineers",
+                "input": {
+                    "type": "string",
+                    "description": "The name of the equipment to be repaired"
+                },
+                "forms": []
+            },
+            "activateBackupComms":{
+                "type": "",
+                "title": "Activate Backup Comms",
+                "description": "Activates backuo communication with the control centre",
+                "forms": []
+            },
+            "deployEmergencyBeakon":{
+                "type": "",
+                "title": "Deply Emergency Beakon",
+                "description": "Deploys an emergency beackon for the location of this ship",
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "malfunctionDetected":{
+                "title": "Malfunction Detected",
+                "description": "An event produced when equipment on the ship malfunctions",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "The name of the equipment that has malfunctoned"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "controlCentreLost":{
+                "title": "Control Centre Lost",
+                "description": "An event broadcast when communication with the control centre is lost",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "OnboardWeatherSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "dangerousWeatherDetectedOnboard":{
+                "title": "Dangerous Weather Detected Onboard",
+                "description": "Produces an event when dangerous weather is detected by the onboard sensors",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "angle":{
+                            "type": "number",
+                            "description": "The angle of the weather pattern's centre from the forward facing direction of this ship"
+                        },
+                        "distance":{
+                            "type": "number",
+                            "description": "The distance in meters of the detected weather pattern from this ship"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "RadarSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "radarObjectDetected":{
+                "title": "Radar object Detected",
+                "description": "Alerts of an object detected by this radar system",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "angle":{
+                            "type": "number",
+                            "description": "The angle of the object's centre from the forward facing direction of this ship"
+                        },
+                        "distance":{
+                            "type": "number",
+                            "description": "The distance in meters of the detected object from this ship"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "RepairRobot",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "attemptRepair":{
+                "type": "",
+                "title": "Attempt Repair",
+                "description": "Sends this robot to the specified equipment to attempt repairs",
+                "input": {
+                    "type":"string",
+                    "description": "The name of the equipment to be repaired"
+                },
+                "output": {
+                    "type": "boolean",
+                    "description": "Whether or not the repair could be successfully completed"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "SatelliteWeatherStation",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "dangerousWeatherDetectedBySatellite":{
+                "title": "Dangerous Weather Detected By Sattelite",
+                "description": "Produces an event when dangerous weather is detected win close proximity to the ship",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "angle":{
+                            "type": "number",
+                            "description": "The angle of the weather pattern's centre from the forward facing direction of the ship"
+                        },
+                        "distance":{
+                            "type": "number",
+                            "description": "The distance in meters of the detected weather pattern from the ship"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "Scheduler",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "scheduleTask":{
+                "type": "",
+                "title": "Schedule Task",
+                "description": "Adds a given task to the crew's schedule, this functionality automatically picks the time and relevent crew members for the given task",
+                "input":{
+                    "type": "string",
+                    "description": "The description of the task to be added to the schedule"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "SonarSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "sonarObjectDetected":{
+                "title": "Sonar Object Detected",
+                "description": "Alerts of an object detected by this sonar system",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "angle":{
+                            "type": "number",
+                            "description": "The angle of the object's centre from the forward facing direction of this ship"
+                        },
+                        "distance":{
+                            "type": "number",
+                            "description": "The distance in meters of the detected object from this ship"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    }
+]

@@ -1,0 +1,815 @@
+[
+    {
+        "id": "103774a3fd869111",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c8ba85cdf965f40c",
+        "type": "system-event-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "redLight",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/trafficlight\",\"output\":{},\"description\":\"An event given when the light is red\",\"title\":\"Red Light\",\"event\":\"redLight\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 80,
+        "y": 40,
+        "wires": [
+            [
+                "64385a137e31d15c"
+            ]
+        ]
+    },
+    {
+        "id": "64385a137e31d15c",
+        "type": "system-action-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "deactivateSignal",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/crossingsignal\",\"params\":{},\"description\":\"Deactivate the pedestrian crossing signal\",\"title\":\"Deactivate Signal\",\"action\":\"deactivateSignal\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 240,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "94cf8a62966a7784",
+        "type": "system-event-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "motionDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/pedestriandetector\",\"output\":{},\"description\":\"An event made when pedestrian motion has been detected\",\"title\":\"Motion Detected\",\"event\":\"motionDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 100,
+        "y": 80,
+        "wires": [
+            [
+                "72ac4538b64f4436"
+            ]
+        ]
+    },
+    {
+        "id": "aaf2fb4e9bd96b35",
+        "type": "system-action-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "increaseCurrentLightTime",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/trafficlight\",\"params\":{},\"description\":\"Increases the time allocated for the currently displayed light\",\"title\":\"Increase Current Light Time\",\"action\":\"increaseCurrentLightTime\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 770,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "72ac4538b64f4436",
+        "type": "system-property-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingProperty": "currentLight",
+        "thingPropertyValue": "{\"uri\":\"http://localhost:8080/trafficlight\",\"type\":\"string\",\"description\":\"The current active light name \\\"red\\\",\\\"amber\\\",\\\"green\\\"\",\"title\":\"Current Light\",\"property\":\"currentLight\"}",
+        "mode": "read",
+        "redeploy": "false",
+        "x": 270,
+        "y": 80,
+        "wires": [
+            [
+                "af6296169914e0f4"
+            ]
+        ]
+    },
+    {
+        "id": "af6296169914e0f4",
+        "type": "switch",
+        "z": "103774a3fd869111",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "red",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 80,
+        "wires": [
+            [
+                "6c7938e569e72dc7"
+            ]
+        ]
+    },
+    {
+        "id": "18afeaa7bbc145e3",
+        "type": "system-event-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "emergencyVehicleDispatched",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/emergencyservices\",\"output\":{\"type\":\"array\",\"description\":\"A list of coordinate points along the path the emergency vehicle will take\"},\"description\":\"Notifies when an emergency vehicle has been dispatched\",\"title\":\"Emergency Vehicle Dispatched\",\"event\":\"emergencyVehicleDispatched\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 140,
+        "y": 160,
+        "wires": [
+            [
+                "8a928aaec524f1b8",
+                "fcb8129bf0fcf6e1"
+            ]
+        ]
+    },
+    {
+        "id": "be15a05ac13b46ee",
+        "type": "system-action-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "setLightColour",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/trafficlight\",\"params\":{},\"description\":\"Sets the light colour to one of \\\"red\\\", \\\"amber\\\", \\\"green\\\"\",\"title\":\"Set Light Colour\",\"action\":\"setLightColour\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 560,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8a928aaec524f1b8",
+        "type": "change",
+        "z": "103774a3fd869111",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "green",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "be15a05ac13b46ee"
+            ]
+        ]
+    },
+    {
+        "id": "fcb8129bf0fcf6e1",
+        "type": "system-action-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "notifyEmergency",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/vehicle\",\"params\":{},\"description\":\"Notify this vehicle of an emergency vehicle's path\",\"title\":\"Notify Emergency\",\"action\":\"notifyEmergency\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 390,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9457b61a0e6e03e8",
+        "type": "system-event-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "trafficJamDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/vehicle\",\"description\":\"Publishes an alert when this vehicle detects a traffic jam, with the location of the traffic\",\"title\":\"Traffic Jam Detected\",\"event\":\"trafficJamDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "fc7cdc5ad061c85a",
+                "77bcbd0264c2a02d"
+            ]
+        ]
+    },
+    {
+        "id": "fc7cdc5ad061c85a",
+        "type": "system-action-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "optimiseLightTimings",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/trafficcontroller\",\"params\":{},\"description\":\"Calculates optimal light timings for the city\",\"title\":\"Optimise Light Timings\",\"action\":\"optimiseLightTimings\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 340,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "77bcbd0264c2a02d",
+        "type": "change",
+        "z": "103774a3fd869111",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"trafficJam\", \"A traffic jam has been detected\"]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 320,
+        "wires": [
+            [
+                "0cab28e920e99d40"
+            ]
+        ]
+    },
+    {
+        "id": "0cab28e920e99d40",
+        "type": "system-action-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "notifyVehicle",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/vehicle\",\"params\":{\"type\":\"string\",\"details\":\"string\"},\"description\":\"Notifies the users of this vehicle\",\"title\":\"Notify Vehicle\",\"action\":\"notifyVehicle\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 490,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c3a372595dd47464",
+        "type": "system-event-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "binFull",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/trashbin\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"the location of this bin\"},\"time\":{\"type\":\"integer\",\"description\":\"The time in seconds since this bin was filled\"}}},\"description\":\"Produces periodic alerts whilst this bin is full\",\"title\":\"Bin Full\",\"event\":\"binFull\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 70,
+        "y": 440,
+        "wires": [
+            [
+                "1dd1862a010af24c"
+            ]
+        ]
+    },
+    {
+        "id": "b8c5212082b70204",
+        "type": "system-action-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "arrangeWastePickup",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/wastedepartment\",\"params\":{},\"description\":\"Arranges a waste pickup at a given location\",\"title\":\"Arrange Waste Pickup\",\"action\":\"arrangeWastePickup\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 600,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ff79e77110197c83",
+        "type": "change",
+        "z": "103774a3fd869111",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 420,
+        "wires": [
+            [
+                "b8c5212082b70204"
+            ]
+        ]
+    },
+    {
+        "id": "1dd1862a010af24c",
+        "type": "switch",
+        "z": "103774a3fd869111",
+        "name": "",
+        "property": "payload[1]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "24*60*60",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 210,
+        "y": 440,
+        "wires": [
+            [
+                "ff79e77110197c83"
+            ],
+            [
+                "7552f0c256f2a06d"
+            ]
+        ]
+    },
+    {
+        "id": "7552f0c256f2a06d",
+        "type": "change",
+        "z": "103774a3fd869111",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload[0]",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 460,
+        "wires": [
+            [
+                "b8c5212082b70204"
+            ]
+        ]
+    },
+    {
+        "id": "db0e10ec9158a3ea",
+        "type": "system-event-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "landfillCapacityUsed",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/landfillmanagement\",\"output\":{\"type\":\"number\",\"description\":\"The estimated percentage capacity that the lanfill is at\"},\"description\":\"An event when capacity of the landfill changes, broadcasting an estimated percentage of the fill amount\",\"title\":\"Landfill Capacity Used\",\"event\":\"landfillCapacityUsed\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 110,
+        "y": 520,
+        "wires": [
+            [
+                "094d32e9801365ba"
+            ]
+        ]
+    },
+    {
+        "id": "7f713c68f757e6f2",
+        "type": "system-action-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertPlanner",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/cityplanner\",\"params\":{\"type\":\"string\",\"details\":\"string\"},\"description\":\"Alerts the planner with the given message\",\"title\":\"Alert Planner\",\"action\":\"alertPlanner\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 590,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "094d32e9801365ba",
+        "type": "switch",
+        "z": "103774a3fd869111",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0.8",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 270,
+        "y": 520,
+        "wires": [
+            [
+                "fd493b3dbfda46f3"
+            ]
+        ]
+    },
+    {
+        "id": "fd493b3dbfda46f3",
+        "type": "change",
+        "z": "103774a3fd869111",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"LandfillNearingCapacity\", \"Devise new waste management strategies\"]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 520,
+        "wires": [
+            [
+                "7f713c68f757e6f2"
+            ]
+        ]
+    },
+    {
+        "id": "791b936b4ede45c4",
+        "type": "system-event-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "safetyAlert",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/publicsafetysystem\",\"output\":{\"type\":\"string\",\"description\":\"The location of the incident\"},\"description\":\"Reports when a public safety incident has occured\",\"title\":\"Safety Alert\",\"event\":\"safetyAlert\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 80,
+        "y": 620,
+        "wires": [
+            [
+                "139c77f551cdbf66"
+            ]
+        ]
+    },
+    {
+        "id": "d2287ce9b805c9ef",
+        "type": "system-action-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertIncident",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/emergencyservices\",\"params\":{\"type\":\"string\",\"location\":\"string\"},\"description\":\"Alerts the emergency services of an issue\",\"title\":\"Alert Incident\",\"action\":\"alertIncident\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 510,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "139c77f551cdbf66",
+        "type": "change",
+        "z": "103774a3fd869111",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"publicSafetyIncident\", msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 240,
+        "y": 620,
+        "wires": [
+            [
+                "d2287ce9b805c9ef"
+            ]
+        ]
+    },
+    {
+        "id": "2791bd840e382a93",
+        "type": "system-event-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "unusualActivityDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/cctvsystem\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"The location of the activity\"},\"details\":{\"type\":\"string\",\"description\":\"An encoded video clip of the activity\"}}},\"description\":\"Alerts when abnormal activity is detected by CCTV cameras\",\"title\":\"Unusual Activity Detected\",\"event\":\"unusualActivityDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 120,
+        "y": 680,
+        "wires": [
+            [
+                "868c09cae93f686a"
+            ]
+        ]
+    },
+    {
+        "id": "868c09cae93f686a",
+        "type": "change",
+        "z": "103774a3fd869111",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"unusualCCTVActivity\", msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 680,
+        "wires": [
+            [
+                "d2287ce9b805c9ef"
+            ]
+        ]
+    },
+    {
+        "id": "e702637c23e6d782",
+        "type": "system-event-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "energyThesholdExceded",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/energymonitor\",\"output\":{},\"description\":\"Notifies when the energy usage threshold has been exceded\",\"title\":\"Energy Threshold Exceded\",\"event\":\"energyThesholdExceded\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 780,
+        "wires": [
+            [
+                "b483f25c5e6e2c96"
+            ]
+        ]
+    },
+    {
+        "id": "476b020568820e7a",
+        "type": "system-action-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertManager",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/facilitiesmanager\",\"params\":{\"type\":\"string\",\"details\":\"string\"},\"description\":\"Delivers an alert to the facilities manager\",\"title\":\"Alert Manager\",\"action\":\"alertManager\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 510,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b483f25c5e6e2c96",
+        "type": "change",
+        "z": "103774a3fd869111",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"energyThresholdBreached\", msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 780,
+        "wires": [
+            [
+                "476b020568820e7a"
+            ]
+        ]
+    },
+    {
+        "id": "1b4ffd782f5547a7",
+        "type": "system-event-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "powerOutageDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/energymonitor\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"The location of the power outage\"},\"time\":{\"type\":\"number\",\"description\":\"The time in seconds since the outage was first detected\"}}},\"description\":\"Makes a periodic notification when a power outage has been detected\",\"title\":\"Power Outage Detected\",\"event\":\"powerOutageDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 120,
+        "y": 880,
+        "wires": [
+            [
+                "eeee025871a8bb98"
+            ]
+        ]
+    },
+    {
+        "id": "ea09ff44e6511be4",
+        "type": "system-action-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "notifyOutage",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/energydepartment\",\"params\":{},\"description\":\"Notifies the energy deparment of a power outage\",\"title\":\"Notify Outage\",\"action\":\"notifyOutage\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 630,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eeee025871a8bb98",
+        "type": "switch",
+        "z": "103774a3fd869111",
+        "name": "",
+        "property": "payload[1]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "60*60",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 290,
+        "y": 880,
+        "wires": [
+            [
+                "813c202343675aa9"
+            ],
+            [
+                "36183c47cab44fdd"
+            ]
+        ]
+    },
+    {
+        "id": "813c202343675aa9",
+        "type": "change",
+        "z": "103774a3fd869111",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"energyThresholdBreached\", msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 860,
+        "wires": [
+            [
+                "ea09ff44e6511be4"
+            ]
+        ]
+    },
+    {
+        "id": "a149fd4a763237b6",
+        "type": "system-action-node",
+        "z": "103774a3fd869111",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertResident",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/residentdevice\",\"params\":{\"type\":\"string\",\"details\":\"string\"},\"description\":\"Alerts residents with some message\",\"title\":\"Alert Resident\",\"action\":\"alertResident\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 630,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "36183c47cab44fdd",
+        "type": "change",
+        "z": "103774a3fd869111",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"powerOutage\", \"There is a power outage at \" + msg.payload[0]]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 900,
+        "wires": [
+            [
+                "a149fd4a763237b6"
+            ]
+        ]
+    },
+    {
+        "id": "6c7938e569e72dc7",
+        "type": "change",
+        "z": "103774a3fd869111",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "30",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 80,
+        "wires": [
+            [
+                "aaf2fb4e9bd96b35"
+            ]
+        ]
+    }
+]

@@ -1,0 +1,15 @@
+When oxygen levels drop below a certain threshold, alert the control center and initiate emergency oxygen supply.
+
+Monitor temperature and humidity levels in all modules. If any module’s temperature or humidity deviates from the set range, adjust the environmental control system accordingly and alert the crew.
+
+If a fire is detected, alert the crew, initiate fire suppression systems, and seal off the affected module.
+
+Use sensors to monitor the structural integrity of the space station. If any damage or potential weak points are detected, alert the control center and the crew.
+
+If major damage to a module is detected, schedule a spacewalk for the astronauts.
+
+If communication with the ground control is lost, switch to the backup communication system. If the backup system also fails, deploy an emergency communication beacon.
+
+Monitor the health and status of all communication devices. If any device malfunctions, alert the crew and initiate repair procedures.
+
+All research equipment reports their data to the central processing unit for analysis. The results are then sent to the crew’s devices and the ground control.

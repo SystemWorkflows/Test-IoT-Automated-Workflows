@@ -1,0 +1,598 @@
+[
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "AlertSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertRole":{
+                "type": "",
+                "title": "Alert Role",
+                "description": "Alerts a given role with a specified message",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "role":{
+                            "type": "string",
+                            "description": "The role within the system to be alerted"
+                        },
+                        "message":{
+                            "type": "string",
+                            "description": "The message to be sent to the selected role"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "ArtifactSecurity",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "unauthorisedArtifactRelocation":{
+                "title": "Unauthorised Artifact Relocation",
+                "description": "An alert for the unathorised movement of a tagged artifact from its current location",
+                "subscription": {},
+                "data": {
+                    "type":"object",
+                    "properties":{
+                        "artifactID":{
+                            "type": "string",
+                            "description": "The ID of the moved artifact"
+                        },
+                        "location":{
+                            "type": "string",
+                            "description": "The location the artifact has been moved too"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CCTVSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "unautorisedSiteEntry":{
+                "title": "Unauthorised Site Entry",
+                "description": "An individual has entered the dig site without authorisation",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "location":{
+                            "type": "string",
+                            "description": "The location of the access point"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "String encoded CCTV footage of the intrusion"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CrewScheduler",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "scheduleTask":{
+                "type": "",
+                "title": "Schedule Task",
+                "description": "Schedules a new task for the crew of this digs site",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "role":{
+                            "type": "string",
+                            "description": "The crew role that this task is for"
+                        },
+                        "type":{
+                            "type": "string",
+                            "description": "The type/title for the task"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "The details of the tasks to be relayed to the crew of the provided role"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "DataAnalyser",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "queueDataForAnalysis":{
+                "type": "",
+                "title": "Queue Data For Analysis",
+                "description": "Queues provided data for analysis to produce new insights regarding the current digsite",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "type":{
+                            "type": "string",
+                            "description": "The type of data to be analysed"
+                        },
+                        "data":{
+                            "type": "string",
+                            "description": "The data to be analysed"
+                        }
+                    }
+                },
+                "forms": []
+            },
+            "logData":{
+                "type": "",
+                "title": "Log Data",
+                "description": "Logs provided data in the database",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "type":{
+                            "type": "string",
+                            "description": "The type of data to be logged"
+                        },
+                        "data":{
+                            "type": "string",
+                            "description": "The data to be logged"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EnvironmentalActuators",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "fanOn":{
+                "type": "",
+                "title": "Fan On",
+                "description": "Turns the digsite fan on to reduce the temperature",
+                "forms": []
+            },
+            "fanOff":{
+                "type": "",
+                "title": "Fan Off",
+                "description": "Turns the digsite fan off",
+                "forms": []
+            },
+            "windShieldUp":{
+                "type": "",
+                "title": "Wind Shield Up",
+                "description": "Raises the wind shield around the digsite to prevent potential damage or loss of artifacts",
+                "forms": []
+            },
+            "windShieldDown":{
+                "type": "",
+                "title": "Wind Shield Down",
+                "description": "Lowers the wind shield around the digsite",
+                "forms": []
+            },
+            "raiseRainCanopy":{
+                "type": "",
+                "title": "Raise Rain Canopy",
+                "description": "Raises the canopy to protect the dig site from rain",
+                "forms": []
+            },
+            "lowerRainCanopy":{
+                "type": "",
+                "title": "Lower Rain Canopy",
+                "description": "Lowers the canopy to protect the dig site from rain",
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EnvironmentalSensors",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "temperature":{
+                "title": "Temperature",
+                "description": "The temperature of the dig site",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The temperature of the dig site"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "windSpeed":{
+                "title": "Wind Speed",
+                "description": "The speed of the wind surrounding the dig site",
+                "subscription": {},
+                "data": {
+                    "type":"number",
+                    "description": "The speed of the wind surrounding the dig site"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "rainfall":{
+                "title": "Rainfall",
+                "description": "The current rainfall at the dig site",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The amount of rainfall at the dig site"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "disasterDetected":{
+                "title": "Disaster Detected",
+                "description": "An alert made when a disaster is detected (e.g. fire, earthquake, tsunami)",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "The type of disaster that has been detected"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EquipmentManager",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "equipmentMalfunction":{
+                "title": "Equipment Malfunction",
+                "description": "An event produced when an equipment malfunction is detected",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "The equipment that malfunctioned"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "SiteAnalyser",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "inputSurveyData":{
+                "type": "",
+                "title": "Input Survey Data",
+                "description": "Adds data of the specified type to be analysed, to improve the site view and discover new potential artifacts",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "type":{
+                            "type": "string",
+                            "description": "The type of data being entered"
+                        },
+                        "location":{
+                            "type": "string",
+                            "description": "The location the data was recorded from"
+                        },
+                        "data":{
+                            "type": "string",
+                            "description": "The data to be added"
+                        }
+                    }
+                },
+                "output": {
+                    "type": "string",
+                    "description": "The updated site view for the dig site"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "StructureMonitor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "structuralWeaknessDetected":{
+                "title": "Structural Weakness Detected",
+                "description": "An alert made when structural weaknesses are detected in a archeological structure",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "location":{
+                            "type": "string",
+                            "description": "The location of the structural weakness"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "Relevent details concerning the weakness"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "SurveyDrone",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "newCameraImage":{
+                "title": "New Camera Image",
+                "description": "Notification of a new aerial camera image of an area of the dig site",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "location":{
+                            "type": "string",
+                            "description": "The location of the photographed area"
+                        },
+                        "image":{
+                            "type":"string",
+                            "description": "A string embedding of the produced image"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "newRadarImage":{
+                "title": "New Radar Image",
+                "description": "Notification of new aerial radar imagery for an area of the dig site",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "location":{
+                            "type": "string",
+                            "description": "The location of the mapped area"
+                        },
+                        "image":{
+                            "type":"string",
+                            "description": "A string embedding of the produced radar image"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "UserDevice",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "updateSiteView":{
+                "type": "",
+                "title": "Update Site View",
+                "description": "Update the data held for the current dig site on this device",
+                "input": {
+                    "type": "string",
+                    "description": "The updated site view data"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "userDataSubmitted":{
+                "title": "Data Submitted",
+                "description": "An event to broadcast data entered by the user of this device",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "artifactID":{
+                            "type": "string",
+                            "description": "The ID of the artifact that the submitted data relates too"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "The user submitted data for the selected artifact"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "VisitorSecuritySystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "visitorInRestrictedArea":{
+                "title": "Visitor In Restricted Area",
+                "description": "Produces an alert when a visitor enters a restricted area",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "location":{
+                            "type": "string",
+                            "description": "The location of the unauthorised access"
+                        },
+                        "visitorID":{
+                            "type": "string",
+                            "description": "The ID of the visitor causing the intrusion"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    }
+]

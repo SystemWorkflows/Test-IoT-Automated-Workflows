@@ -1,0 +1,2 @@
+## Notes
+Space station and Smart Aquarium outputs were generated in two parts due to the length of their workflows. "z" values were altered manually to ensure they were equal between generations in the same workflow.

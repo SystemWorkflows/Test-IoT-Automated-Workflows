@@ -1,0 +1,558 @@
+[
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "BackupCommsSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "activateBackupComms":{
+                "type": "",
+                "title": "Activate Backup Comms",
+                "description": "Activates the backup communication system to restore communication with ground control",
+                "forms": []
+            },
+            "initiateBackupCommsRepareMode":{
+                "type": "",
+                "title": "Initiate Backup Comms Repare Mode",
+                "description": "Initates the repare mode for this communication system, enabling engineers to work on the device",
+                "forms": []
+            },
+            "alertGroundControlBakup":{
+                "type": "",
+                "title": "Alert Ground Control Backup",
+                "description": "Sends an alert to ground control through backup communication methods",
+                "input": {
+                    "type": "array",
+                    "description": "The alert type and details strings to be sent in the form [type, details]"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "backupCommsFailure":{
+                "title": "Backup Comms Failure",
+                "description": "An event given when the backup communication system fails",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CommsSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "deployEmergencyCommsBeakon":{
+                "type": "",
+                "title": "Deploy Emergency Comms Beakon",
+                "description": "Deploys an emergency communication beakon for location of this space craft",
+                "forms": []
+            },
+            "initiateRepareMode":{
+                "type": "",
+                "title": "Initiate Repare Mode",
+                "description": "Initates the repare mode for this communication system, enabling engineers to work on the device",
+                "forms": []
+            },
+            "alertGroundControl":{
+                "type": "",
+                "title": "Alert Ground Control",
+                "description": "Sends an alert to ground control",
+                "input": {
+                    "type": "array",
+                    "description": "The alert type and details strings to be sent in the form [type, details]"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "groundControlLost":{
+                "title": "Ground Control Lost",
+                "description": "An event broadcast when communication with ground control is lost",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "ControlCentre",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertControlCentre":{
+                "type": "",
+                "title": "Alert Control Centre",
+                "description": "Alerts the control centre of some event",
+                "input": {
+                    "type": "array",
+                    "description": "The type and details of the alert in the form [type, details]"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CrewDevice",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "deliverMeasurement":{
+                "type": "",
+                "title": "Deliver Measurement",
+                "description": "Delivers a new measurement to the crew",
+                "input": {
+                    "type":"array",
+                    "description": "The measurement type and value in the form [type, value]"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CrewScheduler",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "scheduleTask":{
+                "type": "",
+                "title": "Schedule Task",
+                "description": "Schedules a task for the crew aboard the space station",
+                "input": {
+                    "type": "string",
+                    "description": "Details of the task to be scheduled"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "DataProcessingSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "addDataToProcess":{
+                "type": "",
+                "title": "AddDataToProcess",
+                "description": "Adds the provided data to the queue for analysis",
+                "input": {
+                    "type": "array",
+                    "description": "The type and value of data in the form [type, value]"
+                },
+                "output": {
+                    "type": "object",
+                    "description": "The result of analysis for the current data"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EnvironmentalControlCentre",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alterTemperature":{
+                "type": "",
+                "title": "Alter Temperature",
+                "description": "Alters the temperature of the space station",
+                "input": {
+                    "type": "number",
+                    "description": "The amount of degrees to alter the temperature by, + or -"
+                },
+                "forms": []
+            },
+            "alterHumidity":{
+                "type": "",
+                "title": "Alter Humidity",
+                "description": "Alters the humidity of the space station",
+                "input": {
+                    "type": "number",
+                    "description": "The percentage amount to alter the humidity by, + or -"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "FireSafetySystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "activateFireSuppression":{
+                "type": "",
+                "title": "Activate Fire Suppression",
+                "description": "Activates the fire suppression systems at the given location",
+                "input": {
+                    "type": "string",
+                    "description": "The location of the fire"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "fireDetected":{
+                "title": "Fire Detected",
+                "description": "Alerts when a fire is detected on the space station",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "The location of the fire"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "HumiditySensor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "humidity":{
+                "title": "Humidity",
+                "description": "Alerts changes in humidity around this sensor",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The humidity surrounding this sensor"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "ModuleControlSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "closeModule":{
+                "type": "",
+                "title": "Close Module",
+                "description": "Closes a given module",
+                "input": {
+                    "type": "string",
+                    "description": "The location of the module"
+                },
+                "forms": []
+            },
+            "openModule":{
+                "type": "",
+                "title": "Open Module",
+                "description": "Opens a given module",
+                "input": {
+                    "type": "string",
+                    "description": "The location of the module"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "damageDetected":{
+                "title": "Damage Detected",
+                "description": "Alerts when damage to a module is detected",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "location":{
+                            "type": "string",
+                            "description": "The location of the module that has sustained damage"
+                        },
+                        "severity":{
+                            "type": "string",
+                            "description": "The severity of the damage (major or minor)"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "OxygenSensor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "oxygenLevel":{
+                "title": "Oxygen Level",
+                "description": "Periodically produces notifications of the oxygen concentrationin the air surrounding this sensor",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The concentration of oxygen within the space station"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "OxygenSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "activateBackupOxygen":{
+                "type": "",
+                "title": "Activate Backup Oxygen",
+                "description": "Activates the backup oxygen generator",
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "ResearchSensors",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "forceReading":{
+                "title": "Force Reading",
+                "description": "Broadcasts the measurement of the force sensor",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The measurement of the force sensor"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "accelerationReading":{
+                "title": "Acceleration Reading",
+                "description": "Broadcasts the measurement of the acceleration sensor",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The measurement of the acceleration sensor"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "gravityReading":{
+                "title": "Gravity Reading",
+                "description": "Broadcasts the measurement of the gravitational force sensor",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The measurement of the gravitational force sensor"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "TannoySystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertCrew":{
+                "type": "",
+                "title": "Alert Crew",
+                "description": "Alerts the crew with a given message",
+                "input": {
+                    "type": "string",
+                    "description": "The message to be announced to the crew"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "TemperatureSensor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "temperature":{
+                "title": "Temperature",
+                "description": "Makes periodic alerts of the temperature of this sensor",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The temperature of this sensor"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    }
+]

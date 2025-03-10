@@ -1,0 +1,610 @@
+[
+    {
+        "id": "19019c2902919183",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "928381c283828383",
+        "type": "system-event-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "redLight",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/trafficlight\",\"output\":{},\"description\":\"An event given when the light is red\",\"title\":\"Red Light\",\"event\":\"redLight\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "8283838382838383"
+            ]
+        ]
+    },
+    {
+        "id": "8283838382838383",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "deactivateSignal",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/crossingsignal\",\"params\":{},\"description\":\"Deactivate the pedestrian crossing signal\",\"title\":\"Deactivate Signal\",\"action\":\"deactivateSignal\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 350,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "928381c283828384",
+        "type": "system-event-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "motionDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/pedestriandetector\",\"output\":{},\"description\":\"An event made when pedestrian motion has been detected\",\"title\":\"Motion Detected\",\"event\":\"motionDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "8283838382838384"
+            ]
+        ]
+    },
+    {
+        "id": "8283838382838384",
+        "type": "system-property-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingProperty": "currentLight",
+        "thingPropertyValue": "{\"uri\":\"http://localhost:8080/trafficlight\",\"readOnly\":true,\"type\":\"string\",\"description\":\"The current active light name \\\"red\\\",\\\"amber\\\",\\\"green\\\"\",\"title\":\"Current Light\",\"property\":\"currentLight\"}",
+        "mode": "read",
+        "redeploy": "true",
+        "x": 350,
+        "y": 120,
+        "wires": [
+            [
+                "928381c283828385"
+            ]
+        ]
+    },
+    {
+        "id": "928381c283828385",
+        "type": "switch",
+        "z": "19019c2902919183",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "red",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 530,
+        "y": 120,
+        "wires": [
+            [
+                "8283838382838385"
+            ]
+        ]
+    },
+    {
+        "id": "8283838382838385",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "increaseCurrentLightTime",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/trafficlight\",\"params\":{\"time\":\"number\"},\"description\":\"Increases the time allocated for the currently displayed light\",\"title\":\"Increase Current Light Time\",\"action\":\"increaseCurrentLightTime\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 750,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "928381c283828386",
+        "type": "system-event-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "emergencyVehicleDispatched",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/emergencyservices\",\"output\":{\"type\":\"array\",\"description\":\"A list of coordinate points along the path the emergency vehicle will take\"},\"description\":\"Notifies when an emergency vehicle has been dispatched\",\"title\":\"Emergency Vehicle Dispatched\",\"event\":\"emergencyVehicleDispatched\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 170,
+        "y": 200,
+        "wires": [
+            [
+                "8283838382838386",
+                "928381c283828387"
+            ]
+        ]
+    },
+    {
+        "id": "8283838382838386",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "notifyEmergency",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/vehicle\",\"params\":{\"path\":\"array\"},\"description\":\"Notify this vehicle of an emergency vehicle's path\",\"title\":\"Notify Emergency\",\"action\":\"notifyEmergency\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 410,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "928381c283828387",
+        "type": "system-property-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingProperty": "currentLight",
+        "thingPropertyValue": "{\"uri\":\"http://localhost:8080/trafficlight\",\"readOnly\":true,\"type\":\"string\",\"description\":\"The current active light name \\\"red\\\",\\\"amber\\\",\\\"green\\\"\",\"title\":\"Current Light\",\"property\":\"currentLight\"}",
+        "mode": "read",
+        "redeploy": "true",
+        "x": 410,
+        "y": 260,
+        "wires": [
+            [
+                "928381c283828388"
+            ]
+        ]
+    },
+    {
+        "id": "928381c283828388",
+        "type": "switch",
+        "z": "19019c2902919183",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "ne",
+                "v": "green",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 590,
+        "y": 260,
+        "wires": [
+            [
+                "8283838382838387"
+            ]
+        ]
+    },
+    {
+        "id": "8283838382838387",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "setLightColour",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/trafficlight\",\"params\":{\"colour\":\"string\"},\"description\":\"Sets the light colour to one of \\\"red\\\", \\\"amber\\\", \\\"green\\\"\",\"title\":\"Set Light Colour\",\"action\":\"setLightColour\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 810,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "928381c283828389",
+        "type": "system-event-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "trafficJamDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/vehicle\",\"output\":{\"type\":\"string\",\"description\":\"The location of the traffic jam\"},\"description\":\"Publishes an alert when this vehicle detects a traffic jam, with the location of the traffic\",\"title\":\"Traffic Jam Detected\",\"event\":\"trafficJamDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "8283838382838388",
+                "928381c283828390"
+            ]
+        ]
+    },
+    {
+        "id": "8283838382838388",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "optimiseLightTimings",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/trafficcontroller\",\"params\":{},\"description\":\"Calculates optimal light timings for the city\",\"title\":\"Optimise Light Timings\",\"action\":\"optimiseLightTimings\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 390,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "928381c283828390",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "notifyVehicle",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/vehicle\",\"params\":{\"type\":\"string\",\"details\":\"string\"},\"description\":\"Notifies the users of this vehicle\",\"title\":\"Notify Vehicle\",\"action\":\"notifyVehicle\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 390,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "928381c283828391",
+        "type": "system-event-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "binFull",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/trashbin\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"the location of this bin\"},\"time\":{\"type\":\"integer\",\"description\":\"The time in seconds since this bin was filled\"}}},\"description\":\"Produces periodic alerts whilst this bin is full\",\"title\":\"Bin Full\",\"event\":\"binFull\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 460,
+        "wires": [
+            [
+                "928381c283828392"
+            ]
+        ]
+    },
+    {
+        "id": "928381c283828392",
+        "type": "switch",
+        "z": "19019c2902919183",
+        "name": "",
+        "property": "payload[\"time\"]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "24*60*60",
+                "vt": "str"
+            },
+            {
+                "t": "gt",
+                "v": "24*60*60",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 290,
+        "y": 460,
+        "wires": [
+            [
+                "8283838382838389"
+            ],
+            [
+                "8283838382838390"
+            ]
+        ]
+    },
+    {
+        "id": "8283838382838389",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "arrangeWastePickup",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/wastedepartment\",\"params\":{\"location\":\"string\"},\"description\":\"Arranges a waste pickup at a given location\",\"title\":\"Arrange Waste Pickup\",\"action\":\"arrangeWastePickup\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 510,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8283838382838390",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "arrangeWastePickup",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/wastedepartment\",\"params\":{\"location\":\"string\"},\"description\":\"Arranges a waste pickup at a given location\",\"title\":\"Arrange Waste Pickup\",\"action\":\"arrangeWastePickup\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 510,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "928381c283828393",
+        "type": "system-event-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "landfillCapacityUsed",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/landfillmanagement\",\"output\":{\"type\":\"number\",\"description\":\"The estimated percentage capacity that the lanfill is at\"},\"description\":\"An event when capacity of the landfill changes, broadcasting an estimated percentage of the fill amount\",\"title\":\"Landfill Capacity Used\",\"event\":\"landfillCapacityUsed\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 560,
+        "wires": [
+            [
+                "928381c283828394"
+            ]
+        ]
+    },
+    {
+        "id": "928381c283828394",
+        "type": "switch",
+        "z": "19019c2902919183",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0.9",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 310,
+        "y": 560,
+        "wires": [
+            [
+                "8283838382838391"
+            ]
+        ]
+    },
+    {
+        "id": "8283838382838391",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertPlanner",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/cityplanner\",\"params\":{\"type\":\"string\",\"details\":\"string\"},\"description\":\"Alerts the planner with the given message\",\"title\":\"Alert Planner\",\"action\":\"alertPlanner\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 510,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "928381c283828395",
+        "type": "system-event-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "safetyAlert",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/publicsafetysystem\",\"output\":{\"type\":\"string\",\"description\":\"The location of the incident\"},\"description\":\"Reports when a public safety incident has occured\",\"title\":\"Safety Alert\",\"event\":\"safetyAlert\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 640,
+        "wires": [
+            [
+                "8283838382838392"
+            ]
+        ]
+    },
+    {
+        "id": "8283838382838392",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertIncident",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/emergencyservices\",\"params\":{\"type\":\"string\",\"location\":\"string\"},\"description\":\"Alerts the emergency services of an issue\",\"title\":\"Alert Incident\",\"action\":\"alertIncident\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 330,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "928381c283828396",
+        "type": "system-event-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "unusualActivityDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/cctvsystem\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"The location of the activity\"},\"details\":{\"type\":\"string\",\"description\":\"An encoded video clip of the activity\"}}},\"description\":\"Alerts when abnormal activity is detected by CCTV cameras\",\"title\":\"Unusual Activity Detected\",\"event\":\"unusualActivityDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 720,
+        "wires": [
+            [
+                "8283838382838393"
+            ]
+        ]
+    },
+    {
+        "id": "8283838382838393",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertIncident",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/emergencyservices\",\"params\":{\"type\":\"string\",\"location\":\"string\"},\"description\":\"Alerts the emergency services of an issue\",\"title\":\"Alert Incident\",\"action\":\"alertIncident\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 350,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "928381c283828397",
+        "type": "system-event-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "energyThesholdExceded",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/energymonitor\",\"output\":{},\"description\":\"Notifies when the energy usage threshold has been exceded\",\"title\":\"Energy Threshold Exceded\",\"event\":\"energyThesholdExceded\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 800,
+        "wires": [
+            [
+                "8283838382838394"
+            ]
+        ]
+    },
+    {
+        "id": "8283838382838394",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertManager",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/facilitiesmanager\",\"params\":{\"type\":\"string\",\"details\":\"string\"},\"description\":\"Delivers an alert to the facilities manager\",\"title\":\"Alert Manager\",\"action\":\"alertManager\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 370,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "928381c283828398",
+        "type": "system-event-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "powerOutageDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/energymonitor\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"The location of the power outage\"},\"time\":{\"type\":\"number\",\"description\":\"The time in seconds since the outage was first detected\"}}},\"description\":\"Makes a periodic notification when a power outage has been detected\",\"title\":\"Power Outage Detected\",\"event\":\"powerOutageDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 880,
+        "wires": [
+            [
+                "928381c283828399"
+            ]
+        ]
+    },
+    {
+        "id": "928381c283828399",
+        "type": "switch",
+        "z": "19019c2902919183",
+        "name": "",
+        "property": "payload[\"time\"]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "60*60",
+                "vt": "str"
+            },
+            {
+                "t": "gt",
+                "v": "60*60",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 880,
+        "wires": [
+            [
+                "8283838382838395"
+            ],
+            [
+                "8283838382838396",
+                "928381c2838283a0"
+            ]
+        ]
+    },
+    {
+        "id": "8283838382838395",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "notifyOutage",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/energydepartment\",\"params\":{\"location\":\"string\"},\"description\":\"Notifies the energy deparment of a power outage\",\"title\":\"Notify Outage\",\"action\":\"notifyOutage\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 530,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8283838382838396",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertResident",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/residentdevice\",\"params\":{\"type\":\"string\",\"details\":\"string\"},\"description\":\"Alerts residents with some message\",\"title\":\"Alert Resident\",\"action\":\"alertResident\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 530,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "928381c2838283a0",
+        "type": "system-action-node",
+        "z": "19019c2902919183",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "notifyOutage",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/energydepartment\",\"params\":{\"location\":\"string\"},\"description\":\"Notifies the energy deparment of a power outage\",\"title\":\"Notify Outage\",\"action\":\"notifyOutage\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 530,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    }
+]

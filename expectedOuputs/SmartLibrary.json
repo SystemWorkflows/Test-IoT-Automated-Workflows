@@ -1,0 +1,988 @@
+[
+    {
+        "id": "5f397b6767e216ee",
+        "type": "tab",
+        "label": "Flow 6",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e845a0036bb71cb0",
+        "type": "system-event-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "bookRemoved",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/rfidscanner\",\"output\":{\"type\":\"number\",\"description\":\"The ID of the book that has been removed\"},\"description\":\"Notifies of a book leaving the library\",\"title\":\"Book Removed\",\"event\":\"bookRemoved\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 40,
+        "wires": [
+            [
+                "73bfcbd64a5ca314"
+            ]
+        ]
+    },
+    {
+        "id": "73bfcbd64a5ca314",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "checkIfBookWasCheckedOut",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/librarydatabase\",\"params\":{},\"output\":{\"type\":\"boolean\",\"description\":\"Whether or not the selected book is checked out\"},\"description\":\"Checks whether the selected book was checked out or not\",\"title\":\"Check If Book Was Checked Out\",\"action\":\"checkIfBookWasCheckedOut\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 320,
+        "y": 40,
+        "wires": [
+            [
+                "a7147b4bb0dd108f"
+            ]
+        ]
+    },
+    {
+        "id": "a7147b4bb0dd108f",
+        "type": "switch",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 510,
+        "y": 40,
+        "wires": [
+            [
+                "90781e15e17283b3",
+                "d8bf5e7d2968803e"
+            ]
+        ]
+    },
+    {
+        "id": "320dc21195005118",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Sends an alert to a role, with a given message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 360,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "90781e15e17283b3",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\": \"security\", \"message\": \"The book \" + msg.payload + \" was removed from the library without being checked out\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 200,
+        "y": 100,
+        "wires": [
+            [
+                "9a9b5a3726777dfe"
+            ]
+        ]
+    },
+    {
+        "id": "cc3b77d62100fca8",
+        "type": "system-event-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "bookReturned",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/rfidscanner\",\"output\":{\"type\":\"number\",\"description\":\"The ID of the book that has been returned\"},\"description\":\"Notifies of a book being returned to the library\",\"title\":\"Book Returned\",\"event\":\"bookReturned\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "6cd412a8ea28fae5"
+            ]
+        ]
+    },
+    {
+        "id": "bf9a887277296a09",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "updateBookStatus",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/librarydatabase\",\"params\":{\"bookID\":\"number\",\"status\":\"string\"},\"description\":\"Sets the status for a selected book\",\"title\":\"Update Book Status\",\"action\":\"updateBookStatus\"}",
+        "outputToMsg": false,
+        "redeploy": "false",
+        "x": 470,
+        "y": 200,
+        "wires": [
+            [
+                "a08e9f04966c7198",
+                "20055e558bd4bf29"
+            ]
+        ]
+    },
+    {
+        "id": "6cd412a8ea28fae5",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"bookID\": msg.payload, \"status\": \"available\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 200,
+        "wires": [
+            [
+                "bf9a887277296a09"
+            ]
+        ]
+    },
+    {
+        "id": "d3b50c577b686f43",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Sends an alert to a role, with a given message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 880,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a08e9f04966c7198",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\": \"libraryStaff\", \"message\": \"The book \" + msg.payload[\"bookID\"] + \" was returned\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 700,
+        "y": 200,
+        "wires": [
+            [
+                "d3b50c577b686f43"
+            ]
+        ]
+    },
+    {
+        "id": "9a9b5a3726777dfe",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Sends an alert to a role, with a given message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 360,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d8bf5e7d2968803e",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\": \"libraryStaff\", \"message\": \"The book \" + msg.payload + \" was removed from the library without being checked out\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 200,
+        "y": 140,
+        "wires": [
+            [
+                "320dc21195005118"
+            ]
+        ]
+    },
+    {
+        "id": "742af601ec57cea4",
+        "type": "system-event-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "bookMisplaced",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/bookorganiser\",\"output\":{\"type\":\"object\",\"properties\":{\"bookID\":{\"type\":\"string\",\"description\":\"The ID of the book that has been incorrectly places\"},\"location\":{\"type\":\"string\",\"description\":\"The book's current location\"}}},\"description\":\"Alerts when a book is placed incorrectly within the library\",\"title\":\"Book Misplaced\",\"event\":\"bookMisplaced\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 120,
+        "y": 320,
+        "wires": [
+            [
+                "829dde51e60528f1"
+            ]
+        ]
+    },
+    {
+        "id": "21898b2c8973acb3",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Sends an alert to a role, with a given message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 460,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "829dde51e60528f1",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\": \"libraryStaff\", \"message\": \"The book \" + msg.payload[\"bookID\"] + \" was incorrectly placed at \" + msg.payload[\"location\"]}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 320,
+        "wires": [
+            [
+                "21898b2c8973acb3"
+            ]
+        ]
+    },
+    {
+        "id": "ca2e119209dc8df6",
+        "type": "system-event-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "temperature",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/environmentalsensors\",\"output\":{\"type\":\"number\",\"description\":\"The current temperature\"},\"description\":\"A periodic event of the current library temperature\",\"title\":\"Temperature\",\"event\":\"temperature\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 110,
+        "y": 400,
+        "wires": [
+            [
+                "8c2aba198e6c7486"
+            ]
+        ]
+    },
+    {
+        "id": "898fb5f1841d888a",
+        "type": "system-event-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "humidity",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/environmentalsensors\",\"output\":{\"type\":\"number\",\"description\":\"The current humidity as a percentage\"},\"description\":\"A periodic event of the current library humidity\",\"title\":\"Humidity\",\"event\":\"humidity\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 100,
+        "y": 440,
+        "wires": [
+            [
+                "a3748e92e0cafbba"
+            ]
+        ]
+    },
+    {
+        "id": "8c2aba198e6c7486",
+        "type": "switch",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "21",
+                "vt": "num"
+            },
+            {
+                "t": "lt",
+                "v": "18",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 250,
+        "y": 400,
+        "wires": [
+            [
+                "10a3d52963b88693",
+                "f080b25f2ed6d561"
+            ],
+            [
+                "10a3d52963b88693",
+                "bd7ba18e8136a71a"
+            ]
+        ]
+    },
+    {
+        "id": "a3748e92e0cafbba",
+        "type": "switch",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0.50",
+                "vt": "num"
+            },
+            {
+                "t": "lt",
+                "v": "0.30",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 250,
+        "y": 440,
+        "wires": [
+            [
+                "fc817e6df40a4152",
+                "5fac36fe69ee51b1"
+            ],
+            [
+                "fc817e6df40a4152",
+                "4fe36dacbc2dcce3"
+            ]
+        ]
+    },
+    {
+        "id": "1eb61606029f4f84",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "adjustTemperature",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/environmentalcontrolsystem\",\"params\":{},\"description\":\"Alters the temperature of the library by a given amount\",\"title\":\"Adjust Temperature\",\"action\":\"adjustTemperature\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 610,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e842548f2f572235",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "adjustHumidity",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/environmentalcontrolsystem\",\"params\":{},\"description\":\"Alters the humidity of the library by a given amount\",\"title\":\"Adjust Humidity\",\"action\":\"adjustHumidity\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 600,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "10a3d52963b88693",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "(21+18)/2 - msg.payload",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 400,
+        "wires": [
+            [
+                "1eb61606029f4f84"
+            ]
+        ]
+    },
+    {
+        "id": "fc817e6df40a4152",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "(0.50+0.30)/2 - msg.payload",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 440,
+        "wires": [
+            [
+                "e842548f2f572235"
+            ]
+        ]
+    },
+    {
+        "id": "4641dda06ffbe167",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertCrew",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Sends an alert to a role, with a given message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 620,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f080b25f2ed6d561",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\": \"libraryStaff\", \"message\": \"High temperature, heat lowered\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 500,
+        "wires": [
+            [
+                "4641dda06ffbe167"
+            ]
+        ]
+    },
+    {
+        "id": "bd7ba18e8136a71a",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\": \"libraryStaff\", \"message\": \"Low temperature, heat increased\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 540,
+        "wires": [
+            [
+                "4641dda06ffbe167"
+            ]
+        ]
+    },
+    {
+        "id": "5fac36fe69ee51b1",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\": \"libraryStaff\", \"message\": \"High humdity, humidity lowered\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 620,
+        "wires": [
+            [
+                "4641dda06ffbe167"
+            ]
+        ]
+    },
+    {
+        "id": "4fe36dacbc2dcce3",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\": \"libraryStaff\", \"message\": \"Low humdity, humidity increased\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 660,
+        "wires": [
+            [
+                "4641dda06ffbe167"
+            ]
+        ]
+    },
+    {
+        "id": "36554772ad2e80ca",
+        "type": "system-event-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "fireDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/firedetectionsystem\",\"output\":{\"type\":\"string\",\"description\":\"The location of the detected fire\"},\"description\":\"An alert made when a fire is detected in the building\",\"title\":\"Fire Detected\",\"event\":\"fireDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 110,
+        "y": 740,
+        "wires": [
+            [
+                "ea8bfbd7866aed6d",
+                "bd2b7f06ae9bfe11",
+                "3941f4c7e471ed23"
+            ]
+        ]
+    },
+    {
+        "id": "4ecd613c0d6d3117",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Sends an alert to a role, with a given message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 460,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ea8bfbd7866aed6d",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\": \"libraryStaff\", \"message\": \"Fire detected at \" + msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 740,
+        "wires": [
+            [
+                "4ecd613c0d6d3117"
+            ]
+        ]
+    },
+    {
+        "id": "bd2b7f06ae9bfe11",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "suppressFire",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/firesuppressionsystem\",\"params\":{},\"description\":\"Activates fire suppression methods at the given location\",\"title\":\"Suppress Fire\",\"action\":\"suppressFire\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 290,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3941f4c7e471ed23",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "triggerFireAlarm",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/firesuppressionsystem\",\"params\":{},\"description\":\"Triggers the fire alarm for this building\",\"title\":\"Trigger Fire Alarm\",\"action\":\"triggerFireAlarm\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 300,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "53b25f1dde6929dc",
+        "type": "system-event-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "userEntered",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/usertrackingsystem\",\"output\":{\"type\":\"number\",\"description\":\"The ID of the user that has entered the building\"},\"description\":\"An event made when a user enters the library\",\"title\":\"User Entered\",\"event\":\"userEntered\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 880,
+        "wires": [
+            [
+                "44d35c099f12cc5e"
+            ]
+        ]
+    },
+    {
+        "id": "44d35c099f12cc5e",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "logUserEntry",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/librarydatabase\",\"params\":{},\"description\":\"Logs a user's entry to the library\",\"title\":\"Log User Entry\",\"action\":\"logUserEntry\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 270,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d7e12a03335153fb",
+        "type": "system-event-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "requestForBookLocation",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/userdevice\",\"output\":{\"type\":\"number\",\"description\":\"The ID of the book for which the location is being requested\"},\"description\":\"An event made when a user makes a request for a book's location\",\"title\":\"Request For Book Location\",\"event\":\"requestForBookLocation\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 150,
+        "y": 940,
+        "wires": [
+            [
+                "3afd6c5d212fe9ac"
+            ]
+        ]
+    },
+    {
+        "id": "3afd6c5d212fe9ac",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "findBookLocation",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/bookorganiser\",\"params\":{},\"output\":{\"type\":\"string\",\"description\":\"The location of the chosen book\"},\"description\":\"Finds the location of a given book within the library\",\"title\":\"Find Book Location\",\"action\":\"findBookLocation\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 370,
+        "y": 940,
+        "wires": [
+            [
+                "4261472d6b8adcd3"
+            ]
+        ]
+    },
+    {
+        "id": "4261472d6b8adcd3",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "receiveBookLocation",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/userdevice\",\"params\":{\"bookID\":\"number\",\"location\":\"string\"},\"description\":\"Allows the location of a book's location to be relayed to a user\",\"title\":\"Receive Book Location\",\"action\":\"receiveBookLocation\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 580,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "340d9eb3ed70977c",
+        "type": "system-event-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "deviceMalfunctioned",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/equipmentmonitor\",\"output\":{\"type\":\"string\",\"description\":\"The device that has malfunctioned\"},\"description\":\"An alert made when a device has malfunctioned\",\"title\":\"Device Malfunctioned\",\"event\":\"deviceMalfunctioned\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 1020,
+        "wires": [
+            [
+                "d38964a9cc65e6b1"
+            ]
+        ]
+    },
+    {
+        "id": "2594a7d2f641c07d",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Sends an alert to a role, with a given message\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 480,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d38964a9cc65e6b1",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\": \"maintanenceTeam\", \"message\": msg.payload + \" has malfunctioned\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 1020,
+        "wires": [
+            [
+                "2594a7d2f641c07d"
+            ]
+        ]
+    },
+    {
+        "id": "c3fa7ea181988acc",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "notifyBookReadyForPickup",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/userdevice\",\"params\":{\"bookID\":\"number\",\"location\":\"string\"},\"description\":\"Notifies the user of this device that a book is ready for pickup\",\"title\":\"Notify Book Ready For Pickup\",\"action\":\"notifyBookReadyForPickup\"}",
+        "outputToMsg": false,
+        "redeploy": "true",
+        "x": 1020,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "20055e558bd4bf29",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "checkReservedStatus",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/librarydatabase\",\"params\":{},\"output\":{\"type\":\"object\",\"properties\":{\"reserved\":{\"type\":\"boolean\",\"description\":\"Whether the selected book is reserved or not\"},\"userID\":{\"type\":\"string\",\"description\":\"The ID of the user that has reserved the specified book (when reserved)\"}}},\"description\":\"Checks whether the selected book is reserved or not\",\"title\":\"Check Reserved Status\",\"action\":\"checkReservedStatus\"}",
+        "outputToMsg": false,
+        "redeploy": "false",
+        "x": 220,
+        "y": 260,
+        "wires": [
+            [
+                "f26e15a714e506a4"
+            ]
+        ]
+    },
+    {
+        "id": "a825c555a9064fe6",
+        "type": "system-action-node",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "findBookLocation",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/bookorganiser\",\"params\":{},\"output\":{\"type\":\"string\",\"description\":\"The location of the chosen book\"},\"description\":\"Finds the location of a given book within the library\",\"title\":\"Find Book Location\",\"action\":\"findBookLocation\"}",
+        "outputToMsg": false,
+        "redeploy": "true",
+        "x": 610,
+        "y": 260,
+        "wires": [
+            [
+                "7900e6a1f9ee97a7"
+            ]
+        ]
+    },
+    {
+        "id": "f26e15a714e506a4",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "bookID",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 260,
+        "wires": [
+            [
+                "a825c555a9064fe6"
+            ]
+        ]
+    },
+    {
+        "id": "7900e6a1f9ee97a7",
+        "type": "change",
+        "z": "5f397b6767e216ee",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"bookID\":msg.bookID, \"location\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 260,
+        "wires": [
+            [
+                "c3fa7ea181988acc"
+            ]
+        ]
+    }
+]

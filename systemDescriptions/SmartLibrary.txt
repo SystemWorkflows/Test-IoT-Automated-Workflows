@@ -1,0 +1,17 @@
+RFID tags on books track their location within the library. If a book is removed from the library without being checked out, alert the library staff and initiate security procedures.
+
+When a book is returned, update its status in the library database and send a notification to the library staff.
+
+If a book is misplaced or left in the wrong section, alert the library staff and provide the book’s location.
+
+If any area’s temperature or humidity deviates from a set range, adjust the environmental control system accordingly and alert the library staff.
+
+If a fire is detected, alert the library staff, initiate fire suppression systems, and evacuate the library (start the fire alarm).
+
+When a user enters the library, their library card is automatically detected and their entry is logged in the library database.
+
+If a user is looking for a specific book, they can use the library app to find the book’s location. The app communicates with the library’s IoT system to provide real-time location data.
+
+If a user has reserved a book, they receive a notification on their device when the book is available for pickup.
+
+Monitor the health and status of all equipment, including computers, printers, and self-checkout machines. If any device malfunctions, alert the maintenance team to initiate repair procedures.

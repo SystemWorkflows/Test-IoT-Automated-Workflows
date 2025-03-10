@@ -1,0 +1,532 @@
+[
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "AlertSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertRole":{
+                "type": "",
+                "title": "Alert Role",
+                "description": "Alerts the given system role with a provided message",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "role":{
+                            "type": "string",
+                            "description": "The role to be alerted"
+                        },
+                        "message":{
+                            "type": "string",
+                            "description": "The message to be sent to the role"
+                        }
+                    }
+                },
+                "forms": []
+            },
+            "dispatchRescueTeam":{
+                "type": "",
+                "title": "Dispatch Rescue Team",
+                "description": "Sends the rescue team to the provided location",
+                "input":{
+                    "type": "string",
+                    "description": "The location to send the rescue team too"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "AvalancheDetector",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "avalancheDetected":{
+                "title": "Avalanche Detected",
+                "description": "An event made when an avalanche is detected",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "the location of the avalanche"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CustomerContacts",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "notifyCustomer":{
+                "type": "",
+                "title": "Notify Customer",
+                "description": "Notifies the customer with the provided ID of the given message",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "customerID":{
+                            "type": "string",
+                            "description": "The ID of the customer to be notified"
+                        },
+                        "message":{
+                            "type": "string",
+                            "description": "The message to be sent to the customer"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "DigitalSignage",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "displayText":{
+                "type": "",
+                "title": "Display Signage",
+                "description": "Displays the given text on signage around the ski slopes",
+                "input": {
+                    "type": "string",
+                    "description": "The text to be displayed on the signs"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "RentalDevice",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "emergencyButtonPressed":{
+                "title": "Emergency Button Pressed",
+                "description": "An alert made when a user has pressed the emergency button on this device",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "location":{
+                            "type": "string",
+                            "description": "The current location of this rental device"
+                        },
+                        "rentalID":{
+                            "type": "string",
+                            "description": "The ID of the rental this device is currently assigned too"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "RentalSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "awaitRentalReturn":{
+                "type": "",
+                "title": "Await Rental Return",
+                "description": "Starts a timer for the specified rental to be completed by. The timer is completed when it expires or the rental is returned",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "rentalID":{
+                            "type":"string",
+                            "description": "The ID of the rental completion to be awaited"
+                        },
+                        "timeout":{
+                            "type": "number",
+                            "description": "The number of minutes to wait before deaming the rental to be not returned"
+                        }
+                    }
+                },
+                "output": {
+                    "type": "boolean",
+                    "description": "Whether or not the rental was returned. True - The rental was returned, False - The timer expired and the rental was deamed to not have returned"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "rentalGiven":{
+                "title": "Rental Given",
+                "description": "An alert made when a rental is given",
+                "subscription": {},
+                "data": {
+                    "type":"object",
+                    "properties":{
+                        "rentalID":{
+                            "type": "string",
+                            "description": "The ID of the rental"
+                        },
+                        "customerID":{
+                            "type": "number",
+                            "description": "The ID of the customer that purchased the rental"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "ResortActuators",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {
+            "resortHeating":{
+                "type": "number",
+                "title": "Resort Heating",
+                "description": "The current temperature of the heaters in the ski resort",
+                "forms": []
+            },
+            "resortLighting":{
+                "type": "number",
+                "title": "Resort Heating",
+                "description": "The current brightness of the lighting in the ski resort",
+                "forms": []
+            }
+        },
+        "events": {
+            "resortEnergyUsage":{
+                "title": "Resort Energy Usage Change",
+                "description": "An event made when there is a fluctuation in energy usage within the resort",
+                "subscription": {},
+                "data": {
+                    "type":"number",
+                    "description":"The current energy usage"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "SlopeSafetySystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "updateAvalancheRiskCalculation":{
+                "type": "",
+                "title": "Update Avalanche Risk Calculation",
+                "description": "Updates the estimated risk of an avalanche based on newly added data",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "dataType":{
+                            "type": "string",
+                            "description": "The type/source of the data being added"
+                        },
+                        "value":{
+                            "type": "string",
+                            "description": "The value of the data being added"
+                        }
+                    }
+                },
+                "output": {
+                    "type": "string",
+                    "description": "The estimated risk level (none, minor or major)"
+                },
+                "forms": []
+            },
+            "blockSlopeEntry":{
+                "type": "",
+                "title": "Block Slope Entry",
+                "description": "Blocks entry to the ski slope at the given location",
+                "input": {
+                    "type": "string",
+                    "description": "The location of the ski slope"
+                },
+                "forms": []
+            },
+            "haltLift":{
+                "type": "",
+                "title": "Halt Lift",
+                "description": "Stops the ski lift at the given position from working",
+                "input": {
+                    "type": "string",
+                    "description": "The location of the ski lift"
+                },
+                "forms": []
+            },
+            "getSlopeBusyness":{
+                "type": "",
+                "title": "Get Slope Busyness",
+                "description": "Gets the busyness of the various ski slopes",
+                "output": {
+                    "type": "string",
+                    "description": "Details about the busyness of each ski slope"
+                },
+                "forms": []
+            }
+        },
+        "properties": {
+            "liftWaitTime":{
+                "type": "number",
+                "title": "Lift Wait Time",
+                "description": "Provides an estimate of the current wait time for using a ski lift",
+                "readOnly": true,
+                "forms": []
+            }
+        },
+        "events": {
+            "slopeBusynessChange":{
+                "title": "Slope Busyness Change",
+                "description": "A broadcast of the new busyness level of a ski slope, made when the level changes",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "location":{
+                            "type": "string",
+                            "description": "The location of the ski slope"
+                        },
+                        "busyness":{
+                            "type": "string",
+                            "description": "The busyness of the provided slope (not busy, moderately busy or crowded)"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "liftMalfunction":{
+                "title": "Lift Malfunction",
+                "description": "An event made when a lift malfunctions",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "The location of the lift"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "UserDevice",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "receiveWeatherConditions":{
+                "type": "",
+                "title": "Receive Weather Conditions",
+                "description": "Relays the given weather conditions to the user of this device",
+                "input": {
+                    "type": "string",
+                    "description": "The details of the current weather conditions on the ski slopes"
+                },
+                "forms": []
+            },
+            "receiveSlopeDetails":{
+                "type": "",
+                "title": "Receive Slope Details",
+                "description": "Passes the details of slope busyness and lift wait times to the user of this device",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "busyness":{
+                            "type": "string",
+                            "description": "The busyness of the ski slopes"
+                        },
+                        "waitTime":{
+                            "type": "string",
+                            "description": "The estimated lift wait time"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "requestWeatherConditions":{
+                "title": "Request Weather Conditions",
+                "description": "A user request for the current weather conditions of the ski slopes",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            },
+            "requestSlopeDetails":{
+                "title": "Request Slope Details",
+                "description": "A user request for details about the ski slopes, concerning their busyness and lift wait times",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "WeatherMonitor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "getWeatherDetails":{
+                "type": "",
+                "title": "Get Weather Details",
+                "description": "Gets all weater details for the ski slopes",
+                "output": {
+                    "type":"string",
+                    "description": "A textual description of the slope weather conditions"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "temperature":{
+                "title": "Temperature",
+                "description": "The current temperature on the slopes",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current temperature"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "windSpeed":{
+                "title": "Wind Speed",
+                "description": "The current speed of the wind over the slopes",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current wind speed"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "snowfall":{
+                "title": "Snowfall",
+                "description": "The current amount of snowfall on the slopes",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current amount of snowfall"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    }
+]

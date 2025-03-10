@@ -1,0 +1,3 @@
+Details regarding moisture level, wind speed, wind chill, crop health, and CCTV motion should be processed and analysed. The analysis results should then guide the following actions: application of fertiliser, initiation of the auto tractor along a predetermined path, and adjustment of the greenhouse’s temperature, humidity, and light levels. In addition, the flow of irrigation water should be regulated based on the analysis. Upon completion of the analysis, the farmer should be notified. 
+
+Any new settings provided by the farmer should be transmitted to FarmBrain.

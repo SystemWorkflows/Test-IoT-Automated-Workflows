@@ -1,0 +1,464 @@
+[
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "AAndESystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "bedTaken":{
+                "type": "",
+                "title": "Bed Taken",
+                "description": "Alerts this A&E system that a bed has been taken",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "bedNumber":{
+                            "type": "integer",
+                            "description": "The number of the bed being taken"
+                        }
+                    }
+                },
+                "forms": []
+            },
+            "bedFreed":{
+                "type": "",
+                "title": "Bed Freed",
+                "description": "Alerts this A&E system that a bed has been freed",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "bedNumber":{
+                            "type": "integer",
+                            "description": "The number of the bed being freed"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {
+            "surgeryStatus":{
+                "type": "boolean",
+                "title": "Surgery statud",
+                "description": "The current (writable) status of the surgery for this A&E system",
+                "forms": []
+            }
+        },
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "Beds",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "bedTaken":{
+                "title": "Bed taken",
+                "description": "Alerts of a bed being taken",
+                "subscription": {},
+                "data": {
+                    "type": "integer"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "bedFreed":{
+                "title": "Bed freed",
+                "description": "Alerts of a bed being freed",
+                "subscription": {},
+                "data": {
+                    "type": "integer"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "DoorAlarm",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "triggerDoorAlarm":{
+                "type": "",
+                "title": "Trigger door alarm",
+                "description": "Enables this door alarm",
+                "forms": []
+            },
+            "stopDoorAlarm":{
+                "type": "",
+                "title": "Stop door alarm",
+                "description": "Disables this door alarm",
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "DoorBell",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "doorButtonPressed":{
+                "title": "Door button pressed",
+                "description": "Makes a notification when this door button is pressed",
+                "subscription": {},
+                "data": {
+                    "type": "integer",
+                    "description": "The number of seconds since the doorbell was pressed"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "DoorSensor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "doorOpen":{
+                "title": "Door open",
+                "description": "Produces a periodic notification when this door is open",
+                "subscription": {},
+                "data": {
+                    "title": "timeOpen",
+                    "type": "number",
+                    "description": "The number of seconds this door has been open for"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "doorClosed":{
+                "title": "Door closed",
+                "description": "Produces an event when this door is closed",
+                "subscription": {},
+                "data": {
+                    "type": "null"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EquipmentMonitor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "equipmentUsed":{
+                "title": "Equipment used",
+                "description": "Produces an event when equipment has been used",
+                "subscription": {},
+                "data": {
+                    "type": "array",
+                    "items":[
+                        {
+                            "title": "name",
+                            "type": "string",
+                            "description": "The name of the equipment used"
+                        },
+                        {
+                            "title": "quantity",
+                            "type": "integer",
+                            "description": "The quantity of the equipment used"
+                        }
+                    ]
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "equipmentEmpty":{
+                "title": "Equipment empty",
+                "description": "Notifies of an equipment item becoming empty",
+                "subscription": {},
+                "data": {
+                    "title": "name",
+                    "type": "string",
+                    "description": "The name of the equipment emptied"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "LoggingServer",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "logItemUsage":{
+                "type": "",
+                "title": "Log item usage",
+                "description": "Logs the use of an item",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "itemName":{
+                            "type": "string",
+                            "description": "The name of the item to be logged"
+                        },
+                        "quantity":{
+                            "type": "integer",
+                            "description": "The the quantity of the specified item used"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "PagerSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertPagerRole":{
+                "type": "",
+                "title": "Alert pager role",
+                "description": "Produces an alert for all pagers with the given role",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "role":{
+                            "type": "string",
+                            "description": "The role to be paged"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "The details for the alert"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "ReceptionSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertReception":{
+                "type": "",
+                "title": "Alert reception",
+                "description": "Alerts the reception of some event",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "details":{
+                            "type":"string",
+                            "description": "The details of the alert to be made with reception"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "SOSButton",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "SOSButtonPressed":{
+                "title": "SOS button pressed",
+                "description": "Broadcasts the usage of this SOS button",
+                "subscription": {},
+                "data": {
+                    "type": "null"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "SurgeryButton",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "surgeryButtonPressed":{
+                "title": "Surgery button pressed",
+                "description": "Sends an event when this button is pressed",
+                "subscription": {},
+                "data": {
+                    "type": "null"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "SurgeryLight",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "lightOn":{
+                "type": "",
+                "title": "Light on",
+                "description": "Turns the light on",
+                "input": {
+                    "type": "null"
+                },
+                "output": {
+                    "type": "null"
+                },
+                "forms": []
+            },
+            "lightOff":{
+                "type": "",
+                "title": "Light off",
+                "description": "Turns the light off",
+                "forms": []
+            }
+        },
+        "properties": {
+            "lightStatus":{
+                "type": "boolean",
+                "title": "Light status",
+                "description": "The status of the light: true = on, false = off",
+                "forms": []
+            }
+        },
+        "events": {}
+    }
+]

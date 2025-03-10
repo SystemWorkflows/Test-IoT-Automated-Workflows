@@ -1,0 +1,23 @@
+When moisture in the field drops below a threshold, the system triggers irrigation to ensure optimal crop hydration. Once a sufficient moisture level has been reached the irrigation system will be disabled.
+
+The irrigation schedule should be adjusted based on the temperature, humidity and wind speed of the fields.
+
+Images from crop analysis drones will be analyzed to assess crop health.
+
+Based on crop imaging results, the system calculates precise fertilizer requirements. Automated dispensers apply fertilizers only where needed, based on the calculated fertiliser requirements.
+
+The vital signs of livestock will be measured and alerts sent to the farmers if anomalies are detected.
+
+If an animal strays beyond predefined field boundaries, the system will alert the farmers.
+
+Dispense feed only when an animals need it, ensuring consistent nutrition for livestock.
+
+If signs of distress are observed from livestock, the system notifies the farmers, the veterinarian will also be alerted for major distress.
+
+If the greenhouse temperature is too high turn on the air conditioning. If the greenhouse temperature is too low turn on the heater. If the temperature is in a safe range turn off the air conditioning and the heater.
+
+When there is too much light in the greenhouse, shade the windows. If there is not enough light in the greenhouse, remove the shade.
+
+If the humidity of the greenhouse is too high open the windows, close the windows if the humidity lowers too much.
+
+Farmers will be able to access current real-time data on crop health, livestock status, and environmental conditions.

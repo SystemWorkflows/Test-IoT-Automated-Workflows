@@ -1,0 +1,442 @@
+[
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "AutoTractor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "startRoute":{
+                "type": "",
+                "title": "Start Route",
+                "description": "Starts this auto tractor along the given route",
+                "input": {
+                    "type": "array",
+                    "description": "An ordered array of coordinates to be reached"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CCTVSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "CCTVMotionDetected":{
+                "title": "Motion Detected",
+                "description": "Alerts when motion is detected by this CCTV system",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "An encoded video clip of the detected motion"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CropSurveillanceDrone",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "applyFertilizer":{
+                "type": "",
+                "title": "Apply fertilizer",
+                "description": "Applies fertilizer to the crops",
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "cropHealth":{
+                "title": "Crop Health",
+                "description": "Provides periodic notification of the current crop health detsils",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "Health details about crops"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "yeildEstimate":{
+                "title": "Yeild Estimate",
+                "description": "Reports an estimate of the current crop yeild from the provided farmland",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "An estimate of the current expected yeild"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "FarBrainHub",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "processSensorData":{
+                "type": "",
+                "title": "Process Sensor Data",
+                "description": "Produces a summmary of the input sensor data",
+                "input": {
+                    "type": "object",
+                    "description": "Key-value pairs of sensorName:sensorData for updated data"
+                },
+                "output": {
+                    "type": "string",
+                    "description": "A summarised view of the given sensor data"
+                },
+                "forms": []
+            },
+            "analyseSensorData":{
+                "type": "",
+                "title": "Process Sensor Data",
+                "description": "Produces a summmary of the input sensor data",
+                "input": {
+                    "type": "string",
+                    "description": "A summarised view of the given sensor data"
+                },
+                "output": {
+                    "type": "object",
+                    "description": "Key-value pairs of detailType:details"
+                },
+                "forms": []
+            },
+            "alterSettings":{
+                "type": "",
+                "title": "AlterSettings",
+                "description": "Alters the analysis and processing settings for this FarmBrain system",
+                "input": {
+                    "type": "object",
+                    "description": "An object containing key-value pairs of settingName:newValue"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "FarmersDevice",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alert":{
+                "type": "",
+                "title": "Alert",
+                "description": "Alerts the farmer of the given information",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "type":{
+                            "type": "string",
+                            "description": "The type for this alert to be provided as"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "The details of the alert"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "newSettings":{
+                "title": "New Setting",
+                "description": "Farmer's device has been provided with an update to the system settings",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "description": "An object of key-value pairs of setting:newValue"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "GreenhouseControl",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "setTemperature":{
+                "type": "",
+                "title": "Set Temperature",
+                "description": "Sets the greenhouse temperature",
+                "input": {
+                    "type": "number",
+                    "description": "The temperature to set the geenhouse to"
+                },
+                "forms": []
+            },
+            "setHumidity":{
+                "type": "",
+                "title": "Set Humidity",
+                "description": "Sets the greenhouse humidity",
+                "input": {
+                    "type": "number",
+                    "description": "The humidity to set the geenhouse to"
+                },
+                "forms": []
+            },
+            "setLightLevel":{
+                "type": "",
+                "title": "Set Light LEvel",
+                "description": "Sets the greenhouse light level",
+                "input": {
+                    "type": "number",
+                    "description": "The light level to set the geenhouse to"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "IrrigationControl",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "adjustWaterFlow":{
+                "type": "",
+                "title": "Adjust Water Flws",
+                "description": "Adjusts the flow of water in this irrigation system",
+                "input": {
+                    "type": "number",
+                    "description": "The amount to adjust the current water flow by"
+                },
+                "forms": []
+            }
+        },
+        "properties": {
+            "currentWaterFlow":{
+                "type": "number",
+                "title": "Current Water Flow",
+                "description": "The current flow rate of water from this irrigation system",
+                "forms": []
+            }
+        },
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "LivestockMonitor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "livestockNoiseLevel":{
+                "title": "Noise Level",
+                "description": "Produces periodic alerts of barnyard noise",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current noise level of the barnyard"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "livestockMotionDetected":{
+                "title": "Motion Detected",
+                "description": "Alerts when motion is made within the barnyard",
+                "subscription": {},
+                "data": {
+                    "type": "null"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "SoilSensor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "moistureLevel":{
+                "title": "Moisture Level",
+                "description": "An event broadcasting the current moisure level of farmland soil",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "Moisture level"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "WaterQualitySensor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "waterQuality":{
+                "title": "Water Quality",
+                "description": "Makes periodic alerts of the water quality",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "A textual representation of the water quality"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "WeatherStation",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "windSpeed":{
+                "title": "Wind speed",
+                "description": "An event broadcasting the current wind speed",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current wind speed"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "windChill":{
+                "title": "Wind chill",
+                "description": "An event broadcasting the current wind chill",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current wind chill"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    }
+]

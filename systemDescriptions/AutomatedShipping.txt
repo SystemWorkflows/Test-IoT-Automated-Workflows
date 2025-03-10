@@ -1,0 +1,13 @@
+Use radar and sonar devices to detect other vessels, obstacles, and land. If they detect a potential collision, alert the control center and adjust the ship’s course accordingly.
+
+Monitor weather conditions using onboard sensors and satellite data. If severe weather is detected, alert the control center and adjust the ship’s course to avoid the storm.
+
+Use sensors to monitor the temperature, humidity, and integrity of the cargo. If any significant deviations in these measurements are detected, alert the control center and adjust the environmental control system accordingly.
+
+If a cargo door is opened without authorization, alert the control center and initiate security procedures.
+
+Monitor the health and status of all equipment, including the engine, navigation systems, and communication devices. If any device malfunctions, alert the maintenance team and initiate repair procedures.
+
+Use robots equipped with repair tools to perform minor repairs on malfunctioned equipment. If a repair task is beyond the robot’s capabilities, schedule a maintenance session.
+
+If communication with the control center is lost, switch to the backup communication system. If the backup system also fails, deploy an emergency communication beacon.

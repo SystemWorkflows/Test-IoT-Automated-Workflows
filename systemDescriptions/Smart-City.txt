@@ -1,0 +1,17 @@
+When a traffic light turns red, deactivate pedestrian crossing signals. If pedestrian movement is detected, extend the duration of the red light by 30s.
+
+If an emergency vehicle is detected, change all traffic lights to green and alert vehicles to clear the path.
+
+If a traffic jam is detected, adjust traffic light timings in the surrounding area to alleviate congestion. Send traffic updates to drivers’ navigation systems.
+
+When a public rubbish bin is full, alert the waste management department for pickup. If the bin remains full for more than 24 hours, send a reminder alert.
+
+Monitor waste levels in the city’s main landfill. If capacity is nearing filled, alert city planners to devise waste management strategies.
+
+If a public safety incident is reported, alert the nearest emergency services and provide them with the location details.
+
+Use CCTV feeds to monitor public areas for unusual activity. If detected, alert local law enforcement.
+
+If energy usage in public buildings exceeds a certain threshold, alert the building’s facilities manager.
+
+If a power outage is detected, alert the energy department and provide outage details. If the outage lasts more than an hour, send updates to affected residents.

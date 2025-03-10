@@ -1,0 +1,612 @@
+[
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "AlertSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertRole":{
+                "type": "",
+                "title": "Alert Role",
+                "description": "Alerts a system role with the provided message/data",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "role":{
+                            "type": "string",
+                            "description": "The system role to be alerted"
+                        },
+                        "message":{
+                            "type": "string",
+                            "description": "the message to be sent to the given role"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "BackupPower",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "enableBackupPower":{
+                "type": "",
+                "title": "Enable Backup Power",
+                "description": "Enables the backup power source for the aquarium",
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "Clock",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "time":{
+                "title": "Time",
+                "description": "The current time",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The time"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "FilterMonitor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "filterIssue":{
+                "title": "Filter Issue",
+                "description": "A notification made when an issue with the filter is detected, preventing it from correctly functioning",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "FoodDispensor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "dispenseFood":{
+                "title": "Dispense Food",
+                "description": "Dispenses food into the tanks",
+                "subscription": {},
+                "input": {
+                    "type": "number",
+                    "description": "The amount of food to be dispensed"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "lowFoodLevel":{
+                "title": "Low Food Level",
+                "description": "A notification that the food dispensor is almost empty",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "LifeformMonitor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "abnormalActivity":{
+                "title": "Abnormal Activity",
+                "description": "An event notifying when there is abnormal activity within the tank",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "lifeform":{
+                            "type": "string",
+                            "description": "The identification of the lifeform causing abnormal activity"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "Details about the activity"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "healthIssuesDetected":{
+                "title": "Health Issues Detected",
+                "description": "An event notifying of a health issue for one of the lifeforms",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "lifeform":{
+                            "type": "string",
+                            "description": "The identification of the lifeform"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "Details about the health event"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "OutageDetector",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "powerOutage":{
+                "title": "Power Outage",
+                "description": "Notification of a power outage",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "Scheduler",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "scheduleTask":{
+                "type": "",
+                "title": "Schedule Task",
+                "description": "Schedules a task to be carried out by a specific system role",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "role":{
+                            "type": "string",
+                            "description": "The system role for which the task is to be scheduled for"
+                        },
+                        "task":{
+                            "type": "string",
+                            "description": "The description of the task the be scheduled"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "regularMaintenanceRequired":{
+                "title": "Regular Maintenance Required",
+                "description": "An alert for regular tank maintenance",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "task":{
+                            "type": "string",
+                            "description": "The description of the task"
+                        },
+                        "dueDate":{
+                            "type": "number",
+                            "description": "The time that the task must be completed by"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "TankActuators",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "heaterOn":{
+                "type": "",
+                "title": "Heater On",
+                "description": "Turns the water heater on",
+                "input": {
+                    "type": "number",
+                    "description": "The target temperature of the water"
+                },
+                "forms": []
+            },
+            "heaterOff":{
+                "type": "",
+                "title": "Heater Off",
+                "description": "Turns the water heater off",
+                "forms": []
+            },
+            "CoolerOn":{
+                "type": "",
+                "title": "Cooler On",
+                "description": "Turns the water cooler on",
+                "input": {
+                    "type": "number",
+                    "description": "The target temperature of the water"
+                },
+                "forms": []
+            },
+            "CoolerOff":{
+                "type": "",
+                "title": "Cooler Off",
+                "description": "Turns the water cooler off",
+                "forms": []
+            },
+            "dispenseChemical":{
+                "type": "",
+                "title": "Dispense Chemical",
+                "description": "Dispenses the specified chemical into the water tank",
+                "input":{
+                    "type": "object",
+                    "properties":{
+                        "chemical":{
+                            "type": "string",
+                            "description": "The chemical to release into the water"
+                        },
+                        "amount":{
+                            "type": "number",
+                            "description": "The amount of the specified chamical to be released"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "TankCameras",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "getCameraConnection":{
+                "type": "",
+                "title": "Get Camera Connection",
+                "description": "Fetches a connection to the tank camera feed",
+                "output": {
+                    "title": "string",
+                    "description": "Details of the camera feed connection"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "TankLighting",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alterLightingProfile":{
+                "type": "",
+                "title": "Alter Lighting Profile",
+                "description": "Alters the profile of the lighting strength against time",
+                "input": {
+                    "type": "string",
+                    "description": "The new lighting profile"
+                },
+                "forms": []
+            },
+            "resetLightingProfile":{
+                "type": "",
+                "title": "Reset Lighting Profile",
+                "description": "Resets the lighting profile for the tank lights",
+                "forms": []
+            },
+            "notifyLightingOfTime":{
+                "type": "",
+                "title": "Notify Lighting Of Time",
+                "description": "Notifies this lighting unit of the current time (enabling synchronisation by an external time keeper)",
+                "input": {
+                    "type": "number",
+                    "description": "The current time"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "TankSensors",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {
+            "pHLevel":{
+                "type": "number",
+                "title": "pH level",
+                "description": "The pH Level of the water in the tank",
+                "forms": []
+            },
+            "temperature":{
+                "type": "number",
+                "title": "Temperature",
+                "description": "The temperature of the water in the tank",
+                "forms": []
+            },
+            "salinity":{
+                "type": "number",
+                "title": "Salinity",
+                "description": "The salinity of the water in the tank",
+                "forms": []
+            },
+            "nitrateLevel":{
+                "type": "number",
+                "title": "Nitrate Level",
+                "description": "The amount of nitrates in the tank's water",
+                "forms": []
+            }
+        },
+        "events": {
+            "pHLevel":{
+                "title": "pH Level",
+                "description": "A periodic report of the pH level of the tank's water",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The pH level"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "temperature":{
+                "title": "Temperature",
+                "description": "A periodic notification of the current water temperature of the tank",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The temperature of the water"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "salinity":{
+                "title": "Salinity",
+                "description": "The current concentration of salt in the tank's water",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The concentration of salt in the water"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "nitrateLevel":{
+                "title": "Nitrate Level",
+                "description": "Notification of the current amount of nitrate in the tank water",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The amount of nitrates"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "UserDevice",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "receiveWaterConditions":{
+                "type": "",
+                "title": "Receive Water Conditions",
+                "description": "Passes the given water conditions to the user of this device",
+                "forms": []
+            },
+            "receiveCameraConnection":{
+                "type": "",
+                "title": "Receive Camera Connection",
+                "description": "Passes details to the user's application for establishing a camera connection",
+                "input":{
+                    "type": "string",
+                    "description": "Details for establishing a camera connection"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "requestWaterConditions":{
+                "title": "Request Water Conditions",
+                "description": "An event produced when a user wishes to gather the current water conditions",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            },
+            "accessCameraFeed":{
+                "title": "Access Camera Feed",
+                "description": "An event displaying the users intention to access the aquarium's camera system",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            },
+            "uploadLightingProfile":{
+                "title": "Upload Lighting Profile",
+                "description": "An event made when the user wishes to establish a new lighting profile",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "The new lighting profile"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "forceFoodDispense":{
+                "title": "Force Food Dispense",
+                "description": "Notification made when the user wishes to dispense food into the tank",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The amount of food to dispense"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    }
+]

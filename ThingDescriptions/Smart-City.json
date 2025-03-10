@@ -1,0 +1,629 @@
+[
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CCTVSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "unusualActivityDetected":{
+                "title": "Unusual Activity Detected",
+                "description": "Alerts when abnormal activity is detected by CCTV cameras",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "location":{
+                            "type": "string",
+                            "description": "The location of the activity"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "An encoded video clip of the activity"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CityPlanner",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertPlanner":{
+                "type": "",
+                "title": "Alert Planner",
+                "description": "Alerts the planner with the given message",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "type":{
+                            "type": "string",
+                            "description": "The type of the incomming message"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "The details of the message"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CrossingSignal",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "activateSignal":{
+                "type": "",
+                "title": "Activate Signal",
+                "description": "Activates the pedestrian crossing signal",
+                "forms": []
+            },
+            "deactivateSignal":{
+                "type": "",
+                "title": "Deactivate Signal",
+                "description": "Deactivate the pedestrian crossing signal",
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EmergencyServices",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertIncident":{
+                "type": "",
+                "title": "Alert Incident",
+                "description": "Alerts the emergency services of an issue",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "type":{
+                            "type": "string",
+                            "description": "The type of incident that this alert is for"
+                        },
+                        "location":{
+                            "type": "string",
+                            "description": "The location that the incident occures"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "emergencyVehicleDispatched":{
+                "title": "Emergency Vehicle Dispatched",
+                "description": "Notifies when an emergency vehicle has been dispatched",
+                "subscription": {},
+                "data": {
+                    "type": "array",
+                    "description": "A list of coordinate points along the path the emergency vehicle will take"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EnergyDepartment",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "notifyOutage":{
+                "type": "",
+                "title": "Notify Outage",
+                "description": "Notifies the energy deparment of a power outage",
+                "input": {
+                    "type": "string",
+                    "description": "The location of the outage"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EnergyMonitor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "energyThesholdExceded":{
+                "title": "Energy Threshold Exceded",
+                "description": "Notifies when the energy usage threshold has been exceded",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            },
+            "powerOutageDetected":{
+                "title": "Power Outage Detected",
+                "description": "Makes a periodic notification when a power outage has been detected",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "location":{
+                            "type": "string",
+                            "description": "The location of the power outage"
+                        },
+                        "time":{
+                            "type": "number",
+                            "description": "The time in seconds since the outage was first detected"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "FacilitiesManager",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertManager":{
+                "type": "",
+                "title": "Alert Manager",
+                "description": "Delivers an alert to the facilities manager",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "type":{
+                            "type": "string",
+                            "description": "The type of the alert to be made"
+                        },
+                        "details":{
+                            "type":"string",
+                            "description": "The details of the alert"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "LandfillManagement",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "landfillCapacityUsed":{
+                "title": "Landfill Capacity Used",
+                "description": "An event when capacity of the landfill changes, broadcasting an estimated percentage of the fill amount",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The estimated percentage capacity that the lanfill is at"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "PedestrianDetector",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "motionDetected":{
+                "title": "Motion Detected",
+                "description": "An event made when pedestrian motion has been detected",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "PublicSafetySystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "safetyAlert":{
+                "title": "Safety Alert",
+                "description": "Reports when a public safety incident has occured",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "The location of the incident"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "ResidentDevice",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertResident":{
+                "type": "",
+                "title": "Alert Resident",
+                "description": "Alerts residents with some message",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "type":{
+                            "type": "string",
+                            "description": "The type of the alert to be made"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "The details of the alert to be made"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "TrafficController",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "optimiseLightTimings":{
+                "type": "",
+                "title": "Optimise Light Timings",
+                "description": "Calculates optimal light timings for the city",
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "TrafficLight",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "setLightColour":{
+                "type": "",
+                "title": "Set Light Colour",
+                "description": "Sets the light colour to one of \"red\", \"amber\", \"green\"",
+                "input": {
+                    "type": "string",
+                    "description": "The colour for the light to be set to. Must be either \"red\", \"amber\" or \"green\"."
+                },
+                "forms": []
+            },
+            "increaseCurrentLightTime":{
+                "type": "",
+                "title": "Increase Current Light Time",
+                "description": "Increases the time allocated for the currently displayed light",
+                "input": {
+                    "type": "number",
+                    "description": "The number of seconds for the time to be increased by"
+                },
+                "forms": []
+            },
+            "alterLightTimings":{
+                "type": "",
+                "title": "Alter Light Timings",
+                "description": "Alters the times allocated for each light phase",
+                "input": {
+                    "type": "array",
+                    "description": "An array of 3 timings in seconds, corresponding to red, amber, and green light timings"
+                },
+                "forms": []
+            }
+        },
+        "properties": {
+            "currentLight":{
+                "readOnly": true,
+                "type": "string",
+                "title": "Current Light",
+                "description": "The current active light name \"red\",\"amber\",\"green\"",
+                "forms": []
+            }
+        },
+        "events": {
+            "redLight":{
+                "title": "Red Light",
+                "description": "An event given when the light is red",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            },
+            "amberLight":{
+                "title": "Red Light",
+                "description": "An event given when the light is amber",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            },
+            "greenLight":{
+                "title": "Red Light",
+                "description": "An event given when the light is green",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "TrashBin",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "binFull":{
+                "title": "Bin Full",
+                "description": "Produces periodic alerts whilst this bin is full",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "location":{
+                            "type": "string",
+                            "description": "the location of this bin"
+                        },
+                        "time":{
+                            "type": "integer",
+                            "description": "The time in seconds since this bin was filled"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "Vehicle",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "notifyEmergency":{
+                "type": "",
+                "title": "Notify Emergency",
+                "description": "Notify this vehicle of an emergency vehicle's path",
+                "input": {
+                    "type": "array",
+                    "description": "A list of coordinate points along the path the emergency vehicle will take"
+                },
+                "forms": []
+            },
+            "notifyVehicle":{
+                "type": "",
+                "title": "Notify Vehicle",
+                "description": "Notifies the users of this vehicle",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "type":{
+                            "type": "string",
+                            "description": "The type of this alert"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "Any details to be relayed to this vehicle"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "trafficJamDetected":{
+                "type": "string",
+                "title": "Traffic Jam Detected",
+                "description": "Publishes an alert when this vehicle detects a traffic jam, with the location of the traffic",
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "WasteDepartment",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "arrangeWastePickup":{
+                "type": "",
+                "title": "Arrange Waste Pickup",
+                "description": "Arranges a waste pickup at a given location",
+                "input": {
+                    "type": "string",
+                    "description": "The location for the pickup"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    }
+]

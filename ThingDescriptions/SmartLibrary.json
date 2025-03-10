@@ -1,0 +1,571 @@
+[
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "AlertSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertRole":{
+                "type": "",
+                "title": "Alert Role",
+                "description": "Sends an alert to a role, with a given message",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "role":{
+                            "type": "string",
+                            "description": "The name of the role to be alerted"
+                        },
+                        "message":{
+                            "type":"string",
+                            "description": "The message to be sent to the selected role"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "BookOrganiser",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "findBookLocation":{
+                "type": "",
+                "title": "Find Book Location",
+                "description": "Finds the location of a given book within the library",
+                "input": {
+                    "type": "number",
+                    "description": "The ID of the book to be located"
+                },
+                "output": {
+                    "type": "string",
+                    "description": "The location of the chosen book"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "bookMisplaced":{
+                "title": "Book Misplaced",
+                "description": "Alerts when a book is placed incorrectly within the library",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "bookID":{
+                            "type": "string",
+                            "description": "The ID of the book that has been incorrectly places"
+                        },
+                        "location":{
+                            "type": "string",
+                            "description": "The book's current location"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EnvironmentalControlSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "adjustTemperature":{
+                "type": "",
+                "title": "Adjust Temperature",
+                "description": "Alters the temperature of the library by a given amount",
+                "input": {
+                    "type": "number",
+                    "description": "The number of degrees (+/-) to adjust the temperature by"
+                },
+                "forms": []
+            },
+            "adjustHumidity":{
+                "type": "",
+                "title": "Adjust Humidity",
+                "description": "Alters the humidity of the library by a given amount",
+                "input": {
+                    "type": "number",
+                    "description": "The  percentage (+/-) to adjust the humidity by"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EnvironmentalSensors",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "temperature":{
+                "title": "Temperature",
+                "description": "A periodic event of the current library temperature",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current temperature"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "humidity":{
+                "title": "Humidity",
+                "description": "A periodic event of the current library humidity",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current humidity as a percentage"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EquipmentMonitor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "deviceMalfunctioned":{
+                "title": "Device Malfunctioned",
+                "description": "An alert made when a device has malfunctioned",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "The device that has malfunctioned"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "FireDetectionSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "fireDetected":{
+                "title": "Fire Detected",
+                "description": "An alert made when a fire is detected in the building",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "The location of the detected fire"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "FireSuppressionSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "suppressFire":{
+                "type": "",
+                "title": "Suppress Fire",
+                "description": "Activates fire suppression methods at the given location",
+                "input": {
+                    "type": "string",
+                    "description": "The location to deploy fire suppression"
+                },
+                "forms": []
+            },
+            "triggerFireAlarm":{
+                "type": "",
+                "title": "Trigger Fire Alarm",
+                "description": "Triggers the fire alarm for this building",
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "LibraryDatabase",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "updateBookStatus":{
+                "type": "",
+                "title": "Update Book Status",
+                "description": "Sets the status for a selected book",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "bookID":{
+                            "type": "number",
+                            "description": "The ID of the selected book"
+                        },
+                        "status":{
+                            "type": "string",
+                            "description": "The status to be set for the selected book (available or inUse)"
+                        }
+                    }
+                },
+                "forms": []
+            },
+            "logUserEntry":{
+                "type": "",
+                "title": "Log User Entry",
+                "description": "Logs a user's entry to the library",
+                "input": {
+                    "type": "number",
+                    "description": "The userID for the user that has entered the library"
+                },
+                "forms": []
+            },
+            "markBookAsReserved":{
+                "type": "",
+                "title": "Mark Book As Reserved",
+                "description": "Marks a given book as reserved",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "bookID":{
+                            "type": "number",
+                            "description": "The ID of the book being reserved"
+                        },
+                        "userID":{
+                            "type": "number",
+                            "description": "The ID of the user reserving the selected book"
+                        }
+                    }
+                },
+                "forms": []
+            },
+            "unmarkBookAsReserved":{
+                "type": "",
+                "title": "Mark Book As Reserved",
+                "description": "Marks a given book as reserved",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "bookID":{
+                            "type": "number",
+                            "description": "The ID of the book being reserved"
+                        },
+                        "userID":{
+                            "type": "number",
+                            "description": "The ID of the user reserving the selected book"
+                        }
+                    }
+                },
+                "forms": []
+            },
+            "checkReservedStatus":{
+                "type": "",
+                "title": "Check Reserved Status",
+                "description": "Checks whether the selected book is reserved or not",
+                "input": {
+                    "type": "number",
+                    "description": "The ID of the book to be checked"
+                },
+                "output": {
+                    "type": "object",
+                    "properties":{
+                        "reserved":{
+                            "type": "boolean",
+                            "description": "Whether the selected book is reserved or not"
+                        },
+                        "userID":{
+                            "type": "string",
+                            "description": "The ID of the user that has reserved the specified book (when reserved)"
+                        }
+                    }
+                },
+                "forms": []
+            },
+            "checkOutBook":{
+                "type": "",
+                "title": "Check Out Book",
+                "description": "Checks out the selected book under a specified user's ID",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "bookID":{
+                            "type": "number",
+                            "description": "The selected book's ID"
+                        },
+                        "userID":{
+                            "type": "number",
+                            "description": "The ID of the user wishing to check out the selected book"
+                        }
+                    }
+                },
+                "forms": []
+            },
+            "checkIfBookWasCheckedOut":{
+                "type": "",
+                "title": "Check If Book Was Checked Out",
+                "description": "Checks whether the selected book was checked out or not",
+                "input": {
+                    "type": "number",
+                    "description": "The ID of the book to be checked"
+                },
+                "output": {
+                    "type": "boolean",
+                    "description": "Whether or not the selected book is checked out"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "RFIDScanner",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "bookRemoved":{
+                "title": "Book Removed",
+                "description": "Notifies of a book leaving the library",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The ID of the book that has been removed"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "bookReturned":{
+                "title": "Book Returned",
+                "description": "Notifies of a book being returned to the library",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The ID of the book that has been returned"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "UserDevice",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "receiveBookLocation":{
+                "type": "",
+                "title": "Receive Book Location",
+                "description": "Allows the location of a book's location to be relayed to a user",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "bookID":{
+                            "type": "number",
+                            "description": "The ID of the book for which the location is given"
+                        },
+                        "location":{
+                            "type": "string",
+                            "description":"The location of the selected book"
+                        }
+                    }
+                },
+                "forms": []
+            },
+            "notifyBookReadyForPickup":{
+                "type": "",
+                "title": "Notify Book Ready For Pickup",
+                "description": "Notifies the user of this device that a book is ready for pickup",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "bookID":{
+                            "type": "number",
+                            "description": "The ID of the book available for pickup"
+                        },
+                        "location":{
+                            "type": "string",
+                            "description": "The location of the book available for pickup"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "requestForBookLocation":{
+                "title": "Request For Book Location",
+                "description": "An event made when a user makes a request for a book's location",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The ID of the book for which the location is being requested"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "reserveBook":{
+                "title": "Reserve Book",
+                "description": "A request to reserve a book by a user",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "bookID":{
+                            "type": "number",
+                            "description": "The ID of the book to be reserved"
+                        },
+                        "userID":{
+                            "type": "number",
+                            "description": "The ID of the user that is requesting the given book to be reserved"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "UserTrackingSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "userEntered":{
+                "title": "User Entered",
+                "description": "An event made when a user enters the library",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The ID of the user that has entered the building"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    }
+]

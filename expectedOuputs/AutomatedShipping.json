@@ -1,0 +1,993 @@
+[
+    {
+        "id": "8c19c03d2a2abc12",
+        "type": "tab",
+        "label": "Flow 5",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7ede9b02fb4d1ece",
+        "type": "system-event-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "radarObjectDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/radarsystem\",\"output\":{\"type\":\"object\",\"properties\":{\"angle\":{\"type\":\"number\",\"description\":\"The angle of the object's centre from the forward facing direction of this ship\"},\"distance\":{\"type\":\"number\",\"description\":\"The distance in meters of the detected object from this ship\"}}},\"description\":\"Alerts of an object detected by this radar system\",\"title\":\"Radar object Detected\",\"event\":\"radarObjectDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "3c4d670a3ab54b3d"
+            ]
+        ]
+    },
+    {
+        "id": "f2e4db58d384dce9",
+        "type": "system-event-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "sonarObjectDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/sonarsystem\",\"output\":{\"type\":\"object\",\"properties\":{\"angle\":{\"type\":\"number\",\"description\":\"The angle of the object's centre from the forward facing direction of this ship\"},\"distance\":{\"type\":\"number\",\"description\":\"The distance in meters of the detected object from this ship\"}}},\"description\":\"Alerts of an object detected by this sonar system\",\"title\":\"Sonar Object Detected\",\"event\":\"sonarObjectDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "3c4d670a3ab54b3d"
+            ]
+        ]
+    },
+    {
+        "id": "2846515c22ce52ef",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertControlCentre",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/controlcentre\",\"params\":{\"type\":\"string\",\"details\":\"string\"},\"description\":\"Sends an alert to the control centre for a given message type, including the details of the message\",\"title\":\"Alert Control Centre\",\"action\":\"alertControlCentre\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 850,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fa4d2b88cc14fd66",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "recalculateCourse",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/controlcentre\",\"params\":{},\"description\":\"Recalculates the course for this ship's journey\",\"title\":\"Recalculate Course\",\"action\":\"recalculateCourse\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 670,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3c4d670a3ab54b3d",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "assessForPotentialCollision",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/controlcentre\",\"params\":{\"angle\":\"number\",\"distance\":\"number\"},\"output\":{\"type\":\"boolean\",\"description\":\"Whether or not a collision is likely to occur\"},\"description\":\"Assesses a given object to see if collision is likely on the ship's current course\",\"title\":\"Assess For Potential Collision\",\"action\":\"assessForPotentialCollision\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 380,
+        "y": 100,
+        "wires": [
+            [
+                "3b5a646c90d4d01d"
+            ]
+        ]
+    },
+    {
+        "id": "3b5a646c90d4d01d",
+        "type": "switch",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 450,
+        "y": 140,
+        "wires": [
+            [
+                "fa4d2b88cc14fd66",
+                "38064e2fc4990209"
+            ]
+        ]
+    },
+    {
+        "id": "990f39f0331ec4c1",
+        "type": "system-event-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "dangerousWeatherDetectedOnboard",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/onboardweathersystem\",\"output\":{\"type\":\"object\",\"properties\":{\"angle\":{\"type\":\"number\",\"description\":\"The angle of the weather pattern's centre from the forward facing direction of this ship\"},\"distance\":{\"type\":\"number\",\"description\":\"The distance in meters of the detected weather pattern from this ship\"}}},\"description\":\"Produces an event when dangerous weather is detected by the onboard sensors\",\"title\":\"Dangerous Weather Detected Onboard\",\"event\":\"dangerousWeatherDetectedOnboard\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "bb81038cf33d0f86",
+                "d139f021f6f16c79"
+            ]
+        ]
+    },
+    {
+        "id": "72be84cb6e382f1f",
+        "type": "system-event-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "dangerousWeatherDetectedBySatellite",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/satelliteweatherstation\",\"output\":{\"type\":\"object\",\"properties\":{\"angle\":{\"type\":\"number\",\"description\":\"The angle of the weather pattern's centre from the forward facing direction of the ship\"},\"distance\":{\"type\":\"number\",\"description\":\"The distance in meters of the detected weather pattern from the ship\"}}},\"description\":\"Produces an event when dangerous weather is detected win close proximity to the ship\",\"title\":\"Dangerous Weather Detected By Sattelite\",\"event\":\"dangerousWeatherDetectedBySatellite\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 170,
+        "y": 260,
+        "wires": [
+            [
+                "bb81038cf33d0f86",
+                "d139f021f6f16c79"
+            ]
+        ]
+    },
+    {
+        "id": "add97fef85c79280",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertControlCentre",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/controlcentre\",\"params\":{\"type\":\"string\",\"details\":\"string\"},\"description\":\"Sends an alert to the control centre for a given message type, including the details of the message\",\"title\":\"Alert Control Centre\",\"action\":\"alertControlCentre\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 650,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bb81038cf33d0f86",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "recalculateCourse",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/controlcentre\",\"params\":{},\"description\":\"Recalculates the course for this ship's journey\",\"title\":\"Recalculate Course\",\"action\":\"recalculateCourse\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 470,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "38064e2fc4990209",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"type\":\"collisionDetected\", \"details\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 80,
+        "wires": [
+            [
+                "2846515c22ce52ef"
+            ]
+        ]
+    },
+    {
+        "id": "d139f021f6f16c79",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"type\":\"dangerousWeather\", \"details\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 220,
+        "wires": [
+            [
+                "add97fef85c79280"
+            ]
+        ]
+    },
+    {
+        "id": "2bc41adda592a968",
+        "type": "system-event-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "cargoTemperature",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/cargosensorsystem\",\"output\":{\"type\":\"number\",\"description\":\"The temperature of the cargo hold\"},\"description\":\"The temperature of the cargo hold\",\"title\":\"Cargo Temperature\",\"event\":\"cargoTemperature\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 110,
+        "y": 340,
+        "wires": [
+            [
+                "de460858d834191f"
+            ]
+        ]
+    },
+    {
+        "id": "a3efa2abb3e2e361",
+        "type": "system-event-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "cargoHumidity",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/cargosensorsystem\",\"output\":{\"type\":\"number\",\"description\":\"The humidity of the cargo hold\"},\"description\":\"The humidity of the cargo hold\",\"title\":\"Cargo Humidity\",\"event\":\"cargoHumidity\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 90,
+        "y": 380,
+        "wires": [
+            [
+                "bb08d93311c523bc"
+            ]
+        ]
+    },
+    {
+        "id": "148422ae125504dc",
+        "type": "system-event-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "cargoIntegrity",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/cargosensorsystem\",\"output\":{\"type\":\"string\",\"description\":\"The damage sustained by the cargo (major or minor)\"},\"description\":\"An event made when the integrity of the cargo changes\",\"title\":\"Cargo Integrity\",\"event\":\"cargoIntegrity\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 90,
+        "y": 620,
+        "wires": [
+            [
+                "5b61e99dcc4787f8"
+            ]
+        ]
+    },
+    {
+        "id": "a2f4c8f526ead7cb",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertControlCentre",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/controlcentre\",\"params\":{\"type\":\"string\",\"details\":\"string\"},\"description\":\"Sends an alert to the control centre for a given message type, including the details of the message\",\"title\":\"Alert Control Centre\",\"action\":\"alertControlCentre\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 710,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5b61e99dcc4787f8",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"type\":\"cargoDamage\", \"details\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 620,
+        "wires": [
+            [
+                "a2f4c8f526ead7cb"
+            ]
+        ]
+    },
+    {
+        "id": "5845d5a5870906e3",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "adjustCargoHeater",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/environmentalsystem\",\"params\":{},\"description\":\"Adjusts the temperature of the cargo hold heater by the given number of degrees\",\"title\":\"Adjust Cargo Heater\",\"action\":\"adjustCargoHeater\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 710,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fdf33f2849721b5a",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "adjustCargoHumidity",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/environmentalsystem\",\"params\":{},\"description\":\"Adjusts the humidity of the cargo hold by the given percentage\",\"title\":\"Adjust Cargo Humidity\",\"action\":\"adjustCargoHumidity\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 720,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "de460858d834191f",
+        "type": "switch",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "25",
+                "vt": "str"
+            },
+            {
+                "t": "lt",
+                "v": "15",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 270,
+        "y": 340,
+        "wires": [
+            [
+                "4de7c651abe14d62",
+                "d73dabb6ce89a7ab"
+            ],
+            [
+                "4de7c651abe14d62",
+                "aea6d9a2cc183157"
+            ]
+        ]
+    },
+    {
+        "id": "bb08d93311c523bc",
+        "type": "switch",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0.55",
+                "vt": "str"
+            },
+            {
+                "t": "lt",
+                "v": "0.50",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 270,
+        "y": 380,
+        "wires": [
+            [
+                "76df8724a4bfc584",
+                "d6882b039b9055db"
+            ],
+            [
+                "76df8724a4bfc584",
+                "7ea556706a848594"
+            ]
+        ]
+    },
+    {
+        "id": "4de7c651abe14d62",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "(15+25)/2 - msg.payload",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 340,
+        "wires": [
+            [
+                "5845d5a5870906e3"
+            ]
+        ]
+    },
+    {
+        "id": "76df8724a4bfc584",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "(0.50+0.55)/2 - msg.payload",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 380,
+        "wires": [
+            [
+                "fdf33f2849721b5a"
+            ]
+        ]
+    },
+    {
+        "id": "d73dabb6ce89a7ab",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"type\":\"highCargoTemp\", \"details\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 440,
+        "wires": [
+            [
+                "a2f4c8f526ead7cb"
+            ]
+        ]
+    },
+    {
+        "id": "aea6d9a2cc183157",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"type\":\"lowCargoTemp\", \"details\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 480,
+        "wires": [
+            [
+                "a2f4c8f526ead7cb"
+            ]
+        ]
+    },
+    {
+        "id": "d6882b039b9055db",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"type\":\"highCargoHumidity\", \"details\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 520,
+        "wires": [
+            [
+                "a2f4c8f526ead7cb"
+            ]
+        ]
+    },
+    {
+        "id": "7ea556706a848594",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"type\":\"lowCargoHumidity\", \"details\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 560,
+        "wires": [
+            [
+                "a2f4c8f526ead7cb"
+            ]
+        ]
+    },
+    {
+        "id": "db1ba052e05bcdbb",
+        "type": "system-event-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "intrusionDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/cargodoor\",\"output\":{},\"description\":\"Notifies when an intrustion is detected in the cargo hold\",\"title\":\"Intrusion Detected\",\"event\":\"intrusionDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 100,
+        "y": 700,
+        "wires": [
+            [
+                "1e84ba065218eb83",
+                "dc1c09763cf42dc7"
+            ]
+        ]
+    },
+    {
+        "id": "1e84ba065218eb83",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"type\":\"cargoIntrusion\", \"details\":\"\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 700,
+        "wires": [
+            [
+                "54b55e49a1eb56f9"
+            ]
+        ]
+    },
+    {
+        "id": "54b55e49a1eb56f9",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertControlCentre",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/controlcentre\",\"params\":{\"type\":\"string\",\"details\":\"string\"},\"description\":\"Sends an alert to the control centre for a given message type, including the details of the message\",\"title\":\"Alert Control Centre\",\"action\":\"alertControlCentre\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 490,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fd42e52ddee275b9",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertCrewRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/crewalertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts all crew with a given role of a given message\",\"title\":\"Alert Crew Role\",\"action\":\"alertCrewRole\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 480,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dc1c09763cf42dc7",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"security\", \"message\":\"Intrusion in cargo hold\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 740,
+        "wires": [
+            [
+                "fd42e52ddee275b9"
+            ]
+        ]
+    },
+    {
+        "id": "bf75baa760c20aaf",
+        "type": "system-event-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "malfunctionDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/equipmentmonitor\",\"output\":{\"type\":\"string\",\"description\":\"The name of the equipment that has malfunctoned\"},\"description\":\"An event produced when equipment on the ship malfunctions\",\"title\":\"Malfunction Detected\",\"event\":\"malfunctionDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 820,
+        "wires": [
+            [
+                "e8166ab8c6a1fe1d",
+                "c25cf49a2099e894",
+                "e59907be0be6d4d1"
+            ]
+        ]
+    },
+    {
+        "id": "fd73b8be05617c73",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertCrewRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/crewalertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts all crew with a given role of a given message\",\"title\":\"Alert Crew Role\",\"action\":\"alertCrewRole\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 500,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e8166ab8c6a1fe1d",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"maintenance\", \"message\":msg.payload + \" malfunctioned\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 820,
+        "wires": [
+            [
+                "fd73b8be05617c73"
+            ]
+        ]
+    },
+    {
+        "id": "c25cf49a2099e894",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "readyEquipmentForRepair",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/equipmentmonitor\",\"params\":{},\"description\":\"Prepares the specified equipment for repair by engineers\",\"title\":\"Ready Equipment For Repair\",\"action\":\"readyEquipmentForRepair\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 360,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a512aed3721c2f8f",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "attemptRepair",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/repairrobot\",\"params\":{},\"output\":{\"type\":\"boolean\",\"description\":\"Whether or not the repair could be successfully completed\"},\"description\":\"Sends this robot to the specified equipment to attempt repairs\",\"title\":\"Attempt Repair\",\"action\":\"attemptRepair\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 380,
+        "y": 960,
+        "wires": [
+            [
+                "d5e29a17baf8c3c4"
+            ]
+        ]
+    },
+    {
+        "id": "d5e29a17baf8c3c4",
+        "type": "switch",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 530,
+        "y": 960,
+        "wires": [
+            [
+                "01e0d0e43ae63470"
+            ]
+        ]
+    },
+    {
+        "id": "dcd10af5e4be094d",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "scheduleTask",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/scheduler\",\"params\":{},\"description\":\"Adds a given task to the crew's schedule, this functionality automatically picks the time and relevent crew members for the given task\",\"title\":\"Schedule Task\",\"action\":\"scheduleTask\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 620,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "01e0d0e43ae63470",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.equipment + \" needs maintanence\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 1000,
+        "wires": [
+            [
+                "dcd10af5e4be094d"
+            ]
+        ]
+    },
+    {
+        "id": "e59907be0be6d4d1",
+        "type": "change",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "equipment",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 920,
+        "wires": [
+            [
+                "a512aed3721c2f8f"
+            ]
+        ]
+    },
+    {
+        "id": "5b492bb4bb78a13c",
+        "type": "system-event-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "controlCentreLost",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/equipmentmonitor\",\"output\":{},\"description\":\"An event broadcast when communication with the control centre is lost\",\"title\":\"Control Centre Lost\",\"event\":\"controlCentreLost\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 110,
+        "y": 1080,
+        "wires": [
+            [
+                "5c5603c7834154f3"
+            ]
+        ]
+    },
+    {
+        "id": "5c5603c7834154f3",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "activateBackupComms",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/equipmentmonitor\",\"params\":{},\"description\":\"Activates backuo communication with the control centre\",\"title\":\"Activate Backup Comms\",\"action\":\"activateBackupComms\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 320,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2b9960a224e6f8da",
+        "type": "system-event-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "malfunctionDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/equipmentmonitor\",\"output\":{\"type\":\"string\",\"description\":\"The name of the equipment that has malfunctoned\"},\"description\":\"An event produced when equipment on the ship malfunctions\",\"title\":\"Malfunction Detected\",\"event\":\"malfunctionDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 1120,
+        "wires": [
+            [
+                "1f1337431b3198ce"
+            ]
+        ]
+    },
+    {
+        "id": "f71dee9542b96ecf",
+        "type": "system-action-node",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "deployEmergencyBeakon",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/equipmentmonitor\",\"params\":{},\"description\":\"Deploys an emergency beackon for the location of this ship\",\"title\":\"Deply Emergency Beakon\",\"action\":\"deployEmergencyBeakon\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 450,
+        "y": 1120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1f1337431b3198ce",
+        "type": "switch",
+        "z": "8c19c03d2a2abc12",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "backupComms",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 270,
+        "y": 1120,
+        "wires": [
+            [
+                "f71dee9542b96ecf"
+            ]
+        ]
+    }
+]

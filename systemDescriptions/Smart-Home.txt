@@ -1,0 +1,7 @@
+Blink LEDs when washing machine cycle has finished.
+
+Turn on the main room light when motion is detected in that room.
+
+When the door bell is pressed, reduce the speaker volume, make the smart assistant alert the homeowner of the doorbell, return the speaker’s volume.
+
+When morning alarm triggers, turn heating on to 30 degrees C for 20mins.

@@ -1,0 +1,15 @@
+If temperature, wind speed, or snowfall indicate a potential risk for skiers. If there is a minor risk of avalanches display warnings on digital signage across the resort. If there is a major risk, alert the resort management and close all slopes.
+
+If an avalanche is detected, the system immediately alerts the resort management and close off affected slopes as well as dispatching the rescue team, and stopping lifts near the affected area.
+
+If a slope becomes too crowded, the system alerts the resort management, who can then take measures to redirect skiers to less crowded slopes.
+
+Allow rentals to be made for 3 days. If rented equipment is not returned within the given time, send a notification to the customer that made the rental order to prompt them to return the equipment. After that, give the customer 1 hour to return the equipment. If the equipment is still not returned alert the rental shop.
+
+If a skier presses the emergency button on their resort-provided wearable device, the system alerts the resort's medical team and provides them with the skier's location.
+
+If a lift malfunctions, the system alerts the maintenance team and initiates repair procedures.
+
+Allow guests to query real-time information about weather conditions, slope traffic, and lift wait times.
+
+If the resort’s energy usage exceeds a certain threshold, the system alerts the facilities manager and lowers the resort’s heating or lighting systems to conserve energy.

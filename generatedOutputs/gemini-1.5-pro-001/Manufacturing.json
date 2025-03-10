@@ -1,0 +1,491 @@
+[
+    {
+        "id": "1992f380.992394",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "910c283.26092f",
+        "type": "system-event-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "newQualityData",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/qualityinspector\",\"output\":{\"type\":\"string\",\"description\":\"Details about the quality of products\"},\"description\":\"Alerts when new quality data is ready for processing\",\"title\":\"New quality data\",\"event\":\"newQualityData\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 140,
+        "wires": [
+            [
+                "86a89810.229048",
+                "d2089998.e997c8"
+            ]
+        ]
+    },
+    {
+        "id": "a8911491.2b1918",
+        "type": "system-event-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "temperatureAlert",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/temperaturetracker\",\"output\":{\"type\":\"number\",\"description\":\"The current temperature of machines\"},\"description\":\"Produces an alert with the current temperature of machines\",\"title\":\"Temperature alert\",\"event\":\"temperatureAlert\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 130,
+        "y": 40,
+        "wires": [
+            [
+                "4191913d.b62944"
+            ]
+        ]
+    },
+    {
+        "id": "c29990e8.3629a",
+        "type": "system-event-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "vibrationAlert",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/vibrationmonitor\",\"output\":{\"type\":\"number\",\"description\":\"The amplitude of the current vibration of the machines\"},\"description\":\"Created a notification of the current vibration of machines\",\"title\":\"Vibration alert\",\"event\":\"vibrationAlert\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "9f91990f.299988"
+            ]
+        ]
+    },
+    {
+        "id": "4191913d.b62944",
+        "type": "change",
+        "z": "1992f380.992394",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"sensorName\":\"temperature\", \"data\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 40,
+        "wires": [
+            [
+                "21201c4a.9a899c"
+            ]
+        ]
+    },
+    {
+        "id": "9f91990f.299988",
+        "type": "change",
+        "z": "1992f380.992394",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"sensorName\":\"vibration\", \"data\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 80,
+        "wires": [
+            [
+                "21201c4a.9a899c"
+            ]
+        ]
+    },
+    {
+        "id": "86a89810.229048",
+        "type": "change",
+        "z": "1992f380.992394",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"sensorName\":\"quality\", \"data\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 140,
+        "wires": [
+            [
+                "21201c4a.9a899c"
+            ]
+        ]
+    },
+    {
+        "id": "21201c4a.9a899c",
+        "type": "system-action-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "processSensorData",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/sensorhub\",\"params\":{\"sensorName\":\"string\",\"data\":\"string\"},\"description\":\"Adds the provided sensor data for processing\",\"title\":\"Process sensor data\",\"action\":\"processSensorData\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 500,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d2089998.e997c8",
+        "type": "change",
+        "z": "1992f380.992394",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"alertType\":\"quality\", \"alertContent\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 180,
+        "wires": [
+            [
+                "6490c11.b59494"
+            ]
+        ]
+    },
+    {
+        "id": "6490c11.b59494",
+        "type": "system-action-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertManager",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/managersdevice\",\"params\":{\"alertType\":\"string\",\"alertContent\":\"string\"},\"description\":\"Makes an alert on the manager's device\",\"title\":\"Alert the manager\",\"action\":\"alertManager\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 500,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "64099c1a.b5a094c",
+        "type": "system-event-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "dataProcessingComplete",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/sensorhub\",\"output\":{\"type\":\"string\",\"description\":\"Status information about the current state of the system\"},\"description\":\"Makes a notification when sensor data processing is complete\",\"title\":\"Data processing complete\",\"event\":\"dataProcessingComplete\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 150,
+        "y": 260,
+        "wires": [
+            [
+                "3091144.9f1991e",
+                "90991430.28a128",
+                "89099088.26911"
+            ]
+        ]
+    },
+    {
+        "id": "3091144.9f1991e",
+        "type": "system-action-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "logData",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/database\",\"params\":{},\"description\":\"Logs the input data\",\"title\":\"Log data\",\"action\":\"logData\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 360,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "90991430.28a128",
+        "type": "system-action-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "reviewForMaintenance",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/maintenancemonitor\",\"params\":{},\"output\":{\"type\":\"boolean\",\"description\":\"Whether or not the system needs maintenance\"},\"description\":\"Reviews a system's status for issues that may need maintenance\",\"title\":\"Review for maintenance\",\"action\":\"reviewForMaintenance\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 380,
+        "y": 300,
+        "wires": [
+            [
+                "2991983d.9e1a94"
+            ]
+        ]
+    },
+    {
+        "id": "89099088.26911",
+        "type": "system-action-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "calculateEfficiency",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/efficiencyanalyser\",\"params\":{},\"output\":{\"type\":\"integer\",\"description\":\"The calculated percentage efficiency of the system\"},\"description\":\"Calculates the efficiency of the system\",\"title\":\"Calculate efficiency\",\"action\":\"calculateEfficiency\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 380,
+        "y": 340,
+        "wires": [
+            [
+                "2091913d.9a911c"
+            ]
+        ]
+    },
+    {
+        "id": "2991983d.9e1a94",
+        "type": "switch",
+        "z": "1992f380.992394",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 570,
+        "y": 300,
+        "wires": [
+            [
+                "919191e8.299a18"
+            ]
+        ]
+    },
+    {
+        "id": "2091913d.9a911c",
+        "type": "change",
+        "z": "1992f380.992394",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"alertType\":\"efficiency\", \"alertContent\":\"Efficiency at \" + msg.payload + \"%\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 340,
+        "wires": [
+            [
+                "a991913d.2a998c"
+            ]
+        ]
+    },
+    {
+        "id": "919191e8.299a18",
+        "type": "change",
+        "z": "1992f380.992394",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"alertType\":\"maintenance\", \"alertContent\":\"Maintenance needed\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 750,
+        "y": 300,
+        "wires": [
+            [
+                "8080913d.22808"
+            ]
+        ]
+    },
+    {
+        "id": "a991913d.2a998c",
+        "type": "system-action-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertManager",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/managersdevice\",\"params\":{\"alertType\":\"string\",\"alertContent\":\"string\"},\"description\":\"Makes an alert on the manager's device\",\"title\":\"Alert the manager\",\"action\":\"alertManager\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 760,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8080913d.22808",
+        "type": "system-action-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertManager",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/managersdevice\",\"params\":{\"alertType\":\"string\",\"alertContent\":\"string\"},\"description\":\"Makes an alert on the manager's device\",\"title\":\"Alert the manager\",\"action\":\"alertManager\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 940,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9991913d.299998",
+        "type": "system-event-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "resourceUsed",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/inventorymanager\",\"output\":{\"type\":\"object\",\"properties\":{\"resourceName\":{\"type\":\"string\",\"description\":\"The name of the resource used\"},\"quantity\":{\"type\":\"number\",\"description\":\"The amount of the resource used\"}}},\"description\":\"Makes an alert when a resource is used\",\"title\":\"Resource used\",\"event\":\"resourceUsed\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 120,
+        "y": 420,
+        "wires": [
+            [
+                "8880913d.26888",
+                "9090913d.29090c"
+            ]
+        ]
+    },
+    {
+        "id": "8880913d.26888",
+        "type": "change",
+        "z": "1992f380.992394",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"alertType\":\"resource\", \"alertContent\":msg.payload.quantity + \" \" + msg.payload.resourceName + \" used\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 420,
+        "wires": [
+            [
+                "9191913d.29191c"
+            ]
+        ]
+    },
+    {
+        "id": "9090913d.29090c",
+        "type": "change",
+        "z": "1992f380.992394",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.quantity + \" \" + msg.payload.resourceName + \" used\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 310,
+        "y": 460,
+        "wires": [
+            [
+                "80808091.228088"
+            ]
+        ]
+    },
+    {
+        "id": "9191913d.29191c",
+        "type": "system-action-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertManager",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/managersdevice\",\"params\":{\"alertType\":\"string\",\"alertContent\":\"string\"},\"description\":\"Makes an alert on the manager's device\",\"title\":\"Alert the manager\",\"action\":\"alertManager\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 500,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "80808091.228088",
+        "type": "system-action-node",
+        "z": "1992f380.992394",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "logData",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/database\",\"params\":{},\"description\":\"Logs the input data\",\"title\":\"Log data\",\"action\":\"logData\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 500,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    }
+]

@@ -1,0 +1,314 @@
+[
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "Database",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "logData":{
+                "type": "",
+                "title": "Log data",
+                "description": "Logs the input data",
+                "input": {
+                    "type": "string",
+                    "description": "The data to be logged"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "EfficiencyAnalyser",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "calculateEfficiency":{
+                "type": "",
+                "title": "Calculate efficiency",
+                "description": "Calculates the efficiency of the system",
+                "input": {
+                    "type": "string",
+                    "description": "The status of the system"
+                },
+                "output": {
+                    "type": "integer",
+                    "description": "The calculated percentage efficiency of the system"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "InventoryManager",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "resourceUsed":{
+                "title": "Resource used",
+                "description": "Makes an alert when a resource is used",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "resourceName":{
+                            "type": "string",
+                            "description": "The name of the resource used"
+                        },
+                        "quantity":{
+                            "type": "number",
+                            "description": "The amount of the resource used"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "MaintenanceMonitor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "reviewForMaintenance":{
+                "type": "",
+                "title": "Review for maintenance",
+                "description": "Reviews a system's status for issues that may need maintenance",
+                "input": {
+                    "type": "string",
+                    "description": "The status of the system"
+                },
+                "output": {
+                    "type": "boolean",
+                    "description": "Whether or not the system needs maintenance"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "ManagersDevice",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertManager":{
+                "type": "",
+                "title": "Alert the manager",
+                "description": "Makes an alert on the manager's device",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "alertType":{
+                            "type":"string",
+                            "description": "The type of alert to produce on the target device"
+                        },
+                        "alertContent":{
+                            "type": "string",
+                            "description": "The contents of the alert being created"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "QualityInspector",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "newQualityData":{
+                "title": "New quality data",
+                "description": "Alerts when new quality data is ready for processing",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "Details about the quality of products"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "SensorHub",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "processSensorData":{
+                "type": "",
+                "title": "Process sensor data",
+                "description": "Adds the provided sensor data for processing",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "sensorName":{
+                            "type":"string",
+                            "description": "The name of the sensor"
+                        },
+                        "data":{
+                            "type": "string",
+                            "description": "The data for the sensor to be processed"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "dataProcessingComplete":{
+                "title": "Data processing complete",
+                "description": "Makes a notification when sensor data processing is complete",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "Status information about the current state of the system"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "TemperatureTracker",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "temperatureAlert":{
+                "title": "Temperature alert",
+                "description": "Produces an alert with the current temperature of machines",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current temperature of machines"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "VibrationMonitor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "vibrationAlert":{
+                "title": "Vibration alert",
+                "description": "Created a notification of the current vibration of machines",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The amplitude of the current vibration of the machines"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    }
+]

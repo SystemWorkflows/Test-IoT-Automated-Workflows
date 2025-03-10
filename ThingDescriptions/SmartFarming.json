@@ -1,0 +1,719 @@
+[
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "AirConditioning",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "applyGreenhouseAirConditioning":{
+                "type": "",
+                "title": "Apply Greenhouse Air Conditioning",
+                "description": "Activates airconditioning in the greenhouse",
+                "input":{
+                    "type": "number",
+                    "description": "The target temperature"
+                },
+                "forms": []
+            },
+            "stopGreenhouseAirConditioning":{
+                "type": "",
+                "title": "Stop Greenhouse Air Conditioning",
+                "description": "Deactivates airconditioning in the greenhouse",
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "AlertSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "alertRole":{
+                "type": "",
+                "title": "Alert Role",
+                "description": "Sends a message to recipients with a provided role",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "role":{
+                            "type": "string",
+                            "description": "The role of the recipients to be sent the given message"
+                        },
+                        "message":{
+                            "type":"string",
+                            "description": "The message to be sent"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CropAnalyser",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "analyseCropHealth":{
+                "type": "",
+                "title": "Analyser Crop Health",
+                "description": "Analyses the health of farm crops within a provided image",
+                "input": {
+                    "type": "string",
+                    "description": "A string embedding of an image containing farm crops"
+                },
+                "output": {
+                    "type": "string",
+                    "description": "The details of crop health, useful for other actions"
+                },
+                "forms": []
+            },
+            "calculateFertiliserRequirements":{
+                "type": "",
+                "title": "Calculate Fertiliser Requrements",
+                "description": "Calculate the optimum concentration and composition of fertiliser for the current crops",
+                "input": {
+                    "type": "string",
+                    "description": "Details about the current crops in the farm"
+                },
+                "forms": []
+            }
+        },
+        "properties": {
+            "cropHealthStatus":{
+                "type": "string",
+                "title": "Crop Health Status",
+                "description": "The calculated status of this farm's crop health",
+                "readOnly": true,
+                "forms": []
+            }
+        },
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "CropDrones",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "newCropImage":{
+                "title": "New Crop Image",
+                "description": "Provides a new image of this farms crops, useful for analysis of crop health and yield",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "A string embedding of the produced image"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "FarmerDevice",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "recieveCropHealth":{
+                "type": "",
+                "title": "Recieve Crop Health",
+                "description": "Recieves information about the health status of crops",
+                "input": {
+                    "type": "string",
+                    "description": "Details about the health of crops"
+                },
+                "forms": []
+            },
+            "recieveLivestockStatus":{
+                "type": "",
+                "title": "Recieve Livestock Status",
+                "description": "Recieves information about the status of the farm's livestock",
+                "input": {
+                    "type": "string",
+                    "description": "Details about the status of livestock"
+                },
+                "forms": []
+            },
+            "recieveEnvironmentalConditions":{
+                "type": "",
+                "title": "Recieve Environmental Conditions",
+                "description": "Recieves information about the environmental conditions surrounding the farm",
+                "input": {
+                    "type": "string",
+                    "description": "Details about the enviromental condition on the farm"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "requestCropHealth":{
+                "title": "Request Crop Health",
+                "description": "An event made when a user requests the health status of crops",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            },
+            "requestLivestockStatus":{
+                "title": "Request Livestock Status",
+                "description": "An event made when a user requests the status of the farm's livestock",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            },
+            "requestEnvironmentalConditions":{
+                "title": "Request Environmental Conditions",
+                "description": "An event made when a user requests the environmental conditions surrounding the farm",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "FertiliserSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "applyFertiliser":{
+                "type": "",
+                "title": "Apply Fertiliser",
+                "description": "Applys fertiliser to crops",
+                "input": {
+                    "type": "string",
+                    "description": "Details about the ferilisation to be performed"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "FoodDispenser",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "dispenseFood":{
+                "type": "",
+                "title": "Dispense Food",
+                "description": "Dispenses food for livestock on the farm",
+                "input": {
+                    "type": "string",
+                    "description": "The animal for which to dispense food for"
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "GreenhouseActuators",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "openGreenhouseWindows":{
+                "type": "",
+                "title": "Open Greenhouse Windows",
+                "description": "Opens the windows of the farm greenhouse",
+                "forms": []
+            },
+            "closeGreenhouseWindows":{
+                "type": "",
+                "title": "Close Greenhouse Windows",
+                "description": "Closes the windows of the farm greenhouse",
+                "forms": []
+            },
+            "greenhouseHeaterOn":{
+                "type": "",
+                "title": "Greenhouse Heater On",
+                "description": "Turns on the heater within the greenhouse",
+                "forms": []
+            },
+            "greenhouseHeaterOff":{
+                "type": "",
+                "title": "Greenhouse Heater Off",
+                "description": "Turns off the heater within the greenhouse",
+                "forms": []
+            },
+            "setGreenhouseShade":{
+                "type": "",
+                "title": "Set Greenhouse Shade",
+                "description": "Sets the shade for the greenhouse windows",
+                "input":{
+                    "type": "number",
+                    "description": "The percentage of window area to be shaded"
+                },
+                "forms": []
+            },
+            "activateLEDs":{
+                "type": "",
+                "title": "Activate LEDS",
+                "description": "Activates the greenhouse LEDs at a given strength",
+                "input": {
+                    "type": "number",
+                    "description": "The strength of the LEDs (on a scale of 1-10)"
+                },
+                "forms": []
+            },
+            "deactivateLEDs":{
+                "type": "",
+                "title": "Deactivate LEDS",
+                "description": "Deactivates the greenhouse LEDs",
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "GreenhouseSensors",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "greenhouseTemperature":{
+                "title": "Greenhouse Temperature",
+                "description": "A periodic alert of the current greenhouse temperature",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current greenhouse temperature"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "greenhouseHumidity":{
+                "title": "Greenhouse Humidity",
+                "description": "A periodic alert of the current greenhouse humidity",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current greenhouse humidity"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "greenhouseLightLevel":{
+                "title": "Greenhouse light level",
+                "description": "A periodic alert of the current greenhouse light level",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current greenhouse light level"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "IrrigationControl",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "updateIrrigationSchedule":{
+                "type": "",
+                "title": "Update Irrigation Schedule",
+                "description": "updates the schedule for irrigation of crops based on provided sensor data",
+                "input":{
+                    "type":"object",
+                    "properties":{
+                        "dataType":{
+                            "type": "string",
+                            "description": "The type of data being passed to the system (e.g. temperature data, humidity)"
+                        },
+                        "value":{
+                            "type": "number",
+                            "description": "The value of the data to be passed to this system"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {
+            "startIrrigation":{
+                "title": "Start Irrigation",
+                "description": "Starts irrigation in the fields for this farm",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            },
+            "stopIrrigation":{
+                "title": "Stop Irrigation",
+                "description": "Stops irrigation in the fields for this farm",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            },
+            "startGreenhouseIrrigation":{
+                "title": "Start Greenhouse Irrigation",
+                "description": "Starts irrigation in the greenhouse for this farm",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            },
+            "stopGreenhouseIrrigation":{
+                "title": "Stop Greenhouse Irrigation",
+                "description": "Stops irrigation in the greenhouse for this farm",
+                "subscription": {},
+                "data": {},
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "IrrigationSystem",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "activateIrrigation":{
+                "type": "",
+                "title": "Activate Irrigation",
+                "description": "Activates irrigation systems for the farm's field",
+                "forms": []
+            },
+            "deactivateIrrigation":{
+                "type": "",
+                "title": "Deactivate Irrigation",
+                "description": "Deactivates irrigation systems for the farm's field",
+                "forms": []
+            }
+        },
+        "properties": {},
+        "events": {}
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "LivestockMonitor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {
+            "livestockStatus":{
+                "type": "string",
+                "title": "Livestock Status",
+                "description": "A summary of the status of this farm's livestock",
+                "readOnly": true,
+                "forms": []
+            }
+        },
+        "events": {
+            "unusualLivestockVitals":{
+                "title": "Unusual Livestock Vitals",
+                "description": "Broadcasts information about the health status of livestock",
+                "subscription": {},
+                "data": {
+                    "type":"object",
+                    "properties":{
+                        "animal":{
+                            "type": "string",
+                            "description": "The name of the animal for which this alert is related too"
+                        },
+                        "details":{
+                            "type": "string",
+                            "description": "Details about the vitals of the provided animal"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "livestockOutOfBounds":{
+                "title": "Livestock Out Of Bounds",
+                "description": "An alert that livestock has travelled out of the pre-specified bounds",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "animal":{
+                            "type": "string",
+                            "description": "The animal that caused this alert"
+                        },
+                        "location":{
+                            "type": "string",
+                            "description": "The location that this event occurred"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "foodRequired":{
+                "title": "Food Required",
+                "description": "an event noting that an animal is in need of feeding",
+                "subscription": {},
+                "data": {
+                    "type": "string",
+                    "description": "The animal that is in need of feeding"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "animalDistressed":{
+                "title": "Animal Distressed",
+                "description": "A notification made when an animal is distressed",
+                "subscription": {},
+                "data": {
+                    "type": "object",
+                    "properties":{
+                        "animal":{
+                            "type": "string",
+                            "description": "The name of the animal that has been distressed"
+                        },
+                        "amount":{
+                            "type": "string",
+                            "description": "The severity of the distress (major or minor)"
+                        }
+                    }
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "MoistureSensor",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {},
+        "properties": {},
+        "events": {
+            "moistureLevel":{
+                "title": "Moisture Level",
+                "description": "An event providing the current moisture level of farm soil",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The amount of moisure in the soil"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    },
+    {
+        "@context": [
+            "http://www.w3.org/ns/td"
+        ],
+        "@type": [
+            "Thing"
+        ],
+        "title": "WeatherStation",
+        "securityDefinitions": {
+            "no_sec": {
+                "scheme": "nosec"
+            }
+        },
+        "security": "no_sec",
+        "actions": {
+            "updateClimateEventPrediction":{
+                "type": "",
+                "title": "Update Climate Event Prediction",
+                "description": "Updates the current prediction for climate events (that may effect crops) based on given real-time data",
+                "input": {
+                    "type": "object",
+                    "properties":{
+                        "dataType":{
+                            "type": "string",
+                            "description": "The type of data being passed to the system (e.g. temperature data, humidity)"
+                        },
+                        "value":{
+                            "type": "number",
+                            "description": "The value of the data to be passed to this system"
+                        }
+                    }
+                },
+                "forms": []
+            }
+        },
+        "properties": {
+            "currentEnvironmentalConditions":{
+                "type": "string",
+                "title": "Current Environmental Conditions",
+                "description": "",
+                "readOnly": true,
+                "forms": []
+            }
+        },
+        "events": {
+            "temperature":{
+                "title": "Temperature",
+                "description": "An event noting the current teperature of the farm's fields",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current temperature"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "humidity":{
+                "title": "Humidity",
+                "description": "An event noting the current humidity of the farm's fields",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current humidity"
+                },
+                "cancellation": {},
+                "forms": []
+            },
+            "windSpeed":{
+                "title": "Wind Speed",
+                "description": "An event noting the current wind speed passing the farm's fields",
+                "subscription": {},
+                "data": {
+                    "type": "number",
+                    "description": "The current wind speed"
+                },
+                "cancellation": {},
+                "forms": []
+            }
+        }
+    }
+]

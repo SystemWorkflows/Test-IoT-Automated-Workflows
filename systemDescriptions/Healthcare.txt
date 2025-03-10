@@ -1,0 +1,11 @@
+When off, turn on surgery light when the surgery button is pressed. Once on, turn of the surgery light once the surgery button is pressed again.
+
+Notify A&E when the surgery is in use (button is pressed on). Alert A&E when a bed is taken or freed.
+
+When the front door bell is pressed alert the reception. If the door is not opened within a minute page the receptionists.
+
+When equipment is used alert the admin’s logging server. When some equipment is used up/emptied page the admins.
+
+If a SOS call is made page the nurses.
+
+If a door is left open for longer than 10s ring the door alarm. If the door is open for longer than 1min page the receptionists. If the door is closed, stop the alarm.

@@ -1,0 +1,1052 @@
+[
+    {
+        "id": "19012a4949a4339f",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9399c80908919291",
+        "type": "system-event-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "oxygenLevel",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/oxygensensor\",\"output\":{\"type\":\"number\",\"description\":\"The concentration of oxygen within the space station\"},\"description\":\"Periodically produces notifications of the oxygen concentrationin the air surrounding this sensor\",\"title\":\"Oxygen Level\",\"event\":\"oxygenLevel\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "3099898032099098"
+            ]
+        ]
+    },
+    {
+        "id": "3099898032099098",
+        "type": "switch",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "0.18",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 310,
+        "y": 60,
+        "wires": [
+            [
+                "8989898989898989",
+                "9898989898989898"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898989",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "activateBackupOxygen",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/oxygensystem\",\"params\":{},\"description\":\"Activates the backup oxygen generator\",\"title\":\"Activate Backup Oxygen\",\"action\":\"activateBackupOxygen\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 530,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9898989898989898",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"lowOxygen\", \"Oxygen levels critically low\"]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 100,
+        "wires": [
+            [
+                "8989898989898980"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898980",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertControlCentre",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/controlcentre\",\"params\":{},\"description\":\"Alerts the control centre of some event\",\"title\":\"Alert Control Centre\",\"action\":\"alertControlCentre\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 750,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8989898989898981",
+        "type": "system-event-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "temperature",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/temperaturesensor\",\"output\":{\"type\":\"number\",\"description\":\"The temperature of this sensor\"},\"description\":\"Makes periodic alerts of the temperature of this sensor\",\"title\":\"Temperature\",\"event\":\"temperature\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "3099898032099091"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898982",
+        "type": "system-event-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "humidity",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/humiditysensor\",\"output\":{\"type\":\"number\",\"description\":\"The humidity surrounding this sensor\"},\"description\":\"Alerts changes in humidity around this sensor\",\"title\":\"Humidity\",\"event\":\"humidity\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 120,
+        "y": 240,
+        "wires": [
+            [
+                "3099898032099092"
+            ]
+        ]
+    },
+    {
+        "id": "3099898032099091",
+        "type": "switch",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "24",
+                "vt": "num"
+            },
+            {
+                "t": "lt",
+                "v": "18",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 200,
+        "wires": [
+            [
+                "8989898989898983",
+                "8989898989898987"
+            ],
+            [
+                "8989898989898984",
+                "8989898989898987"
+            ]
+        ]
+    },
+    {
+        "id": "3099898032099092",
+        "type": "switch",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0.60",
+                "vt": "num"
+            },
+            {
+                "t": "lt",
+                "v": "0.40",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 240,
+        "wires": [
+            [
+                "8989898989898985",
+                "8989898989898988"
+            ],
+            [
+                "8989898989898986",
+                "8989898989898988"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898983",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "(18+24)/2 - msg.payload",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 160,
+        "wires": [
+            [
+                "898989898989898a"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898984",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "(18+24)/2 - msg.payload",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 200,
+        "wires": [
+            [
+                "898989898989898a"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898985",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "(0.40+0.60)/2 - msg.payload",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 280,
+        "wires": [
+            [
+                "898989898989898b"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898986",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "(0.40+0.60)/2 - msg.payload",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 320,
+        "wires": [
+            [
+                "898989898989898b"
+            ]
+        ]
+    },
+    {
+        "id": "898989898989898a",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alterTemperature",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/environmentalcontrolcentre\",\"params\":{},\"description\":\"Alters the temperature of the space station\",\"title\":\"Alter Temperature\",\"action\":\"alterTemperature\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 730,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "898989898989898b",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alterHumidity",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/environmentalcontrolcentre\",\"params\":{},\"description\":\"Alters the humidity of the space station\",\"title\":\"Alter Humidity\",\"action\":\"alterHumidity\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 720,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8989898989898987",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"temperatureOutOfBounds\", \"Temperature out of bounds: \" & msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 240,
+        "wires": [
+            [
+                "898989898989898c"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898988",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"humidityOutOfBounds\", \"Humidity out of bounds: \" & msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 360,
+        "wires": [
+            [
+                "898989898989898c"
+            ]
+        ]
+    },
+    {
+        "id": "898989898989898c",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertControlCentre",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/controlcentre\",\"params\":{},\"description\":\"Alerts the control centre of some event\",\"title\":\"Alert Control Centre\",\"action\":\"alertControlCentre\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 750,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "898989898989898d",
+        "type": "system-event-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "fireDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/firesafetysystem\",\"output\":{\"type\":\"string\",\"description\":\"The location of the fire\"},\"description\":\"Alerts when a fire is detected on the space station\",\"title\":\"Fire Detected\",\"event\":\"fireDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 460,
+        "wires": [
+            [
+                "3099898032099093",
+                "898989898989898e",
+                "898989898989898f"
+            ]
+        ]
+    },
+    {
+        "id": "3099898032099093",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "activateFireSuppression",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/firesafetysystem\",\"params\":{},\"description\":\"Activates the fire suppression systems at the given location\",\"title\":\"Activate Fire Suppression\",\"action\":\"activateFireSuppression\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 350,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "898989898989898e",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "closeModule",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/modulecontrolsystem\",\"params\":{},\"description\":\"Closes a given module\",\"title\":\"Close Module\",\"action\":\"closeModule\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 340,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "898989898989898f",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"fireDetected\", \"Fire detected at \" & msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 540,
+        "wires": [
+            [
+                "8989898989898990"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898990",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertControlCentre",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/controlcentre\",\"params\":{},\"description\":\"Alerts the control centre of some event\",\"title\":\"Alert Control Centre\",\"action\":\"alertControlCentre\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 550,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8989898989898991",
+        "type": "system-event-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "damageDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/modulecontrolsystem\",\"output\":{\"type\":\"object\",\"properties\":{\"location\":{\"type\":\"string\",\"description\":\"The location of the module that has sustained damage\"},\"severity\":{\"type\":\"string\",\"description\":\"The severity of the damage (major or minor)\"}}},\"description\":\"Alerts when damage to a module is detected\",\"title\":\"Damage Detected\",\"event\":\"damageDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 620,
+        "wires": [
+            [
+                "3099898032099094",
+                "8989898989898992"
+            ]
+        ]
+    },
+    {
+        "id": "3099898032099094",
+        "type": "switch",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "property": "payload[\"severity\"]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "major",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 310,
+        "y": 660,
+        "wires": [
+            [
+                "8989898989898993"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898992",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"moduleDamage\", \"Damage to \" & msg.payload[\"location\"] & \" with severity: \" & msg.payload[\"severity\"]]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 620,
+        "wires": [
+            [
+                "8989898989898994"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898993",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "\"Spacewalk required at \" & msg.payload[\"location\"]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 660,
+        "wires": [
+            [
+                "8989898989898995"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898994",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertControlCentre",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/controlcentre\",\"params\":{},\"description\":\"Alerts the control centre of some event\",\"title\":\"Alert Control Centre\",\"action\":\"alertControlCentre\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 550,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8989898989898995",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "scheduleTask",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/crewscheduler\",\"params\":{},\"description\":\"Schedules a task for the crew aboard the space station\",\"title\":\"Schedule Task\",\"action\":\"scheduleTask\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 730,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8989898989898996",
+        "type": "system-event-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "groundControlLost",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/commssystem\",\"output\":{},\"description\":\"An event broadcast when communication with ground control is lost\",\"title\":\"Ground Control Lost\",\"event\":\"groundControlLost\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 740,
+        "wires": [
+            [
+                "8989898989898997"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898997",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "activateBackupComms",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/backupcommssystem\",\"params\":{},\"description\":\"Activates the backup communication system to restore communication with ground control\",\"title\":\"Activate Backup Comms\",\"action\":\"activateBackupComms\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 340,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8989898989898998",
+        "type": "system-event-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "backupCommsFailure",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/backupcommssystem\",\"output\":{},\"description\":\"An event given when the backup communication system fails\",\"title\":\"Backup Comms Failure\",\"event\":\"backupCommsFailure\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 140,
+        "y": 780,
+        "wires": [
+            [
+                "8989898989898999"
+            ]
+        ]
+    },
+    {
+        "id": "8989898989898999",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "deployEmergencyCommsBeakon",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/commssystem\",\"params\":{},\"description\":\"Deploys an emergency communication beakon for location of this space craft\",\"title\":\"Deploy Emergency Comms Beakon\",\"action\":\"deployEmergencyCommsBeakon\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 360,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "901c23403003948d",
+        "type": "system-event-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "malfunctionDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/equipmentmonitor\",\"output\":{\"type\":\"string\",\"description\":\"The name of the equipment that has malfunctoned\"},\"description\":\"An event produced when equipment on the ship malfunctions\",\"title\":\"Malfunction Detected\",\"event\":\"malfunctionDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "32498d234890234d",
+                "234890234890abcd",
+                "efgh234890ijklmn"
+            ]
+        ]
+    },
+    {
+        "id": "32498d234890234d",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"all\", \"message\":msg.payload + \" malfunctioned\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 100,
+        "wires": [
+            [
+                "234890abcdef1234"
+            ]
+        ]
+    },
+    {
+        "id": "234890abcdef1234",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertCrew",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/tannoysystem\",\"params\":{\"message\":\"string\"},\"description\":\"Alerts the crew with a given message\",\"title\":\"Alert Crew\",\"action\":\"alertCrew\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 520,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "234890234890abcd",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "scheduleTask",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/crewscheduler\",\"params\":{\"task\":\"string\"},\"description\":\"Schedules a task for the crew aboard the space station\",\"title\":\"Schedule Task\",\"action\":\"scheduleTask\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 340,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "efgh234890ijklmn",
+        "type": "switch",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "mainComms",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "backupComms",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 180,
+        "wires": [
+            [
+                "234890234890238d"
+            ],
+            [
+                "abcdefg12345678"
+            ]
+        ]
+    },
+    {
+        "id": "234890234890238d",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "activateBackupComms",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/backupcommssystem\",\"params\":{},\"description\":\"Activates the backup communication system to restore communication with ground control\",\"title\":\"Activate Backup Comms\",\"action\":\"activateBackupComms\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 520,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "abcdefg12345678",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "deployEmergencyCommsBeakon",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/commssystem\",\"params\":{},\"description\":\"Deploys an emergency communication beakon for location of this space craft\",\"title\":\"Deploy Emergency Comms Beakon\",\"action\":\"deployEmergencyCommsBeakon\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 550,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1234567890abcdef",
+        "type": "system-event-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "forceReading",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/researchsensors\",\"output\":{\"type\":\"number\",\"description\":\"The measurement of the force sensor\"},\"description\":\"Broadcasts the measurement of the force sensor\",\"title\":\"Force Reading\",\"event\":\"forceReading\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 120,
+        "y": 300,
+        "wires": [
+            [
+                "234890abcdef0987"
+            ]
+        ]
+    },
+    {
+        "id": "abcdef1234567890",
+        "type": "system-event-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "accelerationReading",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/researchsensors\",\"output\":{\"type\":\"number\",\"description\":\"The measurement of the acceleration sensor\"},\"description\":\"Broadcasts the measurement of the acceleration sensor\",\"title\":\"Acceleration Reading\",\"event\":\"accelerationReading\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "9876543210fedcba"
+            ]
+        ]
+    },
+    {
+        "id": "fedcba9876543210",
+        "type": "system-event-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "gravityReading",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/researchsensors\",\"output\":{\"type\":\"number\",\"description\":\"The measurement of the gravitational force sensor\"},\"description\":\"Broadcasts the measurement of the gravitational force sensor\",\"title\":\"Gravity Reading\",\"event\":\"gravityReading\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 120,
+        "y": 380,
+        "wires": [
+            [
+                "ponmlkjihgfedcba"
+            ]
+        ]
+    },
+    {
+        "id": "2348902348902348",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "addDataToProcess",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/dataprocessingsystem\",\"params\":{\"dataType\":\"string\",\"value\":\"string\"},\"output\":{\"type\":\"object\",\"description\":\"The result of analysis for the current data\"},\"description\":\"Adds the provided data to the queue for analysis\",\"title\":\"AddDataToProcess\",\"action\":\"addDataToProcess\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 520,
+        "y": 340,
+        "wires": [
+            [
+                "1234abcdef567890",
+                "90abcdef12345678"
+            ]
+        ]
+    },
+    {
+        "id": "234890abcdef0987",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"force\", msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 300,
+        "wires": [
+            [
+                "2348902348902348"
+            ]
+        ]
+    },
+    {
+        "id": "9876543210fedcba",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"acceleration\", msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 340,
+        "wires": [
+            [
+                "2348902348902348"
+            ]
+        ]
+    },
+    {
+        "id": "ponmlkjihgfedcba",
+        "type": "change",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[\"gravity\", msg.payload]",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 380,
+        "wires": [
+            [
+                "2348902348902348"
+            ]
+        ]
+    },
+    {
+        "id": "1234abcdef567890",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "deliverMeasurement",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/crewdevice\",\"params\":{\"measurementType\":\"string\",\"value\":\"string\"},\"description\":\"Delivers a new measurement to the crew\",\"title\":\"Deliver Measurement\",\"action\":\"deliverMeasurement\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 720,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "90abcdef12345678",
+        "type": "system-action-node",
+        "z": "19012a4949a4339f",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertControlCentre",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/controlcentre\",\"params\":{\"alertType\":\"string\",\"details\":\"string\"},\"description\":\"Alerts the control centre of some event\",\"title\":\"Alert Control Centre\",\"action\":\"alertControlCentre\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 730,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    }
+]

@@ -1,0 +1,1118 @@
+[
+    {
+        "id": "199291904819a49c",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9014211192029999",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "pHLevel",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/tanksensors\",\"output\":{\"type\":\"number\",\"description\":\"The pH level\"},\"description\":\"A periodic report of the pH level of the tank's water\",\"title\":\"pH Level\",\"event\":\"pHLevel\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "9999999999999999"
+            ]
+        ]
+    },
+    {
+        "id": "9999999999999999",
+        "type": "switch",
+        "z": "199291904819a49c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "8.0",
+                "vt": "num"
+            },
+            {
+                "t": "gt",
+                "v": "8.4",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 270,
+        "y": 60,
+        "wires": [
+            [
+                "8888888888888888"
+            ],
+            [
+                "7777777777777777"
+            ]
+        ]
+    },
+    {
+        "id": "8888888888888888",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"chemical\":\"crushedCoral\", \"amount\":8.0 - msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 40,
+        "wires": [
+            [
+                "6666666666666666"
+            ]
+        ]
+    },
+    {
+        "id": "7777777777777777",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"chemical\":\"CO2\", \"amount\":msg.payload - 8.4}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 80,
+        "wires": [
+            [
+                "6666666666666666"
+            ]
+        ]
+    },
+    {
+        "id": "6666666666666666",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "dispenseChemical",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/tankactuators\",\"params\":{\"chemical\":\"string\",\"amount\":\"number\"},\"description\":\"Dispenses the specified chemical into the water tank\",\"title\":\"Dispense Chemical\",\"action\":\"dispenseChemical\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 650,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5555555555555555",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "temperature",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/tanksensors\",\"output\":{\"type\":\"number\",\"description\":\"The temperature of the water\"},\"description\":\"A periodic notification of the current water temperature of the tank\",\"title\":\"Temperature\",\"event\":\"temperature\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "4444444444444444"
+            ]
+        ]
+    },
+    {
+        "id": "4444444444444444",
+        "type": "switch",
+        "z": "199291904819a49c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "26",
+                "vt": "num"
+            },
+            {
+                "t": "lt",
+                "v": "24",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 270,
+        "y": 160,
+        "wires": [
+            [
+                "3333333333333333"
+            ],
+            [
+                "2222222222222222"
+            ]
+        ]
+    },
+    {
+        "id": "3333333333333333",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "CoolerOn",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/tankactuators\",\"params\":{\"targetTemperature\":\"number\"},\"description\":\"Turns the water cooler on\",\"title\":\"Cooler On\",\"action\":\"CoolerOn\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 460,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2222222222222222",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "heaterOn",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/tankactuators\",\"params\":{\"targetTemperature\":\"number\"},\"description\":\"Turns the water heater on\",\"title\":\"Heater On\",\"action\":\"heaterOn\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 460,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1111111111111111",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "salinity",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/tanksensors\",\"output\":{\"type\":\"number\",\"description\":\"The concentration of salt in the water\"},\"description\":\"The current concentration of salt in the tank's water\",\"title\":\"Salinity\",\"event\":\"salinity\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 100,
+        "y": 260,
+        "wires": [
+            [
+                "0000000000000000"
+            ]
+        ]
+    },
+    {
+        "id": "aaaaaaaaaaaaaaaa",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "nitrateLevel",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/tanksensors\",\"output\":{\"type\":\"number\",\"description\":\"The amount of nitrates\"},\"description\":\"Notification of the current amount of nitrate in the tank water\",\"title\":\"Nitrate Level\",\"event\":\"nitrateLevel\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 300,
+        "wires": [
+            [
+                "bbbbbbbbbbbbbbbb"
+            ]
+        ]
+    },
+    {
+        "id": "0000000000000000",
+        "type": "switch",
+        "z": "199291904819a49c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "0.035",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 270,
+        "y": 260,
+        "wires": [
+            [
+                "cccccccccccccccc"
+            ]
+        ]
+    },
+    {
+        "id": "bbbbbbbbbbbbbbbb",
+        "type": "switch",
+        "z": "199291904819a49c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "20",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 270,
+        "y": 300,
+        "wires": [
+            [
+                "dddddddddddddddd"
+            ]
+        ]
+    },
+    {
+        "id": "cccccccccccccccc",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"chemical\":\"salt\", \"amount\":0.035 - msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 260,
+        "wires": [
+            [
+                "eeeeeeeeeeeeeeee"
+            ]
+        ]
+    },
+    {
+        "id": "dddddddddddddddd",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"chemical\":\"potassiumNitrate\", \"amount\":20 - msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 300,
+        "wires": [
+            [
+                "eeeeeeeeeeeeeeee"
+            ]
+        ]
+    },
+    {
+        "id": "eeeeeeeeeeeeeeee",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "dispenseChemical",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/tankactuators\",\"params\":{\"chemical\":\"string\",\"amount\":\"number\"},\"description\":\"Dispenses the specified chemical into the water tank\",\"title\":\"Dispense Chemical\",\"action\":\"dispenseChemical\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 670,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ffffffffffffffff",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "lowFoodLevel",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/fooddispensor\",\"output\":{},\"description\":\"A notification that the food dispensor is almost empty\",\"title\":\"Low Food Level\",\"event\":\"lowFoodLevel\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 400,
+        "wires": [
+            [
+                "1010101010101010"
+            ]
+        ]
+    },
+    {
+        "id": "1010101010101010",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"owner\", \"message\":\"Food dispensor running low\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 400,
+        "wires": [
+            [
+                "0101010101010101"
+            ]
+        ]
+    },
+    {
+        "id": "0101010101010101",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a system role with the provided message/data\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 480,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a0a0a0a0a0a0a0a0",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "time",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/clock\",\"output\":{\"type\":\"number\",\"description\":\"The time\"},\"description\":\"The current time\",\"title\":\"Time\",\"event\":\"time\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 90,
+        "y": 500,
+        "wires": [
+            [
+                "b0b0b0b0b0b0b0b0"
+            ]
+        ]
+    },
+    {
+        "id": "b0b0b0b0b0b0b0b0",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "notifyLightingOfTime",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/tanklighting\",\"params\":{\"currentTime\":\"number\"},\"description\":\"Notifies this lighting unit of the current time (enabling synchronisation by an external time keeper)\",\"title\":\"Notify Lighting Of Time\",\"action\":\"notifyLightingOfTime\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 290,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c0c0c0c0c0c0c0c0",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "filterIssue",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/filtermonitor\",\"output\":{},\"description\":\"A notification made when an issue with the filter is detected, preventing it from correctly functioning\",\"title\":\"Filter Issue\",\"event\":\"filterIssue\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 100,
+        "y": 600,
+        "wires": [
+            [
+                "d0d0d0d0d0d0d0d0",
+                "e0e0e0e0e0e0e0e0"
+            ]
+        ]
+    },
+    {
+        "id": "d0d0d0d0d0d0d0d0",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"owner\", \"message\":\"Filter issue detected\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 600,
+        "wires": [
+            [
+                "f0f0f0f0f0f0f0f0"
+            ]
+        ]
+    },
+    {
+        "id": "f0f0f0f0f0f0f0f0",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a system role with the provided message/data\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 480,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e0e0e0e0e0e0e0e0",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"owner\", \"task\":\"Clean or replace filter\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 640,
+        "wires": [
+            [
+                "1001001001001001"
+            ]
+        ]
+    },
+    {
+        "id": "1001001001001001",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "scheduleTask",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/scheduler\",\"params\":{\"role\":\"string\",\"task\":\"string\"},\"description\":\"Schedules a task to be carried out by a specific system role\",\"title\":\"Schedule Task\",\"action\":\"scheduleTask\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 480,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0202020202020202",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "abnormalActivity",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/lifeformmonitor\",\"output\":{\"type\":\"object\",\"properties\":{\"lifeform\":{\"type\":\"string\",\"description\":\"The identification of the lifeform causing abnormal activity\"},\"details\":{\"type\":\"string\",\"description\":\"Details about the activity\"}}},\"description\":\"An event notifying when there is abnormal activity within the tank\",\"title\":\"Abnormal Activity\",\"event\":\"abnormalActivity\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 120,
+        "y": 720,
+        "wires": [
+            [
+                "1212121212121212"
+            ]
+        ]
+    },
+    {
+        "id": "2121212121212121",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "healthIssuesDetected",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/lifeformmonitor\",\"output\":{\"type\":\"object\",\"properties\":{\"lifeform\":{\"type\":\"string\",\"description\":\"The identification of the lifeform\"},\"details\":{\"type\":\"string\",\"description\":\"Details about the health event\"}}},\"description\":\"An event notifying of a health issue for one of the lifeforms\",\"title\":\"Health Issues Detected\",\"event\":\"healthIssuesDetected\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 760,
+        "wires": [
+            [
+                "1212121212121212"
+            ]
+        ]
+    },
+    {
+        "id": "3232323232323232",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a system role with the provided message/data\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 480,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1212121212121212",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"owner\", \"message\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 740,
+        "wires": [
+            [
+                "3232323232323232"
+            ]
+        ]
+    },
+    {
+        "id": "4343434343434343",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "regularMaintenanceRequired",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/scheduler\",\"output\":{\"type\":\"object\",\"properties\":{\"task\":{\"type\":\"string\",\"description\":\"The description of the task\"},\"dueDate\":{\"type\":\"number\",\"description\":\"The time that the task must be completed by\"}}},\"description\":\"An alert for regular tank maintenance\",\"title\":\"Regular Maintenance Required\",\"event\":\"regularMaintenanceRequired\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 140,
+        "y": 840,
+        "wires": [
+            [
+                "5454545454545454"
+            ]
+        ]
+    },
+    {
+        "id": "5454545454545454",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"owner\", \"message\":msg.payload[\"task\"] + \" required by \" + msg.payload[\"dueDate\"]}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 840,
+        "wires": [
+            [
+                "6565656565656565"
+            ]
+        ]
+    },
+    {
+        "id": "6565656565656565",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a system role with the provided message/data\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 520,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8864a10810909291",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "powerOutage",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/outagedetector\",\"output\":{},\"description\":\"Notification of a power outage\",\"title\":\"Power Outage\",\"event\":\"powerOutage\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "3099919191111111",
+                "1111111111111112"
+            ]
+        ]
+    },
+    {
+        "id": "3099919191111111",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "enableBackupPower",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/backuppower\",\"params\":{},\"description\":\"Enables the backup power source for the aquarium\",\"title\":\"Enable Backup Power\",\"action\":\"enableBackupPower\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 350,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1111111111111112",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"owner\", \"message\":\"Power outage detected, backup power enabled\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 100,
+        "wires": [
+            [
+                "2222222222222221"
+            ]
+        ]
+    },
+    {
+        "id": "2222222222222221",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Alerts a system role with the provided message/data\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 530,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "333333333333331",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "requestWaterConditions",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/userdevice\",\"output\":{},\"description\":\"An event produced when a user wishes to gather the current water conditions\",\"title\":\"Request Water Conditions\",\"event\":\"requestWaterConditions\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "4444444444444441",
+                "5555555555555551",
+                "6666666666666661",
+                "7777777777777771"
+            ]
+        ]
+    },
+    {
+        "id": "8888888888888881",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "receiveWaterConditions",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/userdevice\",\"params\":{},\"description\":\"Passes the given water conditions to the user of this device\",\"title\":\"Receive Water Conditions\",\"action\":\"receiveWaterConditions\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 710,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4444444444444441",
+        "type": "system-property-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingProperty": "pHLevel",
+        "thingPropertyValue": "{\"uri\":\"http://localhost:8080/tanksensors\",\"type\":\"number\",\"description\":\"The pH Level of the water in the tank\",\"title\":\"pH level\",\"property\":\"pHLevel\"}",
+        "mode": "read",
+        "redeploy": "false",
+        "x": 310,
+        "y": 140,
+        "wires": [
+            [
+                "aaaaaaaaaaaaaaa1"
+            ]
+        ]
+    },
+    {
+        "id": "5555555555555551",
+        "type": "system-property-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingProperty": "temperature",
+        "thingPropertyValue": "{\"uri\":\"http://localhost:8080/tanksensors\",\"type\":\"number\",\"description\":\"The temperature of the water in the tank\",\"title\":\"Temperature\",\"property\":\"temperature\"}",
+        "mode": "read",
+        "redeploy": "false",
+        "x": 320,
+        "y": 180,
+        "wires": [
+            [
+                "bbbbbbbbbbbbbbb1"
+            ]
+        ]
+    },
+    {
+        "id": "6666666666666661",
+        "type": "system-property-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingProperty": "salinity",
+        "thingPropertyValue": "{\"uri\":\"http://localhost:8080/tanksensors\",\"type\":\"number\",\"description\":\"The salinity of the water in the tank\",\"title\":\"Salinity\",\"property\":\"salinity\"}",
+        "mode": "read",
+        "redeploy": "false",
+        "x": 310,
+        "y": 220,
+        "wires": [
+            [
+                "ccccccccccccccc1"
+            ]
+        ]
+    },
+    {
+        "id": "7777777777777771",
+        "type": "system-property-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingProperty": "nitrateLevel",
+        "thingPropertyValue": "{\"uri\":\"http://localhost:8080/tanksensors\",\"type\":\"number\",\"description\":\"The amount of nitrates in the tank's water\",\"title\":\"Nitrate Level\",\"property\":\"nitrateLevel\"}",
+        "mode": "read",
+        "redeploy": "false",
+        "x": 320,
+        "y": 260,
+        "wires": [
+            [
+                "ddddddddddddddd1"
+            ]
+        ]
+    },
+    {
+        "id": "aaaaaaaaaaaaaaa1",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "pH",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 140,
+        "wires": [
+            [
+                "eeeeeeeeeeeeeee1"
+            ]
+        ]
+    },
+    {
+        "id": "bbbbbbbbbbbbbbb1",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "temperature",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 510,
+        "y": 180,
+        "wires": [
+            [
+                "eeeeeeeeeeeeeee1"
+            ]
+        ]
+    },
+    {
+        "id": "ccccccccccccccc1",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "salinity",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 220,
+        "wires": [
+            [
+                "eeeeeeeeeeeeeee1"
+            ]
+        ]
+    },
+    {
+        "id": "ddddddddddddddd1",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "nitrate",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 260,
+        "wires": [
+            [
+                "eeeeeeeeeeeeeee1"
+            ]
+        ]
+    },
+    {
+        "id": "eeeeeeeeeeeeeee1",
+        "type": "change",
+        "z": "199291904819a49c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"pH\":msg.pH, \"temperature\":msg.temperature, \"salinity\":msg.salinity, \"nitrate\":msg.nitrate}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 300,
+        "wires": [
+            [
+                "8888888888888881"
+            ]
+        ]
+    },
+    {
+        "id": "fffffffffffffff1",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "accessCameraFeed",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/userdevice\",\"output\":{},\"description\":\"An event displaying the users intention to access the aquarium's camera system\",\"title\":\"Access Camera Feed\",\"event\":\"accessCameraFeed\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 380,
+        "wires": [
+            [
+                "ggggggggggggggg1"
+            ]
+        ]
+    },
+    {
+        "id": "hhhhhhhhhhhhhhh1",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "receiveCameraConnection",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/userdevice\",\"params\":{},\"description\":\"Passes details to the user's application for establishing a camera connection\",\"title\":\"Receive Camera Connection\",\"action\":\"receiveCameraConnection\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 550,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ggggggggggggggg1",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "getCameraConnection",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/tankcameras\",\"params\":{},\"output\":{\"title\":\"string\",\"description\":\"Details of the camera feed connection\"},\"description\":\"Fetches a connection to the tank camera feed\",\"title\":\"Get Camera Connection\",\"action\":\"getCameraConnection\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 330,
+        "y": 380,
+        "wires": [
+            [
+                "hhhhhhhhhhhhhhh1"
+            ]
+        ]
+    },
+    {
+        "id": "iiiiiiiiiiiiiii1",
+        "type": "system-event-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "forceFoodDispense",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/userdevice\",\"output\":{\"type\":\"number\",\"description\":\"The amount of food to dispense\"},\"description\":\"Notification made when the user wishes to dispense food into the tank\",\"title\":\"Force Food Dispense\",\"event\":\"forceFoodDispense\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 130,
+        "y": 440,
+        "wires": [
+            [
+                "jjjjjjjjjjjjjjj1"
+            ]
+        ]
+    },
+    {
+        "id": "jjjjjjjjjjjjjjj1",
+        "type": "system-action-node",
+        "z": "199291904819a49c",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "dispenseFood",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/fooddispensor\",\"params\":{},\"description\":\"Dispenses food into the tanks\",\"title\":\"Dispense Food\",\"action\":\"dispenseFood\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 330,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    }
+]

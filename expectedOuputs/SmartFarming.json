@@ -1,0 +1,1116 @@
+[
+    {
+        "id": "6b1a591bd8b2b7e6",
+        "type": "tab",
+        "label": "Flow 7",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "373f1b9a1bf2c9dd",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "moistureLevel",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/moisturesensor\",\"output\":{\"type\":\"number\",\"description\":\"The amount of moisure in the soil\"},\"description\":\"An event providing the current moisture level of farm soil\",\"title\":\"Moisture Level\",\"event\":\"moistureLevel\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 40,
+        "wires": [
+            [
+                "bb0f3f083f939eee"
+            ]
+        ]
+    },
+    {
+        "id": "60444cbb9b47aa7a",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "activateIrrigation",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/irrigationsystem\",\"params\":{},\"description\":\"Activates irrigation systems for the farm's field\",\"title\":\"Activate Irrigation\",\"action\":\"activateIrrigation\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 400,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bb0f3f083f939eee",
+        "type": "switch",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "0.4",
+                "vt": "str"
+            },
+            {
+                "t": "gt",
+                "v": "0.95",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 250,
+        "y": 40,
+        "wires": [
+            [
+                "60444cbb9b47aa7a"
+            ],
+            [
+                "b7fdda8d0f488da0"
+            ]
+        ]
+    },
+    {
+        "id": "b7fdda8d0f488da0",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "deactivateIrrigation",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/irrigationsystem\",\"params\":{},\"description\":\"Deactivates irrigation systems for the farm's field\",\"title\":\"Deactivate Irrigation\",\"action\":\"deactivateIrrigation\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 410,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "22404a759b8c197e",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "temperature",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/weatherstation\",\"output\":{\"type\":\"number\",\"description\":\"The current temperature\"},\"description\":\"An event noting the current teperature of the farm's fields\",\"title\":\"Temperature\",\"event\":\"temperature\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "a037eee9d32dcd45"
+            ]
+        ]
+    },
+    {
+        "id": "9b2854e5c7387d14",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "humidity",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/weatherstation\",\"output\":{\"type\":\"number\",\"description\":\"The current humidity\"},\"description\":\"An event noting the current humidity of the farm's fields\",\"title\":\"Humidity\",\"event\":\"humidity\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 100,
+        "y": 180,
+        "wires": [
+            [
+                "435ece23c819fa64"
+            ]
+        ]
+    },
+    {
+        "id": "7f91d11ee8cfbf20",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "windSpeed",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/weatherstation\",\"output\":{\"type\":\"number\",\"description\":\"The current wind speed\"},\"description\":\"An event noting the current wind speed passing the farm's fields\",\"title\":\"Wind Speed\",\"event\":\"windSpeed\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 100,
+        "y": 220,
+        "wires": [
+            [
+                "3c8f99908191834d"
+            ]
+        ]
+    },
+    {
+        "id": "79cc8659f190a4db",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "updateIrrigationSchedule",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/irrigationcontrol\",\"params\":{\"dataType\":\"string\",\"value\":\"number\"},\"description\":\"updates the schedule for irrigation of crops based on provided sensor data\",\"title\":\"Update Irrigation Schedule\",\"action\":\"updateIrrigationSchedule\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 510,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a037eee9d32dcd45",
+        "type": "change",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"dataType\":\"temperature\", \"value\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 140,
+        "wires": [
+            [
+                "79cc8659f190a4db"
+            ]
+        ]
+    },
+    {
+        "id": "435ece23c819fa64",
+        "type": "change",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"dataType\":\"humidity\", \"value\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 180,
+        "wires": [
+            [
+                "79cc8659f190a4db"
+            ]
+        ]
+    },
+    {
+        "id": "3c8f99908191834d",
+        "type": "change",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"dataType\":\"windSpeed\", \"value\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 280,
+        "y": 220,
+        "wires": [
+            [
+                "79cc8659f190a4db"
+            ]
+        ]
+    },
+    {
+        "id": "10a66e2baae51e8c",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "newCropImage",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/cropdrones\",\"output\":{\"type\":\"string\",\"description\":\"A string embedding of the produced image\"},\"description\":\"Provides a new image of this farms crops, useful for analysis of crop health and yield\",\"title\":\"New Crop Image\",\"event\":\"newCropImage\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 120,
+        "y": 300,
+        "wires": [
+            [
+                "56cf62b26a834a52"
+            ]
+        ]
+    },
+    {
+        "id": "56cf62b26a834a52",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "analyseCropHealth",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/cropanalyser\",\"params\":{},\"description\":\"Analyses the health of farm crops within a provided image\",\"title\":\"Analyser Crop Health\",\"action\":\"analyseCropHealth\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 310,
+        "y": 300,
+        "wires": [
+            [
+                "8edbdd760ab9ed4e"
+            ]
+        ]
+    },
+    {
+        "id": "8edbdd760ab9ed4e",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "calculateFertiliserRequirements",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/cropanalyser\",\"params\":{},\"description\":\"Calculate the optimum concentration and composition of fertiliser for the current crops\",\"title\":\"Calculate Fertiliser Requrements\",\"action\":\"calculateFertiliserRequirements\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 550,
+        "y": 300,
+        "wires": [
+            [
+                "88d071168280e087"
+            ]
+        ]
+    },
+    {
+        "id": "88d071168280e087",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "applyFertiliser",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/fertilisersystem\",\"params\":{},\"description\":\"Applys fertiliser to crops\",\"title\":\"Apply Fertiliser\",\"action\":\"applyFertiliser\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 240,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8465fc8b1136de0d",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "unusualLivestockVitals",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/livestockmonitor\",\"output\":{\"type\":\"object\",\"properties\":{\"animal\":{\"type\":\"string\",\"description\":\"The name of the animal for which this alert is related too\"},\"details\":{\"type\":\"string\",\"description\":\"Details about the vitals of the provided animal\"}}},\"description\":\"Broadcasts information about the health status of livestock\",\"title\":\"Unusual Livestock Vitals\",\"event\":\"unusualLivestockVitals\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 140,
+        "y": 400,
+        "wires": [
+            [
+                "d2ed8986f23560e0"
+            ]
+        ]
+    },
+    {
+        "id": "2d6f2772014a53ab",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Sends a message to recipients with a provided role\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 500,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d2ed8986f23560e0",
+        "type": "change",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"farmer\", \"message\":msg.payload}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 400,
+        "wires": [
+            [
+                "2d6f2772014a53ab"
+            ]
+        ]
+    },
+    {
+        "id": "03c51996c3767414",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "foodRequired",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/livestockmonitor\",\"output\":{\"type\":\"string\",\"description\":\"The animal that is in need of feeding\"},\"description\":\"an event noting that an animal is in need of feeding\",\"title\":\"Food Required\",\"event\":\"foodRequired\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 520,
+        "wires": [
+            [
+                "7f8cdd4ab79cce47"
+            ]
+        ]
+    },
+    {
+        "id": "7f8cdd4ab79cce47",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "dispenseFood",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/fooddispenser\",\"params\":{},\"description\":\"Dispenses food for livestock on the farm\",\"title\":\"Dispense Food\",\"action\":\"dispenseFood\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 280,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "83951be70fd1b743",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "animalDistressed",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/livestockmonitor\",\"output\":{\"type\":\"object\",\"properties\":{\"animal\":{\"type\":\"string\",\"description\":\"The name of the animal that has been distressed\"},\"amount\":{\"type\":\"string\",\"description\":\"The severity of the distress (major or minor)\"}}},\"description\":\"A notification made when an animal is distressed\",\"title\":\"Animal Distressed\",\"event\":\"animalDistressed\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 120,
+        "y": 580,
+        "wires": [
+            [
+                "7d697e60011ef3a9"
+            ]
+        ]
+    },
+    {
+        "id": "2e686eafdd6aa9a6",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Sends a message to recipients with a provided role\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 620,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "32656badf2cbe33c",
+        "type": "change",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"farmer\", \"message\":\"The animal \" + msg.payload[\"animal\"] + \" is distressed\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 620,
+        "wires": [
+            [
+                "2e686eafdd6aa9a6"
+            ]
+        ]
+    },
+    {
+        "id": "7d697e60011ef3a9",
+        "type": "switch",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "major",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "minor",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 270,
+        "y": 580,
+        "wires": [
+            [
+                "9d4a10e152c7364f"
+            ],
+            [
+                "32656badf2cbe33c"
+            ]
+        ]
+    },
+    {
+        "id": "cc777b3561104d32",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Sends a message to recipients with a provided role\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 620,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9d4a10e152c7364f",
+        "type": "change",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"veterinarian\", \"message\":\"The animal \" + msg.payload[\"animal\"] + \" is distressed\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 580,
+        "wires": [
+            [
+                "cc777b3561104d32"
+            ]
+        ]
+    },
+    {
+        "id": "efe210db02cd766a",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "requestCropHealth",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/farmerdevice\",\"output\":{},\"description\":\"An event made when a user requests the health status of crops\",\"title\":\"Request Crop Health\",\"event\":\"requestCropHealth\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 110,
+        "y": 1180,
+        "wires": [
+            [
+                "80cfd83e090bbe9b"
+            ]
+        ]
+    },
+    {
+        "id": "d4dde9a71413a04d",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "requestLivestockStatus",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/farmerdevice\",\"output\":{},\"description\":\"An event made when a user requests the status of the farm's livestock\",\"title\":\"Request Livestock Status\",\"event\":\"requestLivestockStatus\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 120,
+        "y": 1220,
+        "wires": [
+            [
+                "293f82919ec79183"
+            ]
+        ]
+    },
+    {
+        "id": "89ea83505ccd76c0",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "requestEnvironmentalConditions",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/farmerdevice\",\"output\":{},\"description\":\"An event made when a user requests the environmental conditions surrounding the farm\",\"title\":\"Request Environmental Conditions\",\"event\":\"requestEnvironmentalConditions\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 150,
+        "y": 1260,
+        "wires": [
+            [
+                "8e2c48e215bb288d"
+            ]
+        ]
+    },
+    {
+        "id": "7b58085f6a116f0d",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "recieveCropHealth",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/farmerdevice\",\"params\":{},\"description\":\"Recieves information about the health status of crops\",\"title\":\"Recieve Crop Health\",\"action\":\"recieveCropHealth\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 670,
+        "y": 1180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1468149596ab0197",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "recieveLivestockStatus",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/farmerdevice\",\"params\":{},\"description\":\"Recieves information about the status of the farm's livestock\",\"title\":\"Recieve Livestock Status\",\"action\":\"recieveLivestockStatus\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 680,
+        "y": 1220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bfdb6e2313ce5123",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "recieveEnvironmentalConditions",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/farmerdevice\",\"params\":{},\"description\":\"Recieves information about the environmental conditions surrounding the farm\",\"title\":\"Recieve Environmental Conditions\",\"action\":\"recieveEnvironmentalConditions\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 710,
+        "y": 1260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "80cfd83e090bbe9b",
+        "type": "system-property-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingProperty": "cropHealthStatus",
+        "thingPropertyValue": "{\"uri\":\"http://localhost:8080/cropanalyser\",\"type\":\"string\",\"description\":\"The calculated status of this farm's crop health\",\"title\":\"Crop Health Status\",\"property\":\"cropHealthStatus\"}",
+        "mode": "read",
+        "redeploy": "false",
+        "x": 390,
+        "y": 1180,
+        "wires": [
+            [
+                "7b58085f6a116f0d"
+            ]
+        ]
+    },
+    {
+        "id": "293f82919ec79183",
+        "type": "system-property-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingProperty": "livestockStatus",
+        "thingPropertyValue": "{\"uri\":\"http://localhost:8080/livestockmonitor\",\"type\":\"string\",\"description\":\"A summary of the status of this farm's livestock\",\"title\":\"Livestock Status\",\"property\":\"livestockStatus\"}",
+        "mode": "read",
+        "redeploy": "true",
+        "x": 380,
+        "y": 1220,
+        "wires": [
+            [
+                "1468149596ab0197"
+            ]
+        ]
+    },
+    {
+        "id": "8e2c48e215bb288d",
+        "type": "system-property-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingProperty": "currentEnvironmentalConditions",
+        "thingPropertyValue": "{\"uri\":\"http://localhost:8080/weatherstation\",\"type\":\"string\",\"description\":\"\",\"title\":\"Current Environmental Conditions\",\"property\":\"currentEnvironmentalConditions\"}",
+        "mode": "read",
+        "redeploy": "true",
+        "x": 430,
+        "y": 1260,
+        "wires": [
+            [
+                "bfdb6e2313ce5123"
+            ]
+        ]
+    },
+    {
+        "id": "9cadb4b1a29c445a",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "livestockOutOfBounds",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/livestockmonitor\",\"output\":{\"type\":\"string\",\"description\":\"Details about the loacation and animal that caused this alert\"},\"description\":\"An alert that livestock has travelled out of the pre-specified bounds\",\"title\":\"Livestock Out Of Bounds\",\"event\":\"livestockOutOfBounds\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 140,
+        "y": 460,
+        "wires": [
+            [
+                "6b263345021c18e4"
+            ]
+        ]
+    },
+    {
+        "id": "4b918472f61125ba",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "alertRole",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/alertsystem\",\"params\":{\"role\":\"string\",\"message\":\"string\"},\"description\":\"Sends a message to recipients with a provided role\",\"title\":\"Alert Role\",\"action\":\"alertRole\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 500,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6b263345021c18e4",
+        "type": "change",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"role\":\"farmer\", \"message\":msg.payload[\"animal\"] + \" out of bounds at \" + msg.payload[\"location\"] }",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 460,
+        "wires": [
+            [
+                "4b918472f61125ba"
+            ]
+        ]
+    },
+    {
+        "id": "ebc928f301855a20",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "greenhouseTemperature",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/greenhousesensors\",\"output\":{\"type\":\"number\",\"description\":\"The current greenhouse temperature\"},\"description\":\"A periodic alert of the current greenhouse temperature\",\"title\":\"Greenhouse Temperature\",\"event\":\"greenhouseTemperature\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 150,
+        "y": 780,
+        "wires": [
+            [
+                "3d7b93915c3be481"
+            ]
+        ]
+    },
+    {
+        "id": "9d8eeb5396f12e9b",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "greenhouseHumidity",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/greenhousesensors\",\"output\":{\"type\":\"number\",\"description\":\"The current greenhouse humidity\"},\"description\":\"A periodic alert of the current greenhouse humidity\",\"title\":\"Greenhouse Humidity\",\"event\":\"greenhouseHumidity\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 130,
+        "y": 1080,
+        "wires": [
+            [
+                "eba45bcbc7812d85"
+            ]
+        ]
+    },
+    {
+        "id": "5e527978c62d41a2",
+        "type": "system-event-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingEvent": "greenhouseLightLevel",
+        "thingEventValue": "{\"uri\":\"http://localhost:8080/greenhousesensors\",\"output\":{\"type\":\"number\",\"description\":\"The current greenhouse light level\"},\"description\":\"A periodic alert of the current greenhouse light level\",\"title\":\"Greenhouse light level\",\"event\":\"greenhouseLightLevel\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 140,
+        "y": 960,
+        "wires": [
+            [
+                "8b4b304e27751e83"
+            ]
+        ]
+    },
+    {
+        "id": "ba866d1f63f56b84",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "applyGreenhouseAirConditioning",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/airconditioning\",\"params\":{},\"description\":\"Activates airconditioning in the greenhouse\",\"title\":\"Apply Greenhouse Air Conditioning\",\"action\":\"applyGreenhouseAirConditioning\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 740,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4a513abbc6da7579",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "stopGreenhouseAirConditioning",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/airconditioning\",\"params\":{},\"description\":\"Deactivates airconditioning in the greenhouse\",\"title\":\"Stop Greenhouse Air Conditioning\",\"action\":\"stopGreenhouseAirConditioning\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 550,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d87f54f50bc70b68",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "greenhouseHeaterOn",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/greenhouseactuators\",\"params\":{},\"description\":\"Turns on the heater within the greenhouse\",\"title\":\"Greenhouse Heater On\",\"action\":\"greenhouseHeaterOn\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 520,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dd63a06b6a0e8181",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "greenhouseHeaterOff",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/greenhouseactuators\",\"params\":{},\"description\":\"Turns off the heater within the greenhouse\",\"title\":\"Greenhouse Heater Off\",\"action\":\"greenhouseHeaterOff\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 520,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4fb79e331a0ebec1",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "setGreenhouseShade",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/greenhouseactuators\",\"params\":{},\"description\":\"Sets the shade for the greenhouse windows\",\"title\":\"Set Greenhouse Shade\",\"action\":\"setGreenhouseShade\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 680,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3d7b93915c3be481",
+        "type": "switch",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "24",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            },
+            {
+                "t": "lt",
+                "v": "18",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 330,
+        "y": 780,
+        "wires": [
+            [
+                "7cb3048c2fda4249"
+            ],
+            [
+                "4a513abbc6da7579",
+                "dd63a06b6a0e8181"
+            ],
+            [
+                "d87f54f50bc70b68"
+            ]
+        ]
+    },
+    {
+        "id": "7cb3048c2fda4249",
+        "type": "change",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "(18 + 24) / 2",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 700,
+        "wires": [
+            [
+                "ba866d1f63f56b84"
+            ]
+        ]
+    },
+    {
+        "id": "8b4b304e27751e83",
+        "type": "switch",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "100000",
+                "vt": "num"
+            },
+            {
+                "t": "lt",
+                "v": "10000",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 960,
+        "wires": [
+            [
+                "ae073a53bf4a66a7"
+            ],
+            [
+                "8665c499af6556bd"
+            ]
+        ]
+    },
+    {
+        "id": "ae073a53bf4a66a7",
+        "type": "change",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0.9",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 940,
+        "wires": [
+            [
+                "4fb79e331a0ebec1"
+            ]
+        ]
+    },
+    {
+        "id": "8665c499af6556bd",
+        "type": "change",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 980,
+        "wires": [
+            [
+                "4fb79e331a0ebec1"
+            ]
+        ]
+    },
+    {
+        "id": "6c5a9cce488f0fb0",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "openGreenhouseWindows",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/greenhouseactuators\",\"params\":{},\"description\":\"Opens the windows of the farm greenhouse\",\"title\":\"Open Greenhouse Windows\",\"action\":\"openGreenhouseWindows\"}",
+        "outputToMsg": true,
+        "redeploy": "false",
+        "x": 480,
+        "y": 1060,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eba45bcbc7812d85",
+        "type": "switch",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0.8",
+                "vt": "num"
+            },
+            {
+                "t": "lt",
+                "v": "0.4",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 290,
+        "y": 1080,
+        "wires": [
+            [
+                "6c5a9cce488f0fb0"
+            ],
+            [
+                "2a6a62b49ff4ddb1"
+            ]
+        ]
+    },
+    {
+        "id": "2a6a62b49ff4ddb1",
+        "type": "system-action-node",
+        "z": "6b1a591bd8b2b7e6",
+        "name": "",
+        "thingDirectoryURI": "http://localhost:8080/thingdirectory",
+        "thingAction": "closeGreenhouseWindows",
+        "thingActionValue": "{\"uri\":\"http://localhost:8080/greenhouseactuators\",\"params\":{},\"description\":\"Closes the windows of the farm greenhouse\",\"title\":\"Close Greenhouse Windows\",\"action\":\"closeGreenhouseWindows\"}",
+        "outputToMsg": true,
+        "redeploy": "true",
+        "x": 480,
+        "y": 1100,
+        "wires": [
+            []
+        ]
+    }
+]
