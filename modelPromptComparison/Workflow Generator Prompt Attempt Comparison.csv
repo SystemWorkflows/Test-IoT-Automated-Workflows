@@ -1,0 +1,31 @@
+﻿Name (page with details),Notes/Explanation,Model Used,Parameters Used
+Attempt 9,"Full working smartHome workflow, apart from one added wire.
+Provided titles for change nodes. Set the original volume to a flow variable and retrieved it.","gemini-1.5-pro-001","Temperature = 0
+Top-P = 0
+JSON output"
+Attempt 6,"Working workflow
+Values set to msg.payload were off, but were consistently formatted so could be fixed","Google Gemini-1.5-flash-001","Temperature = 0
+Top-P = 0"
+Attempt7,"Attempted full system.
+Correct logical presentation of nodes, with distinct sub-workflows.
+Failed to provide “change” node to edit the payload within most sub-workflows.","Google Gemini-1.5-flash-001","Temperature = 0
+Top-P = 0"
+Attempt 5,"Complete failure (by default)
+
+Almost correct (after ID edits)
+Only missing one node. Performed better than most humans.","Google Gemini-1.5-flash-001","Temperature = 0
+Top-P = 0"
+Attempt 8,"Mostly logical output
+Missing payload changes
+One area of strange generation","gemini-1.5-pro-001","Temperature = 0
+Top-P = 0
+JSON output"
+Attempt2,Promising half sub-flow created (almost identical to those made by humans in experimentation),meta-llama/Meta-Llama-3.1-70B-Instruct. Through HuggingChat,
+Attempt3,Logically correct but failed to correctly alter node inputs,meta-llama/Meta-Llama-3-8B-Instruct. Using python and HuggingFace inference client,
+Attempt 4,"Very limited response.
+Used the correct system nodes but did not input values to them.
+Also failed to connect nodes properly (putting them in parallel not series, or not connecting them at all).
+Allowed many input tokens, so prompts may be altered.
+Usable JSON was produced with no errors from escape strings.","Google Gemini-1.5-flash-001","Temperature = 0
+Top-P = 1"
+Attempt 1,Prompts too long,meta-llama/Meta-Llama-3.1-70B-Instruct. Through HuggingChat,
