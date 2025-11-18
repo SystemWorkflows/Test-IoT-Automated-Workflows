@@ -1,0 +1,38 @@
+Sub-flow event/s,Correct,Criteria 1,Criteria 2,Criteria 3a,Criteria 3b,Criteria 4,Criteria 5,Criteria Not Applicable,Notes,Workflow
+MotionSensor - motionDetected,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 3b, 4, 5",,Smart-Home
+Alarm - alarmRinging,No,Yes,Yes,No,Yes,Yes,Yes,"3a, 4, 5",,Smart-Home
+DoorBell - bellRung,No,Yes,Yes,No,Yes,Yes,Yes,"3b, 4, 5",,Smart-Home
+WashingMachine - finishedCycle,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 3b, 4, 5",,Smart-Home
+"newQualityData, temperatureAlert, vibrationAlert then dataProcessingComplete",Yes,Yes,Yes,Yes,Yes,Yes,Yes,5,3a seen as applicable as a single parameter are loaded into msg.payload through the dataProcessingComplete event and used in logData.,Manufacturing
+newQualityData,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 4, 5",,Manufacturing
+resourceUsed,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"4, 5",,Manufacturing
+redLight then motionDetected,No,Yes,Yes,No,Yes,Yes,Yes,"3b, 5",,Smart-City
+emergencyVehicleDetected,No,Yes,Yes,No,No,Yes,Yes,"4, 5","Technically set parameters correctly; however, the method used was to check if the light was green then set it to green - thus failing the functionality.",Smart-City
+trafficJamDetected,No,Yes,Yes,Yes,No,Yes,Yes,"3a, 4, 5",,Smart-City
+binFull,No,Yes,Yes,No,Yes,Yes,Yes,"3b, 4, 5",,Smart-City
+landfillCapacityUsed,No,Yes,Yes,Yes,No,No,Yes,"3a, 5",,Smart-City
+safetyAlert,No,Yes,Yes,Yes,No,Yes,Yes,"3a, 4, 5",,Smart-City
+unusualActivityDetected,No,Yes,Yes,Yes,No,Yes,Yes,"3a, 4, 5",,Smart-City
+energyThresholdExceded,No,Yes,Yes,Yes,No,Yes,Yes,"3a, 4, 5",,Smart-City
+powerOutageDetected,No,Yes,Yes,No,No,Yes,Yes,5,,Smart-City
+oxygenLevel,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 4, 5",,Space Station
+"temperature, humidity",Yes,Yes,Yes,Yes,Yes,Yes,Yes,5,For temperature and humidity formalua used was “(lower+upper)/2 - msg.payload”,Space Station
+fireDetected,No,Yes,No,Yes,Yes,Yes,Yes,"4, 5",Alerted control centre instead of crew,Space Station
+1st - damageDetected,No,Yes,No,Yes,Yes,Yes,Yes,"4, 5",Did not alert crew,Space Station
+2nd - damageDetected,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 5","payload[""severity""] was used to check for “major” severity, this was not marked down but it may be that payload[1] should have been used (as in the expected output).",Space Station
+1st groundControlLost then backupCommsFailure,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 3b, 4, 5",,Space Station
+2nd - groundControlLost then backupCommsFailure,No,No,No,Yes,Yes,Yes,Yes,"3a, 4, 5","Created a node for an unseen event “malfunctionDetected”, taken from “automatedShipping” example. 3a not applicable due to unknown event (it did assume the output was a string)",Space Station
+"forceReading, accelerationReading, gravityReading",Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 4, 5",,Space Station
+pHLevel,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 5",The specific chemical amount generated are arbitrary but likely not to work in reality.,Smart Aquarium
+temperature,No,Yes,No,No,Yes,Yes,Yes,"3b, 5","Did not take care of turning off heater and cooler (this had to be implied as it was not described in the prompt).
+Did not add target temperatures, just left the current temperature meaning there will be no temperature change.",Smart Aquarium
+"salinity, nitrateLevel",Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 5",Used “amount:lowerBound- msg.payload” raising the value up to the lower bound.,Smart Aquarium
+lowFoodLevel,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 4, 5",,Smart Aquarium
+"time, uploadLightingProfile",No,No,No,Yes,Yes,Yes,Yes,"3a, 3b, 4, 5",Time was handled correctly. UploadLightingProfile was not added.,Smart Aquarium
+filterIssue,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 4, 5","Scheduled a task for the owner, not producing a new “maintenance” role (not described in the task).",Smart Aquarium
+"abnormalActivity, healthIssuesDetected",Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 4, 5",Did not parse activity and issue details but did successfully pass them to the alertRole affordance.,Smart Aquarium
+regularMaintenanceRequired,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 4, 5",,Smart Aquarium
+powerOutage,Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 4, 5",Failed to alert the manager. Made an unusable link the the event “salinity”.,Smart Aquarium
+"requestWaterConditions, accessCameraFeed, forceFoodDispense",Yes,Yes,Yes,Yes,Yes,Yes,Yes,"3a, 3b, 4, 5","Thing definition error (user made) - receiveWaterConditions does not have input parameters so this had to be assumed by the model.
+
+Due to the assumptive nature of affordance coupled with the fact that access to undefined “msg” properties will return “undefined”, the model’s output is not unreasonable. It does however assume that the client’s device is expecting multiple calls to “receiveWaterConditions” for each water attribute.",Smart Aquarium
